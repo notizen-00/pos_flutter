@@ -8,18 +8,18 @@ part of 'product.dart';
 
 _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
     _$ProductImpl(
-      nama_produk: json['nama_produk'] as String,
-      harga_produk: (json['harga_produk'] as num).toInt(),
-      status_produk: (json['status_produk'] as num).toInt(),
-      deskripsi_produk: json['deskripsi_produk'] as String,
-      foto_produk: json['foto_produk'] as String,
+      nama: json['nama'] as String,
+      harga: (json['harga'] as num).toInt(),
+      status: (json['status'] as num).toInt(),
+      deskripsi: json['deskripsi'] as String,
+      foto: json['foto'] as String,
     );
 
 Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
     <String, dynamic>{
-      'nama_produk': instance.nama_produk,
-      'harga_produk': instance.harga_produk,
-      'status_produk': instance.status_produk,
-      'deskripsi_produk': instance.deskripsi_produk,
-      'foto_produk': instance.foto_produk,
+      'nama': instance.nama,
+      'harga': instance.harga,
+      'status': instance.status,
+      'deskripsi': instance.deskripsi,
+      'foto': instance.foto,
     };

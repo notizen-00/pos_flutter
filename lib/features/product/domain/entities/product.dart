@@ -6,11 +6,11 @@ part 'product.g.dart';
 @freezed
 class Product with _$Product {
   const factory Product({
-      required String nama_produk,
-      required int harga_produk,
-      required int status_produk,
-      required String deskripsi_produk,
-      required String foto_produk
+      required String nama,
+      required int harga,
+      required int status,
+      required String deskripsi,
+      required String foto
     }
   ) = _Product;
 

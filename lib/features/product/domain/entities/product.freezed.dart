@@ -20,11 +20,11 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Product {
-  String get nama_produk => throw _privateConstructorUsedError;
-  int get harga_produk => throw _privateConstructorUsedError;
-  int get status_produk => throw _privateConstructorUsedError;
-  String get deskripsi_produk => throw _privateConstructorUsedError;
-  String get foto_produk => throw _privateConstructorUsedError;
+  String get nama => throw _privateConstructorUsedError;
+  int get harga => throw _privateConstructorUsedError;
+  int get status => throw _privateConstructorUsedError;
+  String get deskripsi => throw _privateConstructorUsedError;
+  String get foto => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,11 +37,7 @@ abstract class $ProductCopyWith<$Res> {
       _$ProductCopyWithImpl<$Res, Product>;
   @useResult
   $Res call(
-      {String nama_produk,
-      int harga_produk,
-      int status_produk,
-      String deskripsi_produk,
-      String foto_produk});
+      {String nama, int harga, int status, String deskripsi, String foto});
 }
 
 /// @nodoc
@@ -57,32 +53,32 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? nama_produk = null,
-    Object? harga_produk = null,
-    Object? status_produk = null,
-    Object? deskripsi_produk = null,
-    Object? foto_produk = null,
+    Object? nama = null,
+    Object? harga = null,
+    Object? status = null,
+    Object? deskripsi = null,
+    Object? foto = null,
   }) {
     return _then(_value.copyWith(
-      nama_produk: null == nama_produk
-          ? _value.nama_produk
-          : nama_produk // ignore: cast_nullable_to_non_nullable
+      nama: null == nama
+          ? _value.nama
+          : nama // ignore: cast_nullable_to_non_nullable
               as String,
-      harga_produk: null == harga_produk
-          ? _value.harga_produk
-          : harga_produk // ignore: cast_nullable_to_non_nullable
+      harga: null == harga
+          ? _value.harga
+          : harga // ignore: cast_nullable_to_non_nullable
               as int,
-      status_produk: null == status_produk
-          ? _value.status_produk
-          : status_produk // ignore: cast_nullable_to_non_nullable
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as int,
-      deskripsi_produk: null == deskripsi_produk
-          ? _value.deskripsi_produk
-          : deskripsi_produk // ignore: cast_nullable_to_non_nullable
+      deskripsi: null == deskripsi
+          ? _value.deskripsi
+          : deskripsi // ignore: cast_nullable_to_non_nullable
               as String,
-      foto_produk: null == foto_produk
-          ? _value.foto_produk
-          : foto_produk // ignore: cast_nullable_to_non_nullable
+      foto: null == foto
+          ? _value.foto
+          : foto // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -96,11 +92,7 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String nama_produk,
-      int harga_produk,
-      int status_produk,
-      String deskripsi_produk,
-      String foto_produk});
+      {String nama, int harga, int status, String deskripsi, String foto});
 }
 
 /// @nodoc
@@ -114,32 +106,32 @@ class __$$ProductImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? nama_produk = null,
-    Object? harga_produk = null,
-    Object? status_produk = null,
-    Object? deskripsi_produk = null,
-    Object? foto_produk = null,
+    Object? nama = null,
+    Object? harga = null,
+    Object? status = null,
+    Object? deskripsi = null,
+    Object? foto = null,
   }) {
     return _then(_$ProductImpl(
-      nama_produk: null == nama_produk
-          ? _value.nama_produk
-          : nama_produk // ignore: cast_nullable_to_non_nullable
+      nama: null == nama
+          ? _value.nama
+          : nama // ignore: cast_nullable_to_non_nullable
               as String,
-      harga_produk: null == harga_produk
-          ? _value.harga_produk
-          : harga_produk // ignore: cast_nullable_to_non_nullable
+      harga: null == harga
+          ? _value.harga
+          : harga // ignore: cast_nullable_to_non_nullable
               as int,
-      status_produk: null == status_produk
-          ? _value.status_produk
-          : status_produk // ignore: cast_nullable_to_non_nullable
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as int,
-      deskripsi_produk: null == deskripsi_produk
-          ? _value.deskripsi_produk
-          : deskripsi_produk // ignore: cast_nullable_to_non_nullable
+      deskripsi: null == deskripsi
+          ? _value.deskripsi
+          : deskripsi // ignore: cast_nullable_to_non_nullable
               as String,
-      foto_produk: null == foto_produk
-          ? _value.foto_produk
-          : foto_produk // ignore: cast_nullable_to_non_nullable
+      foto: null == foto
+          ? _value.foto
+          : foto // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -149,29 +141,29 @@ class __$$ProductImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProductImpl implements _Product {
   const _$ProductImpl(
-      {required this.nama_produk,
-      required this.harga_produk,
-      required this.status_produk,
-      required this.deskripsi_produk,
-      required this.foto_produk});
+      {required this.nama,
+      required this.harga,
+      required this.status,
+      required this.deskripsi,
+      required this.foto});
 
   factory _$ProductImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductImplFromJson(json);
 
   @override
-  final String nama_produk;
+  final String nama;
   @override
-  final int harga_produk;
+  final int harga;
   @override
-  final int status_produk;
+  final int status;
   @override
-  final String deskripsi_produk;
+  final String deskripsi;
   @override
-  final String foto_produk;
+  final String foto;
 
   @override
   String toString() {
-    return 'Product(nama_produk: $nama_produk, harga_produk: $harga_produk, status_produk: $status_produk, deskripsi_produk: $deskripsi_produk, foto_produk: $foto_produk)';
+    return 'Product(nama: $nama, harga: $harga, status: $status, deskripsi: $deskripsi, foto: $foto)';
   }
 
   @override
@@ -179,22 +171,18 @@ class _$ProductImpl implements _Product {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProductImpl &&
-            (identical(other.nama_produk, nama_produk) ||
-                other.nama_produk == nama_produk) &&
-            (identical(other.harga_produk, harga_produk) ||
-                other.harga_produk == harga_produk) &&
-            (identical(other.status_produk, status_produk) ||
-                other.status_produk == status_produk) &&
-            (identical(other.deskripsi_produk, deskripsi_produk) ||
-                other.deskripsi_produk == deskripsi_produk) &&
-            (identical(other.foto_produk, foto_produk) ||
-                other.foto_produk == foto_produk));
+            (identical(other.nama, nama) || other.nama == nama) &&
+            (identical(other.harga, harga) || other.harga == harga) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.deskripsi, deskripsi) ||
+                other.deskripsi == deskripsi) &&
+            (identical(other.foto, foto) || other.foto == foto));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, nama_produk, harga_produk,
-      status_produk, deskripsi_produk, foto_produk);
+  int get hashCode =>
+      Object.hash(runtimeType, nama, harga, status, deskripsi, foto);
 
   @JsonKey(ignore: true)
   @override
@@ -212,24 +200,24 @@ class _$ProductImpl implements _Product {
 
 abstract class _Product implements Product {
   const factory _Product(
-      {required final String nama_produk,
-      required final int harga_produk,
-      required final int status_produk,
-      required final String deskripsi_produk,
-      required final String foto_produk}) = _$ProductImpl;
+      {required final String nama,
+      required final int harga,
+      required final int status,
+      required final String deskripsi,
+      required final String foto}) = _$ProductImpl;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
 
   @override
-  String get nama_produk;
+  String get nama;
   @override
-  int get harga_produk;
+  int get harga;
   @override
-  int get status_produk;
+  int get status;
   @override
-  String get deskripsi_produk;
+  String get deskripsi;
   @override
-  String get foto_produk;
+  String get foto;
   @override
   @JsonKey(ignore: true)
   _$$ProductImplCopyWith<_$ProductImpl> get copyWith =>
