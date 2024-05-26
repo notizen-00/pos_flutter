@@ -1,13 +1,14 @@
 import 'package:blog_app/core/utils/token_manager.dart';
+import 'package:blog_app/features/product/data/dto/product_dto.dart';
+import 'package:blog_app/features/product/data/dto/product_dto_extension.dart';
 import 'package:blog_app/features/product/domain/entities/product.dart';
 import 'package:dio/dio.dart';
 import 'package:blog_app/core/config/config.dart';
 import 'package:blog_app/core/error/exceptions.dart';
 
 
-
 abstract class ProductRemoteDataSource {
-  Future<Product> getDetailData({
+  Future<List<Product>> getDetailData({
     required int id,
   });
   Future<List<Product>> getAllData();
@@ -24,7 +25,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
 
   @override
-  Future<Product> getDetailData({
+  Future<List<Product>> getDetailData({
     required int id,
   }) async {
     try {
@@ -39,7 +40,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
         );
 
       if (response.statusCode == 200) {
-        final productDetail = Product.fromJson(response.data);
+        final productDetail = response.data;
         return productDetail;
       }else{
         throw const ServerException('Failed');
@@ -75,11 +76,8 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
         );
     
         if (response.statusCode == 200) {
-            final List<dynamic> responseData = response.data['data'];
-            final List<Product> productList = responseData
-            .map((productJson) => Product.fromJson(productJson))
-            .toList();
-        return productList;
+          final List<dynamic> data = response.data['data'];
+          return data.map((item) => ProductDto.fromJson(item).toEntity()).toList();
         } else if(response.statusCode == 404) {
           throw const ServerException('Failed to get current user data');
         }else{

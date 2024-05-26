@@ -30,12 +30,12 @@ class _ProductPageState extends State<ProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Post App'),
+        title: const Text('Pos App'),
       actions: [
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
-              print('Logged out');
+      
               context.read<AuthBloc>().add(AuthLogout());
 
               Navigator.of(context).pushAndRemoveUntil(
@@ -49,7 +49,7 @@ class _ProductPageState extends State<ProductPage> {
       body: BlocConsumer<ProductBloc, ProductState>(
         listener: (context, state) {
           if (state is ProductFailure) {
-            print(state.error);
+        
             showSnackBar(context, state.error);
           }
         },
@@ -59,15 +59,13 @@ class _ProductPageState extends State<ProductPage> {
           }
           if (state is ProductsDisplaySuccess) {
             return ListView.builder(
+    
               itemCount: state.product.length,
               itemBuilder: (context, index) {
-                print(state.product);
                 final product = state.product[index];
                 return ProductCard(
                   product: product,
-                  color: index % 2 == 0
-                      ? AppPallete.gradient1
-                      : AppPallete.gradient2,
+                  color: AppPallete.gradient2,
                 );
               },
             );
@@ -75,6 +73,9 @@ class _ProductPageState extends State<ProductPage> {
           return const SizedBox();
         },
       ),
-    );
+    );   
   }
+
+
 }
+

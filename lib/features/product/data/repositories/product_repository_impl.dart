@@ -52,7 +52,7 @@ Future<Either<Failure, List<Product>>> getAllData() async {
 
 
   Future<Either<Failure, Product>> _getProduct(
-    Future<Product> Function() fn,
+    Future<List<Product>> Function() fn,
   ) async {
     try {
       if (!await (connectionChecker.isConnected)) {
@@ -60,7 +60,7 @@ Future<Either<Failure, List<Product>>> getAllData() async {
       }
       final product = await fn();
 
-      return right(product);
+      return right(product as Product);
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }

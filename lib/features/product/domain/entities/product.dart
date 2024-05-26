@@ -1,26 +1,66 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'kategori.dart';
+import 'package:equatable/equatable.dart';
 
-part 'product.freezed.dart';
-part 'product.g.dart';
+class Product extends Equatable {
+  final int id;
+  final String nama;
+  final int kategoriId;
+  final String harga;
+  final int favorit;
+  final int status;
+  final String deskripsi;
+  final String foto;
+  final String createdAt;
+  final String updatedAt;
+  final Kategori kategori;
 
-@freezed
-class Product with _$Product {
-  const factory Product({
-    required int id,
-    required String nama,
-    required int harga,
-    required int status,
-    required int favorit,
-    required int kategori_id,
-    @Default('') String? deskripsi,
-    @Default('') String? foto,
-    required Kategori kategori,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'updated_at') required DateTime updatedAt,
-  }) = _Product;
+  const Product({
+    required this.id,
+    required this.nama,
+    required this.kategoriId,
+    required this.harga,
+    required this.favorit,
+    required this.status,
+    required this.deskripsi,
+    required this.foto,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.kategori,
+  });
 
-  factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
+  @override
+  List<Object?> get props => [
+        id,
+        nama,
+        kategoriId,
+        harga,
+        favorit,
+        status,
+        deskripsi,
+        foto,
+        createdAt,
+        updatedAt,
+        kategori,
+      ];
+}
 
+class Kategori extends Equatable {
+  final int id;
+  final String namaKategori;
+  final String createdAt;
+  final String updatedAt;
 
+  const Kategori({
+    required this.id,
+    required this.namaKategori,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  @override
+  List<Object?> get props => [
+        id,
+        namaKategori,
+        createdAt,
+        updatedAt,
+      ];
 }
