@@ -1,4 +1,3 @@
-import 'package:blog_app/core/utils/calculate_reading_time.dart';
 import 'package:blog_app/core/utils/format_rupiah.dart';
 import 'package:blog_app/features/product/domain/entities/product.dart';
 import 'package:flutter/material.dart';
@@ -19,17 +18,17 @@ class ProductCard extends StatelessWidget {
         // Navigator.push(context, BlogViewerPage.route(blog));
       },
       child: Container(
-        height: 100,
-        margin: const EdgeInsets.all(20).copyWith(
-          bottom: 4,
+        height: 80,
+        margin: const EdgeInsets.all(10).copyWith(
+          bottom: 0,
         ),
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Column(
@@ -38,7 +37,7 @@ class ProductCard extends StatelessWidget {
                 Text(
                   product.nama,
                   style: const TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

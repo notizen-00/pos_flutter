@@ -10,8 +10,8 @@ extension ProductDtoExtension on dto.ProductDto {
       harga: harga,
       favorit: favorit,
       status: status,
-      deskripsi: deskripsi,
-      foto: foto,
+      deskripsi: deskripsi ?? '',
+      foto: foto ?? '',
       createdAt: createdAt,
       updatedAt: updatedAt,
       kategori: Kategori(

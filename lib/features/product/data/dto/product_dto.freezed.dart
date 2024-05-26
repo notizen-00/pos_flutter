@@ -27,8 +27,8 @@ mixin _$ProductDto {
   String get harga => throw _privateConstructorUsedError;
   int get favorit => throw _privateConstructorUsedError;
   int get status => throw _privateConstructorUsedError;
-  String get deskripsi => throw _privateConstructorUsedError;
-  String get foto => throw _privateConstructorUsedError;
+  String? get deskripsi => throw _privateConstructorUsedError;
+  String? get foto => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   String get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
@@ -54,8 +54,8 @@ abstract class $ProductDtoCopyWith<$Res> {
       String harga,
       int favorit,
       int status,
-      String deskripsi,
-      String foto,
+      String? deskripsi,
+      String? foto,
       @JsonKey(name: 'created_at') String createdAt,
       @JsonKey(name: 'updated_at') String updatedAt,
       Kategori kategori});
@@ -82,8 +82,8 @@ class _$ProductDtoCopyWithImpl<$Res, $Val extends ProductDto>
     Object? harga = null,
     Object? favorit = null,
     Object? status = null,
-    Object? deskripsi = null,
-    Object? foto = null,
+    Object? deskripsi = freezed,
+    Object? foto = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? kategori = null,
@@ -113,14 +113,14 @@ class _$ProductDtoCopyWithImpl<$Res, $Val extends ProductDto>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as int,
-      deskripsi: null == deskripsi
+      deskripsi: freezed == deskripsi
           ? _value.deskripsi
           : deskripsi // ignore: cast_nullable_to_non_nullable
-              as String,
-      foto: null == foto
+              as String?,
+      foto: freezed == foto
           ? _value.foto
           : foto // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -160,8 +160,8 @@ abstract class _$$ProductDtoImplCopyWith<$Res>
       String harga,
       int favorit,
       int status,
-      String deskripsi,
-      String foto,
+      String? deskripsi,
+      String? foto,
       @JsonKey(name: 'created_at') String createdAt,
       @JsonKey(name: 'updated_at') String updatedAt,
       Kategori kategori});
@@ -187,8 +187,8 @@ class __$$ProductDtoImplCopyWithImpl<$Res>
     Object? harga = null,
     Object? favorit = null,
     Object? status = null,
-    Object? deskripsi = null,
-    Object? foto = null,
+    Object? deskripsi = freezed,
+    Object? foto = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? kategori = null,
@@ -218,14 +218,14 @@ class __$$ProductDtoImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as int,
-      deskripsi: null == deskripsi
+      deskripsi: freezed == deskripsi
           ? _value.deskripsi
           : deskripsi // ignore: cast_nullable_to_non_nullable
-              as String,
-      foto: null == foto
+              as String?,
+      foto: freezed == foto
           ? _value.foto
           : foto // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -252,8 +252,8 @@ class _$ProductDtoImpl with DiagnosticableTreeMixin implements _ProductDto {
       required this.harga,
       required this.favorit,
       required this.status,
-      required this.deskripsi,
-      required this.foto,
+      this.deskripsi,
+      this.foto,
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'updated_at') required this.updatedAt,
       required this.kategori});
@@ -275,9 +275,9 @@ class _$ProductDtoImpl with DiagnosticableTreeMixin implements _ProductDto {
   @override
   final int status;
   @override
-  final String deskripsi;
+  final String? deskripsi;
   @override
-  final String foto;
+  final String? foto;
   @override
   @JsonKey(name: 'created_at')
   final String createdAt;
@@ -360,8 +360,8 @@ abstract class _ProductDto implements ProductDto {
       required final String harga,
       required final int favorit,
       required final int status,
-      required final String deskripsi,
-      required final String foto,
+      final String? deskripsi,
+      final String? foto,
       @JsonKey(name: 'created_at') required final String createdAt,
       @JsonKey(name: 'updated_at') required final String updatedAt,
       required final Kategori kategori}) = _$ProductDtoImpl;
@@ -383,9 +383,9 @@ abstract class _ProductDto implements ProductDto {
   @override
   int get status;
   @override
-  String get deskripsi;
+  String? get deskripsi;
   @override
-  String get foto;
+  String? get foto;
   @override
   @JsonKey(name: 'created_at')
   String get createdAt;
