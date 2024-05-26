@@ -4,6 +4,7 @@ final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
   _initAuth();
+  _initProduct();
 
 
 
@@ -11,7 +12,7 @@ Future<void> initDependencies() async {
 
 
   serviceLocator.registerLazySingleton(
-    () => Hive.box(name: 'blogs'),
+    () => Hive.box(name: 'products'),
   );
 
   serviceLocator.registerLazySingleton(() => TokenManager());
@@ -33,6 +34,7 @@ Future<void> initDependencies() async {
     ),
   );
 }
+
 
 void _initAuth() {
   // Datasource
@@ -76,6 +78,39 @@ void _initAuth() {
         currentUser: serviceLocator(),
         appUserCubit: serviceLocator(),
         userLogout:serviceLocator(),
+      ),
+    );
+}
+
+void _initProduct() {
+  // Datasource
+  serviceLocator
+    ..registerFactory<ProductRemoteDataSource>(
+      () => ProductRemoteDataSourceImpl(
+          dio: serviceLocator(),
+          tokenManager: serviceLocator(),
+      ),
+    )
+    // Repository
+    ..registerFactory<ProductRepository>(
+      () => ProductRepositoryImpl(
+        serviceLocator(),
+        serviceLocator(),
+        serviceLocator()
+      ),
+    )
+    // Usecases
+
+    ..registerFactory(
+      () => GetAllProducts(
+        serviceLocator(),
+      ),
+    )
+
+    // Bloc
+    ..registerLazySingleton(
+      () => ProductBloc(
+        getAllProducts: serviceLocator(),
       ),
     );
 }

@@ -2,7 +2,8 @@ import 'package:blog_app/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:blog_app/core/theme/theme.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/auth/presentation/pages/login_page.dart';
-import 'package:blog_app/features/auth/presentation/pages/test_page.dart';
+import 'package:blog_app/features/product/presentation/bloc/product_bloc.dart';
+import 'package:blog_app/features/product/presentation/pages/product_page.dart';
 import 'package:blog_app/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +18,9 @@ void main() async {
       ),
       BlocProvider(
         create: (_) => serviceLocator<AuthBloc>(),
+      ),
+      BlocProvider(
+        create: (_) => serviceLocator<ProductBloc>(),
       ),
   
     ],
@@ -52,7 +56,7 @@ class _MyAppState extends State<MyApp> {
         },
         builder: (context, isLoggedIn) {
           if (isLoggedIn) {
-            return const TestPage();
+            return const ProductPage();
           }
           return const LoginPage();
         },

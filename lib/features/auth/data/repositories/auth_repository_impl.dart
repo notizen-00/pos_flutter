@@ -29,7 +29,7 @@ Future<Either<Failure, User>> userLogout() async {
 
     // Clear token
     
-     await remoteDataSource.logoutUser();
+    await remoteDataSource.logoutUser();
     print('user berhasil logout');
 
     // Return empty user model or null
