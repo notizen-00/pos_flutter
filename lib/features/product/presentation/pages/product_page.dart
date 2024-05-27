@@ -4,10 +4,10 @@ import 'package:blog_app/core/theme/app_pallete.dart';
 import 'package:blog_app/core/utils/show_snackbar.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/auth/presentation/pages/login_page.dart';
+import 'package:blog_app/features/cashier/presentation/pages/cashier_page.dart';
 import 'package:blog_app/features/product/presentation/bloc/product_bloc.dart';
 import 'package:blog_app/features/product/presentation/widgets/product_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductPage extends StatefulWidget {
@@ -140,6 +140,8 @@ class _ProductPageState extends State<ProductPage> {
                   }
                   if (state is ProductsDisplaySuccess) {
                     return GridView.builder(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(20),
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
                       itemCount: state.product.length,
                       itemBuilder: (context, index) {
@@ -156,22 +158,9 @@ class _ProductPageState extends State<ProductPage> {
               ),
             ),
             const VerticalDivider(thickness: 2, width: 4),
-            Expanded(
+          const  Expanded(
             flex:1,
-            child: Container(
-                    padding: const EdgeInsets.all(12),
-                    color: AppPallete.backgroundColor,
-                    child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Kasir',
-                          style: AppPallete.textHeadline3,
-                        ),
-                        // Add your cashier details widgets here
-                      ],
-                    ),
-                  ),
+            child: CashierPage()
             ),
           
           ],
@@ -238,7 +227,7 @@ class _ProductPageState extends State<ProductPage> {
                 final product = state.product[index];
                 return ProductCard(
                   product: product,
-                  color: AppPallete.gradient2,
+                  color: Colors.amber,
                 );
               },
             );

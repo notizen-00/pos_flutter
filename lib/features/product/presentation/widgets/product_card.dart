@@ -3,6 +3,7 @@ import 'package:blog_app/core/utils/format_rupiah.dart';
 import 'package:blog_app/features/product/domain/entities/product.dart';
 import 'package:flutter/material.dart';
 
+
 class ProductCard extends StatelessWidget {
   final Product product;
   final Color color;
@@ -44,17 +45,19 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
               Positioned.fill(
-                top:110,
+                top:100,
                 child:Container(
-              padding:const EdgeInsets.all(1),
+              padding:const EdgeInsets.all(2),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color:Colors.black.withOpacity(0.6)
               ),
+              
               child:Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+            
             Column(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,12 +73,12 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-              formatRupiah(int.parse(product.harga)), 
-              style: const TextStyle(
-                fontSize: 10,
-                color:Colors.white70,
-                fontWeight: FontWeight.bold,
-              ),
+                formatRupiah(int.parse(product.harga)), 
+                  style: const TextStyle(
+                  fontSize: 10,
+                  color:Colors.white70,
+                  fontWeight: FontWeight.bold,
+                ),
             ),
               ],
             ),
@@ -84,8 +87,38 @@ class ProductCard extends StatelessWidget {
               )
               
               
+              ),
+              product.favorit == 1 ?
+              Positioned(
+              top:0,
+              right:0,
+              child:IconButton(
+                icon:const Icon(
+                    Icons.star,
+                    color:Colors.amber
+                ),
+                onPressed: () {
+
+                }, 
               )
               
+            )
+            :
+            Positioned(
+              top:0,
+              right:0,
+              child:IconButton(
+                icon:const Icon(
+                    Icons.star,
+                    color:Colors.white
+                ),
+                onPressed: () {
+
+                }, 
+              )
+              
+            )
+
             ],
           )
       ),

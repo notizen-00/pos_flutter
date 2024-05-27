@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ProductTabs extends StatelessWidget {
+  const ProductTabs({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
