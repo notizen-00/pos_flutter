@@ -68,8 +68,8 @@ class _ProductPageState extends State<ProductPage> {
           ),
           title: const Text('Pos App'),
           shadowColor: Colors.white,
-          backgroundColor: Colors.green[800],
-          elevation:3,
+          backgroundColor: Colors.green[700],
+          elevation:1,
           actions: [
             IconButton(
               icon: const Icon(Icons.logout),
@@ -95,8 +95,10 @@ class _ProductPageState extends State<ProductPage> {
         drawerEnableOpenDragGesture: true,
         body: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             NavigationRail(
+              backgroundColor: Colors.black38,
               minExtendedWidth:256,
               elevation: 5,
               minWidth: 56,
@@ -261,4 +263,3 @@ class _ProductPageState extends State<ProductPage> {
 
 
 }
-

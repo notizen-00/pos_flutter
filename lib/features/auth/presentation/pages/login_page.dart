@@ -18,7 +18,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -32,9 +31,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -63,27 +59,28 @@ class _LoginPageState extends State<LoginPage> {
                   const Text(
                     'Tcap Daoen',
                     style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color:Colors.lightGreen
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.lightGreen),
+                  ),
+                  const Text('POS', style: TextStyle(fontSize: 40)),
+                  const SizedBox(height: 30),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 300, vertical: 10),
+                    child: AuthField(
+                      hintText: 'Email',
+                      controller: emailController,
                     ),
                   ),
-                  const Text(
-                    'POS',
-                    style:TextStyle(
-                      fontSize: 40
-                    )
-                  ),
-                  const SizedBox(height: 30),
-                  AuthField(
-                    hintText: 'Email',
-                    controller: emailController,
-                  ),
-                  const SizedBox(height: 15),
-                  AuthField(
-                    hintText: 'Password',
-                    controller: passwordController,
-                    isObscureText: true,
+                  const SizedBox(height: 1),
+                  Padding(
+                    padding:const EdgeInsets.symmetric(vertical: 10,horizontal: 300),
+                    child: AuthField(
+                      hintText: 'Password',
+                      controller: passwordController,
+                      isObscureText: true,
+                    ),
                   ),
                   const SizedBox(height: 20),
                   AuthGradientButton(
@@ -99,11 +96,9 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     },
                   ),
-                 
                 ],
               ),
             );
-            
           },
         ),
       ),
