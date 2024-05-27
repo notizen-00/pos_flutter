@@ -20,7 +20,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
-              print('Logged out');
+            
               context.read<AuthBloc>().add(AuthLogout());
 
               Navigator.of(context).pushAndRemoveUntil(

@@ -10,4 +10,10 @@ class AppPallete {
   static const Color greyColor = Colors.grey;
   static const Color errorColor = Colors.redAccent;
   static const Color transparentColor = Colors.transparent;
+
+  static const TextStyle textHeadline3 = TextStyle(
+    fontSize: 24.0,
+    fontWeight: FontWeight.bold,
+    color: whiteColor,
+  );
 }

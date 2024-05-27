@@ -132,7 +132,7 @@ Future<UserModel?> logoutUser() async {
         return null;
       }
     } on DioException catch (e) {
-      print('test');
+      
       throw ServerException(e.message.toString());
     } catch (e) {
       throw ServerException(e.toString());

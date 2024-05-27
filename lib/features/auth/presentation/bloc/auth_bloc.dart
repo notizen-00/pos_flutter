@@ -84,9 +84,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     // Reset state to initial state
     final res = await _userLogout(NoParams());
-    print(res);
     res.fold(
-      (l)=>print('gagal'),
+      (l)=>emit(AuthFailure(l.message)),
       (r)=> _emitAuthLogoutSuccess(r,emit),
     );
     emit(AuthInitial());

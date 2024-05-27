@@ -30,7 +30,7 @@ Future<Either<Failure, User>> userLogout() async {
     // Clear token
     
     await remoteDataSource.logoutUser();
-    print('user berhasil logout');
+   
 
     // Return empty user model or null
     return right(User(id: '', email: '', name: '', token: ''));
@@ -45,7 +45,7 @@ Future<Either<Failure, User>> userLogout() async {
       if (!await (connectionChecker.isConnected)) {
 
         final token = await tokenManager.getToken();
-        print(token);
+      
         if (token == null) {
           return left(Failure('User Belum Login !'));
         }         
@@ -55,7 +55,6 @@ Future<Either<Failure, User>> userLogout() async {
         return left(Failure('User Belum Login !!'));
       }
 
-      print(user);
       return right(user);
     } on ServerException catch (e) {
       return left(Failure(e.message.toString()));

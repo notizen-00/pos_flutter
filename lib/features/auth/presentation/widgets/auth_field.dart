@@ -17,7 +17,7 @@ class AuthField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
-        contentPadding: EdgeInsets.all(20)
+        contentPadding: const EdgeInsets.all(20)
         
       ),
       validator: (value) {

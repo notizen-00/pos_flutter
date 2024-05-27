@@ -6,7 +6,6 @@ import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/auth/presentation/pages/login_page.dart';
 import 'package:blog_app/features/product/presentation/bloc/product_bloc.dart';
 import 'package:blog_app/features/product/presentation/widgets/product_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -92,29 +91,40 @@ class _ProductPageState extends State<ProductPage> {
         ),
         drawerEnableOpenDragGesture: true,
         body: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             NavigationRail(
-              groupAlignment: 1.0,
+              minExtendedWidth:256,
+              elevation: 5,
+              minWidth: 56,
+              groupAlignment: 0,
+              useIndicator: false,
+              indicatorShape: const CircleBorder(),
+              indicatorColor: Colors.green[50],
               selectedIndex: _selectedIndex,
               onDestinationSelected: _onItemTapped,
-              labelType: NavigationRailLabelType.selected,
+              labelType: NavigationRailLabelType.none,
               destinations: const [
                 NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text('Home'),
+                  icon: Icon(Icons.table_restaurant),
+                  selectedIcon: Icon(Icons.table_restaurant,color: Colors.green),
+                  label: Text('Meja'),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.person),
-                  label: Text('Profile'),
+                  icon: Icon(Icons.calculate),
+                  selectedIcon: Icon(Icons.calculate,color: Colors.green),
+                  label: Text('Amount'),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.settings),
-                  label: Text('Settings'),
+                  icon: Icon(Icons.supervised_user_circle),
+                  selectedIcon: Icon(Icons.supervised_user_circle,color: Colors.green),
+                  label: Text('Pelanggan'),
                 ),
               ],
             ),
-            const VerticalDivider(thickness: 1, width: 1),
+            const VerticalDivider(thickness: 1, width: 0),
             Expanded(
+              flex:3,
               child: BlocConsumer<ProductBloc, ProductState>(
                 listener: (context, state) {
                   if (state is ProductFailure) {
@@ -122,16 +132,19 @@ class _ProductPageState extends State<ProductPage> {
                   }
                 },
                 builder: (context, state) {
+
                   if (state is ProductLoading) {
                     return const Loader();
                   }
                   if (state is ProductsDisplaySuccess) {
-                    return ListView.builder(
+                    return GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
                       itemCount: state.product.length,
                       itemBuilder: (context, index) {
                         final product = state.product[index];
                         return ProductCard(
                           product: product,
+                          height: 10,
                           color: AppPallete.gradient2,
                         );
                       },
@@ -141,6 +154,25 @@ class _ProductPageState extends State<ProductPage> {
                 },
               ),
             ),
+            const VerticalDivider(thickness: 2, width: 4),
+            Expanded(
+            flex:1,
+            child: Container(
+                    padding: const EdgeInsets.all(12),
+                    color: AppPallete.backgroundColor,
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Kasir',
+                          style: AppPallete.textHeadline3,
+                        ),
+                        // Add your cashier details widgets here
+                      ],
+                    ),
+                  ),
+            ),
+          
           ],
         ),
       );
@@ -205,6 +237,7 @@ class _ProductPageState extends State<ProductPage> {
                 final product = state.product[index];
                 return ProductCard(
                   product: product,
+                  height: 80,
                   color: AppPallete.gradient2,
                 );
               },
@@ -216,7 +249,7 @@ class _ProductPageState extends State<ProductPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.table_bar),
             label: 'Home',
           ),
           BottomNavigationBarItem(
