@@ -67,6 +67,9 @@ class _ProductPageState extends State<ProductPage> {
             },
           ),
           title: const Text('Pos App'),
+          shadowColor: Colors.white,
+          backgroundColor: Colors.green[800],
+          elevation:3,
           actions: [
             IconButton(
               icon: const Icon(Icons.logout),
@@ -98,12 +101,11 @@ class _ProductPageState extends State<ProductPage> {
               elevation: 5,
               minWidth: 56,
               groupAlignment: 0,
-              useIndicator: false,
-              indicatorShape: const CircleBorder(),
+              useIndicator: true,
               indicatorColor: Colors.green[50],
               selectedIndex: _selectedIndex,
               onDestinationSelected: _onItemTapped,
-              labelType: NavigationRailLabelType.none,
+              labelType: NavigationRailLabelType.selected,
               destinations: const [
                 NavigationRailDestination(
                   icon: Icon(Icons.table_restaurant),
@@ -118,13 +120,13 @@ class _ProductPageState extends State<ProductPage> {
                 NavigationRailDestination(
                   icon: Icon(Icons.supervised_user_circle),
                   selectedIcon: Icon(Icons.supervised_user_circle,color: Colors.green),
-                  label: Text('Pelanggan'),
+                  label: Text('Member'),
                 ),
               ],
             ),
             const VerticalDivider(thickness: 1, width: 0),
             Expanded(
-              flex:3,
+              flex:2,
               child: BlocConsumer<ProductBloc, ProductState>(
                 listener: (context, state) {
                   if (state is ProductFailure) {
@@ -144,7 +146,6 @@ class _ProductPageState extends State<ProductPage> {
                         final product = state.product[index];
                         return ProductCard(
                           product: product,
-                          height: 10,
                           color: AppPallete.gradient2,
                         );
                       },
@@ -237,7 +238,6 @@ class _ProductPageState extends State<ProductPage> {
                 final product = state.product[index];
                 return ProductCard(
                   product: product,
-                  height: 80,
                   color: AppPallete.gradient2,
                 );
               },

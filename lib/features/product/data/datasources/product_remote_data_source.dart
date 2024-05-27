@@ -74,7 +74,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
             },
           ),
         );
-    
+      
         if (response.statusCode == 200) {
           final List<dynamic> data = response.data['data'];
           return data.map((item) => ProductDto.fromJson(item).toEntity()).toList();
@@ -87,6 +87,14 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
         throw const ServerException('Token tidak valid');
       }
     } on DioException catch (e) {
+      if(e.response?.statusCode == 401){
+            throw const ServerException('Token Expired silahkan logout dan login kembali');    
+          }else if(e.response?.statusCode == 500){
+            throw const ServerException('Server sedang error');
+          }else if(e.response?.statusCode == 404)
+          {
+          throw const ServerException('Api Produk tidak di temukan');
+          }
       throw ServerException(e.message.toString());
     } catch (e) {
       throw ServerException(e.toString());
