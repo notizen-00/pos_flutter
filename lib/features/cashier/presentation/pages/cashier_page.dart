@@ -1,4 +1,6 @@
+import 'package:blog_app/core/theme/app_pallete.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class CashierPage extends StatelessWidget {
   const CashierPage({super.key,});
@@ -6,8 +8,8 @@ class CashierPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> items = [
-      {'name': 'V60', 'price': 'Rp. 13.009', 'quantity': 2},
-      // {'name': 'Es Kopi Susu Creamy', 'price': 'Rp. 13.000', 'quantity': 2},
+      // {'name': 'V60', 'price': 'Rp. 13.009', 'quantity': 2},
+      // {'name': 'Es Kopi Sussu Creamysss', 'price': 'Rp. 13.000', 'quantity': 2},
       // {'name': 'Jahe', 'price': 'Rp. 10.000', 'quantity': 4},
       // {'name': 'Es Kopi Susu Creamy', 'price': 'Rp. 13.000', 'quantity': 2},
       // {'name': 'Es Kopi Susu Creamy', 'price': 'Rp. 13.000', 'quantity': 2},
@@ -35,7 +37,15 @@ class CashierPage extends StatelessWidget {
       Expanded(
   flex: 6,
   child: items.isNotEmpty
-      ? ListView.builder(
+      ? 
+      DecoratedBox( 
+                decoration: const BoxDecoration(
+                color: Colors.white10,
+                borderRadius: BorderRadius.only(bottomLeft:Radius.circular(20) ,bottomRight: Radius.circular(20)),
+                border: Border(top: BorderSide(width: 1)),
+              ),
+              child:
+            ListView.builder(
           padding: const EdgeInsets.only(top: 20),
           itemCount: items.length,
           itemBuilder: (BuildContext context, int index) {
@@ -50,9 +60,10 @@ class CashierPage extends StatelessWidget {
                 selectedColor: Colors.white,
                 leading: const Icon(Icons.coffee),
                 selected: true,
-                visualDensity: VisualDensity.standard,
+                visualDensity: VisualDensity.comfortable,
                 title: Text(
                   item['name'],
+                  maxLines: 2,
                   style: const TextStyle(fontSize: 12),
                 ),
                 subtitle: Text(
@@ -64,7 +75,7 @@ class CashierPage extends StatelessWidget {
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
                           'Qty',
@@ -76,12 +87,13 @@ class CashierPage extends StatelessWidget {
                         )
                       ],
                     ),
-                    const SizedBox(width: 9,),
+                    const SizedBox(width: 8,),
                     IconButton(
                       icon: const Icon(
                         Icons.delete,
                         color: Colors.red,
                       ),
+                    
                       onPressed: () {},
                     ),
                   ],
@@ -90,6 +102,7 @@ class CashierPage extends StatelessWidget {
             );
           },
         )
+              )
       : Container(
         color:Colors.white12,
         child:Center(
@@ -130,7 +143,7 @@ class CashierPage extends StatelessWidget {
             // Logika untuk menyimpan
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.amber[800],
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
             ),
@@ -148,7 +161,7 @@ class CashierPage extends StatelessWidget {
             // Logika untuk membayar
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
+            backgroundColor: AppPallete.primary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
             ),
