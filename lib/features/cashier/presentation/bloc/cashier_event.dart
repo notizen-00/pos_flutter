@@ -12,3 +12,17 @@ class AddProductToCashier extends CashierEvent {
 
   const AddProductToCashier(this.product);
 }
+class IncrementQuantity extends CashierEvent {
+  final Product product;
+  const IncrementQuantity(this.product);
+}
+
+class DecrementQuantity extends CashierEvent {
+  final Product product;
+  const DecrementQuantity(this.product);
+}
+class RemoveProductFromCashier extends CashierEvent {
+  final Product product;
+
+  const RemoveProductFromCashier(this.product);
+}

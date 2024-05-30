@@ -25,9 +25,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     Emitter<ProductState> emit,
   ) async {
     try {
-      // Assuming `cartRepository` is accessible
-      print(event.product);
-      emit(ProductAddedToCartSuccess(event.product));
+
+      emit(ProductSelection(selectedProductIds: {event.product.id.toString()}));
+
     } catch (e) {
       emit(ProductFailure(e.toString(), error: 'add_to_cart_failed'));
     }

@@ -69,6 +69,8 @@ class Product extends Equatable {
         updatedAt,
         kategori,
       ];
+
+  indexWhere(bool Function(dynamic product) param0) {}
 }
 
 class Kategori extends Equatable {
@@ -107,11 +109,4 @@ class Kategori extends Equatable {
       ];
 }
 
-class Cashier extends Equatable {
-  final List<Product> products;
 
-  const Cashier({required this.products});
-
-  @override
-  List<Object> get props => [products];
-}

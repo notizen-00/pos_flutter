@@ -23,6 +23,11 @@ class ProductAddedToCartSuccess extends ProductState {
   ProductAddedToCartSuccess(this.product);
 }
 
+class ProductSelection extends ProductState {
+  final Set<String> selectedProductIds;
+
+  const ProductSelection({required this.selectedProductIds});
+}
 
 class ProductFailure extends ProductState {
   final String error;

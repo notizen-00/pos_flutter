@@ -4,6 +4,7 @@ import 'package:blog_app/core/theme/app_pallete.dart';
 import 'package:blog_app/core/utils/show_snackbar.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/auth/presentation/pages/login_page.dart';
+import 'package:blog_app/features/cashier/presentation/bloc/cashier_bloc.dart';
 import 'package:blog_app/features/cashier/presentation/pages/cashier_page.dart';
 import 'package:blog_app/features/product/presentation/bloc/product_bloc.dart';
 import 'package:blog_app/features/product/presentation/widgets/product_card.dart';
@@ -21,6 +22,7 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
+
 
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -145,15 +147,17 @@ class _ProductPageState extends State<ProductPage> {
                   if (state is ProductLoading) {
                     return const Loader();
                   }
-                  if (state is ProductsDisplaySuccess) {
+                  if (state is ProductsDisplaySuccess ) {
                     return GridView.builder(
                       shrinkWrap: true,
+                  
                       padding: const EdgeInsets.all(20),
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
                       itemCount: state.products.length,
                       itemBuilder: (context, index) {
                         
                         final product = state.products[index];
+
                         return ProductCard(
                           product: product,
                           color: AppPallete.gradient2,
@@ -167,11 +171,11 @@ class _ProductPageState extends State<ProductPage> {
               ),
             ),
             const VerticalDivider(thickness: 2, width: 4),
-          const  Expanded(
-            flex:1,
-            child: CashierPage()
-            ),
-          
+          const Expanded(
+            flex: 1,
+                
+                child: CashierPage(),
+      ),
           ],
         ),
       );
@@ -228,9 +232,12 @@ class _ProductPageState extends State<ProductPage> {
           if (state is ProductLoading) {
             return const Loader();
           }
+
+      
           if (state is ProductsDisplaySuccess) {
+         
             return ListView.builder(
-    
+              
               itemCount: state.products.length,
               itemBuilder: (context, index) {
                 final product = state.products[index];
