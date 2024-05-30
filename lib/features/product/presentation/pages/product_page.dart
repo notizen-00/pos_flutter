@@ -134,9 +134,14 @@ class _ProductPageState extends State<ProductPage> {
                   if (state is ProductFailure) {
                     showSnackBar(context, state.error);
                   }
+
+                   if (state is ProductAddedToCartSuccess) {
+                      showSnackBar(context, "${state.product.nama} added to cart");
+                  }
+
                 },
                 builder: (context, state) {
-
+                  
                   if (state is ProductLoading) {
                     return const Loader();
                   }
@@ -145,12 +150,14 @@ class _ProductPageState extends State<ProductPage> {
                       shrinkWrap: true,
                       padding: const EdgeInsets.all(20),
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
-                      itemCount: state.product.length,
+                      itemCount: state.products.length,
                       itemBuilder: (context, index) {
-                        final product = state.product[index];
+                        
+                        final product = state.products[index];
                         return ProductCard(
                           product: product,
                           color: AppPallete.gradient2,
+                          
                         );
                       },
                     );
@@ -224,9 +231,9 @@ class _ProductPageState extends State<ProductPage> {
           if (state is ProductsDisplaySuccess) {
             return ListView.builder(
     
-              itemCount: state.product.length,
+              itemCount: state.products.length,
               itemBuilder: (context, index) {
-                final product = state.product[index];
+                final product = state.products[index];
                 return ProductCard(
                   product: product,
                   color: Colors.amber,

@@ -103,39 +103,40 @@ Future<UserModel?> logoutUser() async {
 }
 
   @override
-  Future<UserModel?> getCurrentUserData() async {
-    try {
-      final token = await tokenManager.getToken();
-      if (token != null) {
-        // Mengambil ID pengguna dari token
-    
-        // Menggunakan ID pengguna untuk mengambil data pengguna saat ini dari server
-        final response = await dio.get(
-          '${Config.baseUrl}user', // Menggunakan URL pengguna saat ini dari konfigurasi
-          options: Options(
-            headers: {
-              'Authorization': 'Bearer $token', // Menggunakan token untuk otorisasi
-            },
-          ),
-        );
-    
-        if (response.statusCode == 200) {
-          final userData = UserModel.fromJson(response.data);
-          log(response.data);
+ Future<UserModel?> getCurrentUserData() async {
+  try {
+    final token = await tokenManager.getToken();
+    if (token != null) {
+      // Menggunakan ID pengguna untuk mengambil data pengguna saat ini dari server
+      final response = await dio.get(
+        '${Config.baseUrl}user', // Menggunakan URL pengguna saat ini dari konfigurasi
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token', // Menggunakan token untuk otorisasi
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        final data = response.data;
+        if (data is Map<String, dynamic>) {
+          final userData = UserModel.fromJson(data);
+          log(data.toString());
           return userData;
-        } else if(response.statusCode == 404) {
-          throw const ServerException('Failed to get current user data');
-        }else{
-          throw const ServerException('Failed to get current user data');
+        } else {
+          throw const ServerException('Unexpected response data format');
         }
+      } else if (response.statusCode == 404) {
+        throw const ServerException('Failed to get current user data');
       } else {
-        return null;
+        throw const ServerException('Failed to get current user data');
       }
-    } on DioException catch (e) {
-      
-      throw ServerException(e.message.toString());
-    } catch (e) {
-      throw ServerException(e.toString());
+    } else {
+      return null;
     }
+  } catch (e) {
+    log('Error fetching user data: $e');
+    rethrow;
   }
+}
 }

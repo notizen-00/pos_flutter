@@ -10,4 +10,6 @@ abstract interface class ProductRepository {
 
   Future<Either<Failure, List<Product>>> getAllData();
 
+  getAllProducts() {}
+
 }

@@ -65,4 +65,10 @@ Future<Either<Failure, List<Product>>> getAllData() async {
       return left(Failure(e.message));
     }
   }
+  
+  @override
+  getAllProducts() {
+    // TODO: implement getAllProducts
+    throw UnimplementedError();
+  }
 }

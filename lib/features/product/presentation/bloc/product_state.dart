@@ -1,20 +1,32 @@
 part of 'product_bloc.dart';
 
-@immutable
-sealed class ProductState {}
+abstract class ProductState {
+  const ProductState();
 
-final class ProductInitial extends ProductState {}
-
-final class ProductLoading extends ProductState {}
-
-final class ProductFailure extends ProductState {
-  final String error;
-  ProductFailure(this.error);
 }
 
-final class ProductDetailSuccess extends ProductState {}
+class ProductInitial extends ProductState {}
 
-final class ProductsDisplaySuccess extends ProductState {
-  final List<Product> product;
-  ProductsDisplaySuccess(this.product);
+class ProductLoading extends ProductState {}
+
+class ProductsDisplaySuccess extends ProductState {
+  final List<Product> products;
+  const ProductsDisplaySuccess({
+    required this.products,
+  });
+
+}
+
+class ProductAddedToCartSuccess extends ProductState {
+  final Product product;
+
+  ProductAddedToCartSuccess(this.product);
+}
+
+
+class ProductFailure extends ProductState {
+  final String error;
+
+  const ProductFailure(String message, {required this.error});
+
 }

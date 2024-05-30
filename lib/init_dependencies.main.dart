@@ -82,6 +82,8 @@ void _initAuth() {
     );
 }
 
+
+
 void _initProduct() {
   // Datasource
   serviceLocator
@@ -101,7 +103,7 @@ void _initProduct() {
     )
     // Usecases
 
-    ..registerFactory(
+    ..registerFactory( 
       () => GetAllProducts(
         serviceLocator(),
       ),
@@ -114,4 +116,5 @@ void _initProduct() {
       ),
     );
 }
+
 

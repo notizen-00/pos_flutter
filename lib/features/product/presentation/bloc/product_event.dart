@@ -1,15 +1,13 @@
 part of 'product_bloc.dart';
 
-@immutable
-sealed class ProductEvent {}
-
-
-final class DetailProduct extends ProductEvent {
-  final int id;
-
-  DetailProduct({
-    required this.id
-  });
+abstract class ProductEvent  {
+  const ProductEvent();
 }
 
-final class ProductFetchAllProducts extends ProductEvent {}
+class ProductFetchAllProducts extends ProductEvent {}
+
+class ProductSelected extends ProductEvent {
+  final Product product;
+
+  ProductSelected(this.product);
+}

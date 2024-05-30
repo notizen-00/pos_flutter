@@ -1,7 +1,10 @@
 import 'package:blog_app/core/config/config.dart';
 import 'package:blog_app/core/utils/format_rupiah.dart';
+import 'package:blog_app/features/cashier/presentation/bloc/cashier_bloc.dart';
 import 'package:blog_app/features/product/domain/entities/product.dart';
+import 'package:blog_app/features/product/presentation/bloc/product_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class ProductCard extends StatelessWidget {
@@ -21,6 +24,7 @@ class ProductCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // Navigator.push(context, BlogViewerPage.route(blog));
+        context.read<CashierBloc>().add(AddProductToCashier(product));
       },
       child: Container(
         height: 10,
