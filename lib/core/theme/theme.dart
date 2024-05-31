@@ -2,7 +2,7 @@ import 'package:blog_app/core/theme/app_pallete.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static _border([Color color = AppPallete.borderColor]) => OutlineInputBorder(
+  static _border([Color color = Colors.green]) => OutlineInputBorder(
         borderSide: BorderSide(
           color: color,
           width: 3,

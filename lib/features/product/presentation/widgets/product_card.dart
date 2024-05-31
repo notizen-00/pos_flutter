@@ -30,7 +30,7 @@ class ProductCard extends StatelessWidget {
         //   SnackBar(
         //     content: Text('${product.nama} ditambahkan ke list cashier' ),
         //   ),
-        // );
+        // );  
       },
       child: Container(
           height: 10,

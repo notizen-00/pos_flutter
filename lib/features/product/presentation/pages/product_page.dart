@@ -4,7 +4,6 @@ import 'package:blog_app/core/theme/app_pallete.dart';
 import 'package:blog_app/core/utils/show_snackbar.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/auth/presentation/pages/login_page.dart';
-import 'package:blog_app/features/cashier/presentation/bloc/cashier_bloc.dart';
 import 'package:blog_app/features/cashier/presentation/pages/cashier_page.dart';
 import 'package:blog_app/features/product/presentation/bloc/product_bloc.dart';
 import 'package:blog_app/features/product/presentation/widgets/product_card.dart';
@@ -137,7 +136,7 @@ class _ProductPageState extends State<ProductPage> {
                     showSnackBar(context, state.error);
                   }
 
-                   if (state is ProductAddedToCartSuccess) {
+                  if (state is ProductAddedToCartSuccess) {
                       showSnackBar(context, "${state.product.nama} added to cart");
                   }
 
@@ -235,7 +234,6 @@ class _ProductPageState extends State<ProductPage> {
 
       
           if (state is ProductsDisplaySuccess) {
-         
             return ListView.builder(
               
               itemCount: state.products.length,

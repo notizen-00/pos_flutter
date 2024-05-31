@@ -1,4 +1,6 @@
+import 'package:blog_app/features/payment/domain/entitites/payment.dart';
 import 'package:blog_app/features/product/domain/entities/product.dart';
+import 'package:blog_app/features/transaksi/domain/entitites/transaksi.dart';
 import 'package:equatable/equatable.dart';
 
 class Cashier extends Equatable {
@@ -7,11 +9,25 @@ class Cashier extends Equatable {
   const Cashier({required this.items});
 
     int get totalHarga {
-    // Menggunakan reduce untuk menjumlahkan harga produk dalam keranjang
+  
     return items.fold(0, (total, item) {
-      // Menjumlahkan harga produk dengan kuantitasnya
+
       return total + (int.parse(item.product.harga) * item.quantity);
     });
+  }
+
+  Payment initiatePayment() {
+    return Payment(
+      kembalian:0,
+      total: totalHarga,
+      totalBayar:0,
+      cashier: this,
+    );
+  }
+
+  Transaction createTransaction() {
+    final payment = initiatePayment();
+    return Transaction(payment: payment, items: items,totalHarga:totalHarga);
   }
   
   @override

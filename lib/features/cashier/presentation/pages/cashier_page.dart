@@ -2,9 +2,10 @@ import 'package:blog_app/core/theme/app_pallete.dart';
 import 'package:blog_app/core/utils/format_rupiah.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/cashier/presentation/bloc/cashier_bloc.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:blog_app/features/payment/presentation/pages/payment_pages.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
@@ -193,7 +194,7 @@ class CashierPage extends StatelessWidget {
                         // Tombol Simpan
                         ElevatedButton.icon(
                           icon:const Icon(Icons.save),
-                          label:Text('simpan'),
+                          label:const Text('simpan'),
                           onPressed: () {
 
                             // Logika untuk menyimpan
@@ -212,9 +213,18 @@ class CashierPage extends StatelessWidget {
               
                         ElevatedButton.icon(
                           icon:const Icon(Icons.payment),
-                          label:Text('bayar'),
+                          label:const Text('bayar'),
                           onPressed: () {
-
+                            final cashierState = context.read<CashierBloc>().state;
+                            if (cashierState is CashierUpdated) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => BayarPage(
+                                    cashier: cashierState.cashier,
+                                  ),
+                                ),
+                              );
+                            }
                             // Logika untuk menyimpan
                           },
                           style: ElevatedButton.styleFrom(
