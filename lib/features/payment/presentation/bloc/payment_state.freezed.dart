@@ -20,6 +20,7 @@ mixin _$PaymentState {
   int get total => throw _privateConstructorUsedError;
   int get kembalian => throw _privateConstructorUsedError;
   String get metodePembayaran => throw _privateConstructorUsedError;
+  String get errorMessage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PaymentStateCopyWith<PaymentState> get copyWith =>
@@ -33,7 +34,11 @@ abstract class $PaymentStateCopyWith<$Res> {
       _$PaymentStateCopyWithImpl<$Res, PaymentState>;
   @useResult
   $Res call(
-      {int totalBayar, int total, int kembalian, String metodePembayaran});
+      {int totalBayar,
+      int total,
+      int kembalian,
+      String metodePembayaran,
+      String errorMessage});
 }
 
 /// @nodoc
@@ -53,6 +58,7 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
     Object? total = null,
     Object? kembalian = null,
     Object? metodePembayaran = null,
+    Object? errorMessage = null,
   }) {
     return _then(_value.copyWith(
       totalBayar: null == totalBayar
@@ -71,6 +77,10 @@ class _$PaymentStateCopyWithImpl<$Res, $Val extends PaymentState>
           ? _value.metodePembayaran
           : metodePembayaran // ignore: cast_nullable_to_non_nullable
               as String,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -84,7 +94,11 @@ abstract class _$$PaymentStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int totalBayar, int total, int kembalian, String metodePembayaran});
+      {int totalBayar,
+      int total,
+      int kembalian,
+      String metodePembayaran,
+      String errorMessage});
 }
 
 /// @nodoc
@@ -102,6 +116,7 @@ class __$$PaymentStateImplCopyWithImpl<$Res>
     Object? total = null,
     Object? kembalian = null,
     Object? metodePembayaran = null,
+    Object? errorMessage = null,
   }) {
     return _then(_$PaymentStateImpl(
       totalBayar: null == totalBayar
@@ -120,6 +135,10 @@ class __$$PaymentStateImplCopyWithImpl<$Res>
           ? _value.metodePembayaran
           : metodePembayaran // ignore: cast_nullable_to_non_nullable
               as String,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -131,7 +150,8 @@ class _$PaymentStateImpl implements _PaymentState {
       {required this.totalBayar,
       required this.total,
       required this.kembalian,
-      required this.metodePembayaran});
+      required this.metodePembayaran,
+      required this.errorMessage});
 
   @override
   final int totalBayar;
@@ -141,10 +161,12 @@ class _$PaymentStateImpl implements _PaymentState {
   final int kembalian;
   @override
   final String metodePembayaran;
+  @override
+  final String errorMessage;
 
   @override
   String toString() {
-    return 'PaymentState(totalBayar: $totalBayar, total: $total, kembalian: $kembalian, metodePembayaran: $metodePembayaran)';
+    return 'PaymentState(totalBayar: $totalBayar, total: $total, kembalian: $kembalian, metodePembayaran: $metodePembayaran, errorMessage: $errorMessage)';
   }
 
   @override
@@ -158,12 +180,14 @@ class _$PaymentStateImpl implements _PaymentState {
             (identical(other.kembalian, kembalian) ||
                 other.kembalian == kembalian) &&
             (identical(other.metodePembayaran, metodePembayaran) ||
-                other.metodePembayaran == metodePembayaran));
+                other.metodePembayaran == metodePembayaran) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, totalBayar, total, kembalian, metodePembayaran);
+  int get hashCode => Object.hash(runtimeType, totalBayar, total, kembalian,
+      metodePembayaran, errorMessage);
 
   @JsonKey(ignore: true)
   @override
@@ -177,7 +201,8 @@ abstract class _PaymentState implements PaymentState {
       {required final int totalBayar,
       required final int total,
       required final int kembalian,
-      required final String metodePembayaran}) = _$PaymentStateImpl;
+      required final String metodePembayaran,
+      required final String errorMessage}) = _$PaymentStateImpl;
 
   @override
   int get totalBayar;
@@ -187,6 +212,8 @@ abstract class _PaymentState implements PaymentState {
   int get kembalian;
   @override
   String get metodePembayaran;
+  @override
+  String get errorMessage;
   @override
   @JsonKey(ignore: true)
   _$$PaymentStateImplCopyWith<_$PaymentStateImpl> get copyWith =>

@@ -3,17 +3,22 @@ import 'payment_event.dart';
 import 'payment_state.dart';
 
 class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
-  PaymentBloc() : super(PaymentState.initial());
-
-  Stream<PaymentState> mapEventToState(PaymentEvent event) async* {
-    yield* event.map(
-      updatePayment: (e) async* {
-        yield state.copyWith(
-          totalBayar: e.totalBayar,
-          kembalian: e.kembalian,
-          metodePembayaran: e.metodePembayaran
-        );
-      },
-    );
+  PaymentBloc() : super(PaymentState.initial()){
+    on<UpdatePayment>(_onUpdatePayment);
   }
+
+  void _onUpdatePayment(UpdatePayment event,Emitter<PaymentState> emit) async{
+      final currentState = state;
+      try{
+
+          if(currentState is UpdatePayment){
+               emit(PaymentState.updated(totalBayar: state.totalBayar, total: state.total, kembalian: state.kembalian, metodePembayaran: state.metodePembayaran,errorMessage:''));
+          }
+       
+      }catch(e){
+        emit(PaymentState.failure(message:e.toString()));
+      }
+    
+  }
+
 }

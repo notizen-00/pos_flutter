@@ -2,6 +2,7 @@
 import 'package:blog_app/core/theme/app_pallete.dart';
 import 'package:blog_app/features/payment/presentation/bloc/payment_bloc.dart';
 import 'package:blog_app/features/payment/presentation/bloc/payment_event.dart';
+import 'package:blog_app/features/payment/presentation/bloc/payment_state.dart';
 import 'package:blog_app/features/payment/presentation/widget/payment_method.dart';
 import 'package:flutter/material.dart';
 import 'package:blog_app/features/cashier/domain/entities/cashier.dart';
@@ -27,15 +28,15 @@ class _BayarPageState extends State<BayarPage> {
   Metode selectedMethod = Metode.tunai;
 
   int roundToNearestIndonesianCurrency(int amount) {
-const int startingAmount = 5000;
-const int endingAmount = 500000;
-const int step = 5000;
+    const int startingAmount = 5000;
+    const int endingAmount = 500000;
+    const int step = 5000;
 
-List<int> indonesianCurrencies = [];
+    List<int> indonesianCurrencies = [];
 
-for (int i = startingAmount; i <= endingAmount; i += step) {
-  indonesianCurrencies.add(i);
-}
+    for (int i = startingAmount; i <= endingAmount; i += step) {
+      indonesianCurrencies.add(i);
+    }
     int roundedAmount = indonesianCurrencies
         .firstWhere((currency) => currency >= amount, orElse: () => 0);
     return roundedAmount;
@@ -118,20 +119,19 @@ for (int i = startingAmount; i <= endingAmount; i += step) {
                     crossAxisSpacing: 20,
                     children: [
                       Padding(
-                          padding: const EdgeInsets.only(bottom: 80, top: 20),
-                          child: ElevatedButton(
-                            onPressed: () => _setPaymentAmount(totalHarga),
-                            style: ElevatedButton.styleFrom(
-                              textStyle: const TextStyle(fontSize: 15),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    15), // Customize the border radius here
-                              ),
+                        padding: const EdgeInsets.only(bottom: 80, top: 20),
+                        child: ElevatedButton(
+                          onPressed: () => _setPaymentAmount(totalHarga),
+                          style: ElevatedButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  15), // Customize the border radius here
                             ),
-                            child:  const Text('Uang Pas'),
                           ),
+                          child: const Text('Uang Pas'),
                         ),
-                      
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 80, top: 20),
                         child: ElevatedButton(
@@ -147,7 +147,7 @@ for (int i = startingAmount; i <= endingAmount; i += step) {
                                   15), // Customize the border radius here
                             ),
                           ),
-                          child:  Text(formatRupiah(
+                          child: Text(formatRupiah(
                               roundToNearestIndonesianCurrency(totalHarga))),
                         ),
                       ),
@@ -156,7 +156,7 @@ for (int i = startingAmount; i <= endingAmount; i += step) {
                         child: ElevatedButton(
                           onPressed: () => _setPaymentAmount(
                               roundToNearestIndonesianCurrency(totalHarga * 2)),
-                            style: ElevatedButton.styleFrom(
+                          style: ElevatedButton.styleFrom(
                             foregroundColor: Colors.white,
                             textStyle: const TextStyle(
                               fontSize: 14,
@@ -205,47 +205,50 @@ for (int i = startingAmount; i <= endingAmount; i += step) {
               color: Colors.white12,
               child: Padding(
                 padding: const EdgeInsets.all(1.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    final int payment =
-                        int.tryParse(paymentController.text) ?? 0;
-                    final int kembalian = payment - totalHarga;
-         
+                child: BlocBuilder<PaymentBloc, PaymentState>(
+                  builder: (context, state) {
+                    return ElevatedButton(
+                      onPressed: () {
+                        final int payment =
+                            int.tryParse(paymentController.text) ?? 0;
+                        final int kembalian = payment - totalHarga;
 
-  // Panggil event updatePayment di sini
-                      context.read<PaymentBloc>().add(UpdatePayment(
-                          totalBayar: payment,
-                          kembalian: kembalian,
-                          metodePembayaran: selectedMethod.toString(), // tambahkan metode pembayaran
-                      ));
+                        context.read<PaymentBloc>().add(UpdatePayment(
+                              totalBayar: payment,
+                              kembalian: kembalian,
+                              metodePembayaran: selectedMethod
+                                  .toString(), // tambahkan metode pembayaran
+                            ));
 
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text('Pembayaran Berhasil'),
-                          content:
-                              Text('Kembalian: ${formatRupiah(kembalian)}'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                Navigator.of(context)
-                                    .pop(); // Kembali ke halaman sebelumnya
-                              },
-                              child: const Text('OK'),
-                            ),
-                          ],
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Pembayaran Berhasil'),
+                              content:
+                                  Text('Kembalian: ${formatRupiah(kembalian)}'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context)
+                                        .pop(); // Kembali ke halaman sebelumnya
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            );
+                          },
                         );
                       },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[800],
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        textStyle: const TextStyle(fontSize: 18),
+                      ),
+                      child: const Text('Bayar'),
                     );
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue[800],
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    textStyle: const TextStyle(fontSize: 18),
-                  ),
-                  child: const Text('Bayar'),
                 ),
               ),
             )

@@ -3,6 +3,7 @@ import 'package:blog_app/core/theme/theme.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/auth/presentation/pages/login_page.dart';
 import 'package:blog_app/features/cashier/presentation/bloc/cashier_bloc.dart';
+import 'package:blog_app/features/payment/presentation/bloc/payment_bloc.dart';
 import 'package:blog_app/features/product/presentation/bloc/product_bloc.dart';
 import 'package:blog_app/features/product/presentation/pages/product_page.dart';
 import 'package:blog_app/init_dependencies.dart';
@@ -25,6 +26,9 @@ void main() async {
       ),
       BlocProvider<CashierBloc>(
         create:(_) => CashierBloc(),
+      ),
+      BlocProvider<PaymentBloc>(
+        create:(_) => PaymentBloc(),
       ),
   
     ],
