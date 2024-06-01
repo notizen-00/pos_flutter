@@ -12,7 +12,7 @@ class Cashier extends Equatable {
   
     return items.fold(0, (total, item) {
 
-      return total + (int.parse(item.product.harga) * item.quantity);
+      return total + (item.product.harga * item.quantity);
     });
   }
 
@@ -39,21 +39,25 @@ class CashierItem extends Equatable {
   final Product product;
   final int quantity;
 
+
   const CashierItem({
     required this.product,
-    this.quantity = 0, // Mengatur default quantity menjadi 0
+    this.quantity = 0,
+  
   });
 
   CashierItem copyWith({
     Product? product,
     int? quantity,
+    int? subtotal
   }) {
     return CashierItem(
       product: product ?? this.product,
       quantity: quantity ?? this.quantity,
+  
     );
   }
 
   @override
-  List<Object> get props => [product, quantity];
+  List<Object> get props => [product.id, quantity];
 }

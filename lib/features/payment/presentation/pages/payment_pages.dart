@@ -1,5 +1,6 @@
-// lib/features/payment/presentation/pages/bayar_page.dart
-import 'package:blog_app/core/theme/app_pallete.dart';
+
+import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:blog_app/features/cashier/presentation/bloc/cashier_bloc.dart';
 import 'package:blog_app/features/payment/presentation/bloc/payment_bloc.dart';
 import 'package:blog_app/features/payment/presentation/bloc/payment_event.dart';
 import 'package:blog_app/features/payment/presentation/bloc/payment_state.dart';
@@ -18,7 +19,6 @@ class BayarPage extends StatefulWidget {
   });
 
   @override
-  // ignore: library_private_types_in_public_api
   _BayarPageState createState() => _BayarPageState();
 }
 
@@ -31,9 +31,7 @@ class _BayarPageState extends State<BayarPage> {
     const int startingAmount = 5000;
     const int endingAmount = 500000;
     const int step = 5000;
-
     List<int> indonesianCurrencies = [];
-
     for (int i = startingAmount; i <= endingAmount; i += step) {
       indonesianCurrencies.add(i);
     }
@@ -71,6 +69,56 @@ class _BayarPageState extends State<BayarPage> {
     paymentController.text = amount.toString();
   }
 
+  void _showPaymentSuccessModal(BuildContext context, int totalBayar, int total, int kembalian, String metodePembayaran) {
+    showDialog(
+      barrierColor: Colors.green[100],
+      context: context,
+      builder: (BuildContext context) {
+        final cashierState = context.read<CashierBloc>().state;
+        final authState = context.read<AuthBloc>().state;
+        
+        
+        return AlertDialog(
+          title: const Text('Simpan Transaksi ?'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Total Bayar: ${formatRupiah(totalBayar)}'),
+              Text('Total: ${formatRupiah(total)}'),
+              Text('Kembalian: ${formatRupiah(kembalian)}'),
+              Text('Metode Pembayaran: $metodePembayaran'),
+              if(authState is AuthSuccess) ...[
+                Text('ID Kasir: ${authState.user.id}'),
+                Text('Nama Cashier: ${authState.user.name}'),
+              ]else ...{
+                const Text('kasir tidak login'),
+              },
+
+              if (cashierState is CashierUpdated) ...[
+              
+              
+              Text('ID Cashier: ${cashierState.cashier.items.toString()}'),
+              // Add other relevant fields from Cashier object
+              ] else ...{
+              const Text('Loading...'), // or Error message if needed
+              }
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: const Text('Simpan'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final totalHarga = widget.cashier.totalHarga;
@@ -78,126 +126,163 @@ class _BayarPageState extends State<BayarPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pembayaran'),
-        backgroundColor: AppPallete.gradient2,
       ),
-      body: Container(
-        color: Colors.grey[50],
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'TOTAL',
-                style: TextStyle(color: Colors.black45),
-              ),
-              Text(
-                formatRupiah(totalHarga),
-                style: const TextStyle(fontSize: 49, color: Colors.black87),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: Row(
+      body: BlocListener<PaymentBloc, PaymentState>(
+        listener: (context, state) {
+          state.when(
+            initial: () {},
+            updated: (totalBayar, total, kembalian, metodePembayaran) {
+              _showPaymentSuccessModal(context, totalBayar, total, kembalian, metodePembayaran);
+            },
+            failure: (message) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Error: $message')),
+              );
+            },
+          );
+        },
+        child: BlocBuilder<PaymentBloc, PaymentState>(
+          builder: (context, state) {
+            return Container(
+              color: Colors.grey[50],
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'METODE PEMBAYARAN',
+                      'TOTAL',
                       style: TextStyle(color: Colors.black45),
                     ),
-                    const SizedBox(width: 20),
-                    PaymentMethod(onSelectionChanged: _onPaymentMethodChanged),
+                    Text(
+                      formatRupiah(totalHarga),
+                      style: const TextStyle(fontSize: 49, color: Colors.black87),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      child: Row(
+                        children: [
+                          const Text(
+                            'METODE PEMBAYARAN',
+                            style: TextStyle(color: Colors.black45),
+                          ),
+                          const SizedBox(width: 20),
+                          PaymentMethod(onSelectionChanged: _onPaymentMethodChanged),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    if (selectedMethod == Metode.tunai)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: GridView.count(
+                          shrinkWrap: true,
+                          crossAxisCount: 6,
+                          mainAxisSpacing: 90,
+                          crossAxisSpacing: 20,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 80, top: 20),
+                              child: ElevatedButton(
+                                onPressed: () => _setPaymentAmount(totalHarga),
+                                style: ElevatedButton.styleFrom(
+                                  textStyle: const TextStyle(fontSize: 15),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                                child: const Text('Uang Pas'),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 80, top: 20),
+                              child: ElevatedButton(
+                                onPressed: ()  { _setPaymentAmount(
+                                    roundToNearestIndonesianCurrency(totalHarga)
+                                  );
+                                    final int payment =
+                        int.tryParse(paymentController.text) ?? 0;
+                    final int kembalian = payment - totalHarga;
+
+                    context.read<PaymentBloc>().add(PaymentEvent.updatePayment(
+                          totalBayar: payment,
+                          total: totalHarga,
+                          kembalian: kembalian,
+                          metodePembayaran: selectedMethod.toString(),
+                        ));
+                                    },
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.white,
+                                  textStyle: const TextStyle(fontSize: 14),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                                child: Text(formatRupiah(
+                                    roundToNearestIndonesianCurrency(totalHarga))),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 80, top: 20),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                    _setPaymentAmount(
+                                    roundToNearestIndonesianCurrency(totalHarga * 2)
+                                    );
+
+
+                                    final int payment =
+                        int.tryParse(paymentController.text) ?? 0;
+                    final int kembalian = payment - totalHarga;
+
+                    context.read<PaymentBloc>().add(PaymentEvent.updatePayment(
+                          totalBayar: payment,
+                          total: totalHarga,
+                          kembalian: kembalian,
+                          metodePembayaran: selectedMethod.toString(),
+                        ));
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.white,
+                                  textStyle: const TextStyle(fontSize: 14),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                                child: Text(formatRupiah(
+                                    roundToNearestIndonesianCurrency(totalHarga * 2))),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 300),
+                      child: TextField(
+                        style: const TextStyle(color: Colors.black),
+                        controller: paymentController,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          labelText: 'Jumlah Lain',
+                          floatingLabelStyle: TextStyle(color: Colors.green),
+                          labelStyle: TextStyle(
+                            color: Color.fromARGB(255, 169, 204, 170),
+                          ),
+                          contentPadding: EdgeInsets.all(20),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red, width: 1),
+                          ),
+                          fillColor: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
-              if (selectedMethod == Metode.tunai)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: GridView.count(
-                    shrinkWrap: true,
-                    crossAxisCount: 6,
-                    mainAxisSpacing: 90,
-                    crossAxisSpacing: 20,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 80, top: 20),
-                        child: ElevatedButton(
-                          onPressed: () => _setPaymentAmount(totalHarga),
-                          style: ElevatedButton.styleFrom(
-                            textStyle: const TextStyle(fontSize: 15),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  15), // Customize the border radius here
-                            ),
-                          ),
-                          child: const Text('Uang Pas'),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 80, top: 20),
-                        child: ElevatedButton(
-                          onPressed: () => _setPaymentAmount(
-                              roundToNearestIndonesianCurrency(totalHarga)),
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            textStyle: const TextStyle(
-                              fontSize: 14,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  15), // Customize the border radius here
-                            ),
-                          ),
-                          child: Text(formatRupiah(
-                              roundToNearestIndonesianCurrency(totalHarga))),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 80, top: 20),
-                        child: ElevatedButton(
-                          onPressed: () => _setPaymentAmount(
-                              roundToNearestIndonesianCurrency(totalHarga * 2)),
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            textStyle: const TextStyle(
-                              fontSize: 14,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  15), // Customize the border radius here
-                            ),
-                          ),
-                          child: Text(formatRupiah(
-                              roundToNearestIndonesianCurrency(
-                                  totalHarga * 2))),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 300),
-                child: TextField(
-                  style: const TextStyle(color: Colors.black),
-                  controller: paymentController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Jumlah Lain',
-                    floatingLabelStyle: TextStyle(color: Colors.green),
-                    labelStyle: TextStyle(
-                      color: Color.fromARGB(255, 169, 204, 170),
-                    ),
-                    contentPadding: EdgeInsets.all(20),
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red, width: 1),
-                    ),
-                    fillColor: Colors.white,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-            ],
-          ),
+            );
+          },
         ),
       ),
       bottomNavigationBar: isButtonVisible
@@ -205,54 +290,25 @@ class _BayarPageState extends State<BayarPage> {
               color: Colors.white12,
               child: Padding(
                 padding: const EdgeInsets.all(1.0),
-                child: BlocBuilder<PaymentBloc, PaymentState>(
-                  builder: (context, state) {
-                    return ElevatedButton(
-                      onPressed: () {
-                        final int payment =
-                            int.tryParse(paymentController.text) ?? 0;
-                        final int kembalian = payment - totalHarga;
+                child: ElevatedButton(
+                  onPressed: () {
+                    final int payment =
+                        int.tryParse(paymentController.text) ?? 0;
+                    final int kembalian = payment - totalHarga;
 
-                        context.read<PaymentBloc>().add(UpdatePayment(
-                              totalBayar: payment,
-                              kembalian: kembalian,
-                              metodePembayaran: selectedMethod
-                                  .toString(), // tambahkan metode pembayaran
-                            ));
-
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('Pembayaran Berhasil'),
-                              content:
-                                  Text('Kembalian: ${formatRupiah(kembalian)}'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                    Navigator.of(context)
-                                        .pop(); // Kembali ke halaman sebelumnya
-                                  },
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue[800],
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        textStyle: const TextStyle(fontSize: 18),
-                      ),
-                      child: const Text('Bayar'),
-                    );
+                    context.read<PaymentBloc>().add(PaymentEvent.updatePayment(
+                          totalBayar: payment,
+                          total: totalHarga,
+                          kembalian: kembalian,
+                          metodePembayaran: selectedMethod.toString(),
+                        ));
+                    
                   },
+                  child: const Text('Bayar'),
                 ),
               ),
             )
-          : null,
+          : const SizedBox(),
     );
   }
 }

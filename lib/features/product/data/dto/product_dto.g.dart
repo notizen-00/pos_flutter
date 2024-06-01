@@ -11,7 +11,7 @@ _$ProductDtoImpl _$$ProductDtoImplFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num).toInt(),
       nama: json['nama'] as String,
       kategoriId: (json['kategori_id'] as num).toInt(),
-      harga: json['harga'] as String,
+      harga: (json['harga'] as num).toInt(),
       favorit: (json['favorit'] as num).toInt(),
       status: (json['status'] as num).toInt(),
       deskripsi: json['deskripsi'] as String?,

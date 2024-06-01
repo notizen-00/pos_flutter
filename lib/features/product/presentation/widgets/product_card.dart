@@ -4,7 +4,6 @@ import 'package:blog_app/features/cashier/presentation/bloc/cashier_bloc.dart';
 import 'package:blog_app/features/product/domain/entities/product.dart';
 // import 'package:blog_app/features/product/presentation/bloc/product_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -127,7 +126,7 @@ class ProductCard extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      formatRupiah(int.parse(product.harga)),
+                                      formatRupiah(product.harga),
                                       style: const TextStyle(
                                         fontSize: 8,
                                         color: Colors.white70,
@@ -153,7 +152,7 @@ class ProductCard extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    formatRupiah(int.parse(product.harga)),
+                                    formatRupiah(product.harga),
                                     style: const TextStyle(
                                       fontSize: 10,
                                       color: Colors.white70,

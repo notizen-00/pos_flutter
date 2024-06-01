@@ -4,7 +4,7 @@ class Product extends Equatable {
   final int id;
   final String nama;
   final int kategoriId;
-  final String harga;
+  final int harga;
   final int favorit;
   final int status;
   final String deskripsi;
@@ -31,7 +31,7 @@ class Product extends Equatable {
     int? id,
     String? nama,
     int? kategoriId,
-    String? harga,
+    int? harga,
     int? favorit,
     int? status,
     String? deskripsi,

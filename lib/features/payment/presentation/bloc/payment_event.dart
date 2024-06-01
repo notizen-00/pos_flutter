@@ -7,7 +7,7 @@ class PaymentEvent with _$PaymentEvent {
   const factory PaymentEvent.updatePayment({
     required int totalBayar,
     required int kembalian,
+    required int total,
     required String metodePembayaran,
-    String ? errorMessage 
   }) = UpdatePayment;
 }

@@ -4,31 +4,16 @@ part 'payment_state.freezed.dart';
 
 @freezed
 class PaymentState with _$PaymentState {
-  const factory PaymentState({
+  
+ const factory PaymentState.initial() = _Initial;
+
+  const factory PaymentState.updated({
     required int totalBayar,
     required int total,
     required int kembalian,
-    required String metodePembayaran, 
-    required String errorMessage
-  }) = _PaymentState;
+    required String metodePembayaran,
+  }) = _Updated;
 
-  factory PaymentState.initial() => const PaymentState(
-    totalBayar: 0,
-    total: 0,
-    kembalian: 0,
-    metodePembayaran:'',
-    errorMessage: ''
-  );
+ const factory PaymentState.failure({required String message}) = _Failure;
 
-  factory PaymentState.updated({required int totalBayar,required int total,required int kembalian,required String metodePembayaran}) => const PaymentState(
-    totalBayar: totalBayar,
-    total: total,
-    kembalian: kembalian,
-    metodePembayaran: metodePembayaran
-
-
-  );
-
- factory PaymentState.failure({required String message}) =>
-      PaymentState(errorMessage: message);
 }

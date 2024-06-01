@@ -24,7 +24,7 @@ mixin _$ProductDto {
   String get nama => throw _privateConstructorUsedError;
   @JsonKey(name: 'kategori_id')
   int get kategoriId => throw _privateConstructorUsedError;
-  String get harga => throw _privateConstructorUsedError;
+  int get harga => throw _privateConstructorUsedError;
   int get favorit => throw _privateConstructorUsedError;
   int get status => throw _privateConstructorUsedError;
   String? get deskripsi => throw _privateConstructorUsedError;
@@ -51,7 +51,7 @@ abstract class $ProductDtoCopyWith<$Res> {
       {int id,
       String nama,
       @JsonKey(name: 'kategori_id') int kategoriId,
-      String harga,
+      int harga,
       int favorit,
       int status,
       String? deskripsi,
@@ -104,7 +104,7 @@ class _$ProductDtoCopyWithImpl<$Res, $Val extends ProductDto>
       harga: null == harga
           ? _value.harga
           : harga // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       favorit: null == favorit
           ? _value.favorit
           : favorit // ignore: cast_nullable_to_non_nullable
@@ -157,7 +157,7 @@ abstract class _$$ProductDtoImplCopyWith<$Res>
       {int id,
       String nama,
       @JsonKey(name: 'kategori_id') int kategoriId,
-      String harga,
+      int harga,
       int favorit,
       int status,
       String? deskripsi,
@@ -209,7 +209,7 @@ class __$$ProductDtoImplCopyWithImpl<$Res>
       harga: null == harga
           ? _value.harga
           : harga // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       favorit: null == favorit
           ? _value.favorit
           : favorit // ignore: cast_nullable_to_non_nullable
@@ -269,7 +269,7 @@ class _$ProductDtoImpl with DiagnosticableTreeMixin implements _ProductDto {
   @JsonKey(name: 'kategori_id')
   final int kategoriId;
   @override
-  final String harga;
+  final int harga;
   @override
   final int favorit;
   @override
@@ -357,7 +357,7 @@ abstract class _ProductDto implements ProductDto {
       {required final int id,
       required final String nama,
       @JsonKey(name: 'kategori_id') required final int kategoriId,
-      required final String harga,
+      required final int harga,
       required final int favorit,
       required final int status,
       final String? deskripsi,
@@ -377,7 +377,7 @@ abstract class _ProductDto implements ProductDto {
   @JsonKey(name: 'kategori_id')
   int get kategoriId;
   @override
-  String get harga;
+  int get harga;
   @override
   int get favorit;
   @override

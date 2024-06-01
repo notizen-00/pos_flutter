@@ -18,26 +18,26 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PaymentEvent {
   int get totalBayar => throw _privateConstructorUsedError;
   int get kembalian => throw _privateConstructorUsedError;
+  int get total => throw _privateConstructorUsedError;
   String get metodePembayaran => throw _privateConstructorUsedError;
-  String? get errorMessage => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int totalBayar, int kembalian,
-            String metodePembayaran, String? errorMessage)
+    required TResult Function(
+            int totalBayar, int kembalian, int total, String metodePembayaran)
         updatePayment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int totalBayar, int kembalian, String metodePembayaran,
-            String? errorMessage)?
+    TResult? Function(
+            int totalBayar, int kembalian, int total, String metodePembayaran)?
         updatePayment,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int totalBayar, int kembalian, String metodePembayaran,
-            String? errorMessage)?
+    TResult Function(
+            int totalBayar, int kembalian, int total, String metodePembayaran)?
         updatePayment,
     required TResult orElse(),
   }) =>
@@ -71,10 +71,7 @@ abstract class $PaymentEventCopyWith<$Res> {
       _$PaymentEventCopyWithImpl<$Res, PaymentEvent>;
   @useResult
   $Res call(
-      {int totalBayar,
-      int kembalian,
-      String metodePembayaran,
-      String? errorMessage});
+      {int totalBayar, int kembalian, int total, String metodePembayaran});
 }
 
 /// @nodoc
@@ -92,8 +89,8 @@ class _$PaymentEventCopyWithImpl<$Res, $Val extends PaymentEvent>
   $Res call({
     Object? totalBayar = null,
     Object? kembalian = null,
+    Object? total = null,
     Object? metodePembayaran = null,
-    Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
       totalBayar: null == totalBayar
@@ -104,14 +101,14 @@ class _$PaymentEventCopyWithImpl<$Res, $Val extends PaymentEvent>
           ? _value.kembalian
           : kembalian // ignore: cast_nullable_to_non_nullable
               as int,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as int,
       metodePembayaran: null == metodePembayaran
           ? _value.metodePembayaran
           : metodePembayaran // ignore: cast_nullable_to_non_nullable
               as String,
-      errorMessage: freezed == errorMessage
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 }
@@ -125,10 +122,7 @@ abstract class _$$UpdatePaymentImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int totalBayar,
-      int kembalian,
-      String metodePembayaran,
-      String? errorMessage});
+      {int totalBayar, int kembalian, int total, String metodePembayaran});
 }
 
 /// @nodoc
@@ -144,8 +138,8 @@ class __$$UpdatePaymentImplCopyWithImpl<$Res>
   $Res call({
     Object? totalBayar = null,
     Object? kembalian = null,
+    Object? total = null,
     Object? metodePembayaran = null,
-    Object? errorMessage = freezed,
   }) {
     return _then(_$UpdatePaymentImpl(
       totalBayar: null == totalBayar
@@ -156,14 +150,14 @@ class __$$UpdatePaymentImplCopyWithImpl<$Res>
           ? _value.kembalian
           : kembalian // ignore: cast_nullable_to_non_nullable
               as int,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as int,
       metodePembayaran: null == metodePembayaran
           ? _value.metodePembayaran
           : metodePembayaran // ignore: cast_nullable_to_non_nullable
               as String,
-      errorMessage: freezed == errorMessage
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -174,21 +168,21 @@ class _$UpdatePaymentImpl implements UpdatePayment {
   const _$UpdatePaymentImpl(
       {required this.totalBayar,
       required this.kembalian,
-      required this.metodePembayaran,
-      this.errorMessage});
+      required this.total,
+      required this.metodePembayaran});
 
   @override
   final int totalBayar;
   @override
   final int kembalian;
   @override
-  final String metodePembayaran;
+  final int total;
   @override
-  final String? errorMessage;
+  final String metodePembayaran;
 
   @override
   String toString() {
-    return 'PaymentEvent.updatePayment(totalBayar: $totalBayar, kembalian: $kembalian, metodePembayaran: $metodePembayaran, errorMessage: $errorMessage)';
+    return 'PaymentEvent.updatePayment(totalBayar: $totalBayar, kembalian: $kembalian, total: $total, metodePembayaran: $metodePembayaran)';
   }
 
   @override
@@ -200,15 +194,14 @@ class _$UpdatePaymentImpl implements UpdatePayment {
                 other.totalBayar == totalBayar) &&
             (identical(other.kembalian, kembalian) ||
                 other.kembalian == kembalian) &&
+            (identical(other.total, total) || other.total == total) &&
             (identical(other.metodePembayaran, metodePembayaran) ||
-                other.metodePembayaran == metodePembayaran) &&
-            (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.metodePembayaran == metodePembayaran));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, totalBayar, kembalian, metodePembayaran, errorMessage);
+  int get hashCode =>
+      Object.hash(runtimeType, totalBayar, kembalian, total, metodePembayaran);
 
   @JsonKey(ignore: true)
   @override
@@ -219,35 +212,33 @@ class _$UpdatePaymentImpl implements UpdatePayment {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int totalBayar, int kembalian,
-            String metodePembayaran, String? errorMessage)
+    required TResult Function(
+            int totalBayar, int kembalian, int total, String metodePembayaran)
         updatePayment,
   }) {
-    return updatePayment(totalBayar, kembalian, metodePembayaran, errorMessage);
+    return updatePayment(totalBayar, kembalian, total, metodePembayaran);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int totalBayar, int kembalian, String metodePembayaran,
-            String? errorMessage)?
+    TResult? Function(
+            int totalBayar, int kembalian, int total, String metodePembayaran)?
         updatePayment,
   }) {
-    return updatePayment?.call(
-        totalBayar, kembalian, metodePembayaran, errorMessage);
+    return updatePayment?.call(totalBayar, kembalian, total, metodePembayaran);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int totalBayar, int kembalian, String metodePembayaran,
-            String? errorMessage)?
+    TResult Function(
+            int totalBayar, int kembalian, int total, String metodePembayaran)?
         updatePayment,
     required TResult orElse(),
   }) {
     if (updatePayment != null) {
-      return updatePayment(
-          totalBayar, kembalian, metodePembayaran, errorMessage);
+      return updatePayment(totalBayar, kembalian, total, metodePembayaran);
     }
     return orElse();
   }
@@ -285,17 +276,17 @@ abstract class UpdatePayment implements PaymentEvent {
   const factory UpdatePayment(
       {required final int totalBayar,
       required final int kembalian,
-      required final String metodePembayaran,
-      final String? errorMessage}) = _$UpdatePaymentImpl;
+      required final int total,
+      required final String metodePembayaran}) = _$UpdatePaymentImpl;
 
   @override
   int get totalBayar;
   @override
   int get kembalian;
   @override
-  String get metodePembayaran;
+  int get total;
   @override
-  String? get errorMessage;
+  String get metodePembayaran;
   @override
   @JsonKey(ignore: true)
   _$$UpdatePaymentImplCopyWith<_$UpdatePaymentImpl> get copyWith =>

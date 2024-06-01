@@ -9,7 +9,7 @@ class ProductDto with _$ProductDto {
     required int id,
     required String nama,
     @JsonKey(name: 'kategori_id') required int kategoriId,
-    required String harga,
+    required int harga,
     required int favorit,
     required int status,
     String? deskripsi,

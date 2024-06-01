@@ -71,7 +71,7 @@ class CashierPage extends StatelessWidget {
                                     style: const TextStyle(fontSize: 12),
                                   ),
                                   subtitle: Text(
-                                    formatRupiah(int.parse(item.product.harga)),
+                                    formatRupiah(item.product.harga),
                                     style: const TextStyle(fontSize: 10),
                                   ),
                                   trailing: Row(
