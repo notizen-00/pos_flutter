@@ -14,7 +14,22 @@ class CashierBloc extends Bloc<CashierEvent, CashierState> {
     on<RemoveProductFromCashier>(_onRemoveProductFromCashier);
     on<IncrementQuantity>(_incrementQuantity);
     on<DecrementQuantity>(_decrementQuantity);
+    on<ResetCashier>(_resetCashier);
   }
+
+void _resetCashier(ResetCashier event,Emitter<CashierState> emit ) async{
+  try{
+    final currentState = state;
+    if(currentState is CashierUpdated){
+      emit(CashierInitial());
+    }
+    
+
+  }catch(e)
+  {
+    emit(CashierFailure(e.toString()));
+  }
+}
 
 void _incrementQuantity(IncrementQuantity event,Emitter<CashierState> emit) async{
   try{

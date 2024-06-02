@@ -16,6 +16,7 @@ class IncrementQuantity extends CashierEvent {
   final Product product;
   const IncrementQuantity(this.product);
 }
+class ResetCashier extends CashierEvent {}
 
 class DecrementQuantity extends CashierEvent {
   final Product product;

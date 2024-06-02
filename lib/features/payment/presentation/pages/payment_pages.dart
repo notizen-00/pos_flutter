@@ -29,7 +29,7 @@ class _BayarPageState extends State<BayarPage> {
 
   int roundToNearestIndonesianCurrency(int amount) {
     const int startingAmount = 5000;
-    const int endingAmount = 500000;
+    const int endingAmount = 200000;
     const int step = 5000;
     List<int> indonesianCurrencies = [];
     for (int i = startingAmount; i <= endingAmount; i += step) {
@@ -70,15 +70,17 @@ class _BayarPageState extends State<BayarPage> {
   }
 
   void _showPaymentSuccessModal(BuildContext context, int totalBayar, int total, int kembalian, String metodePembayaran) {
-    showDialog(
-      barrierColor: Colors.green[100],
-      context: context,
-      builder: (BuildContext context) {
-        final cashierState = context.read<CashierBloc>().state;
-        final authState = context.read<AuthBloc>().state;
-        
-        
-        return AlertDialog(
+  showDialog(
+    barrierColor: Colors.green[100],
+    context: context,
+    builder: (BuildContext context) {
+      final cashierState = context.read<CashierBloc>().state;
+      final authState = context.read<AuthBloc>().state;
+
+      return PopScope(
+        canPop: false,
+
+        child: AlertDialog(
           title: const Text('Simpan Transaksi ?'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -88,36 +90,69 @@ class _BayarPageState extends State<BayarPage> {
               Text('Total: ${formatRupiah(total)}'),
               Text('Kembalian: ${formatRupiah(kembalian)}'),
               Text('Metode Pembayaran: $metodePembayaran'),
-              if(authState is AuthSuccess) ...[
+              if (authState is AuthSuccess) ...[
                 Text('ID Kasir: ${authState.user.id}'),
                 Text('Nama Cashier: ${authState.user.name}'),
-              ]else ...{
+              ] else ...{
                 const Text('kasir tidak login'),
               },
 
               if (cashierState is CashierUpdated) ...[
-              
-              
-              Text('ID Cashier: ${cashierState.cashier.items.toString()}'),
-              // Add other relevant fields from Cashier object
+                Text('ID Cashier: ${cashierState.cashier.items.toString()}'),
+                // Add other relevant fields from Cashier object
               ] else ...{
-              const Text('Loading...'), // or Error message if needed
+                const Text('Loading...'), // or Error message if needed
               }
             ],
           ),
           actions: <Widget>[
             TextButton(
+              
               onPressed: () {
+                context.read<PaymentBloc>().add(
+                  PaymentEvent.updatePayment(
+                    totalBayar: 0,
+                    total: total,
+                    kembalian: 0,
+                    metodePembayaran: selectedMethod.name,
+                  ),
+                );
+                Navigator.of(context).pop();
+                
+                
+              
+              },
+              child: const Text('Kembali'),
+            ),
+              TextButton(
+              onPressed: () {
+                // Simpan nilai-nilai totalBayar, total, dan kembalian
+                context.read<PaymentBloc>().add(
+                  PaymentEvent.updatePayment(
+                    totalBayar: totalBayar,
+                    total: total,
+                    kembalian: kembalian,
+                    metodePembayaran: metodePembayaran,
+                  ),
+                );
+
+                // Atur ulang bloc Cashier dan Payment
+                context.read<CashierBloc>().add(ResetCashier());
+                context.read<PaymentBloc>().add(const PaymentEvent.paymentReset());
+                
+                // Tutup modal
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
               child: const Text('Simpan'),
             ),
           ],
-        );
-      },
-    );
-  }
+        ),
+      );
+    },
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -198,7 +233,7 @@ class _BayarPageState extends State<BayarPage> {
                               padding: const EdgeInsets.only(bottom: 80, top: 20),
                               child: ElevatedButton(
                                 onPressed: ()  { _setPaymentAmount(
-                                    roundToNearestIndonesianCurrency(totalHarga)
+                                    roundToNearestIndonesianCurrency(totalHarga *2)
                                   );
                                     final int payment =
                         int.tryParse(paymentController.text) ?? 0;
@@ -208,7 +243,7 @@ class _BayarPageState extends State<BayarPage> {
                           totalBayar: payment,
                           total: totalHarga,
                           kembalian: kembalian,
-                          metodePembayaran: selectedMethod.toString(),
+                          metodePembayaran: selectedMethod.name,
                         ));
                                     },
                                 style: ElevatedButton.styleFrom(
@@ -219,7 +254,7 @@ class _BayarPageState extends State<BayarPage> {
                                   ),
                                 ),
                                 child: Text(formatRupiah(
-                                    roundToNearestIndonesianCurrency(totalHarga))),
+                                    roundToNearestIndonesianCurrency(totalHarga * 2))),
                               ),
                             ),
                             Padding(
@@ -227,7 +262,7 @@ class _BayarPageState extends State<BayarPage> {
                               child: ElevatedButton(
                                 onPressed: () {
                                     _setPaymentAmount(
-                                    roundToNearestIndonesianCurrency(totalHarga * 2)
+                                    roundToNearestIndonesianCurrency(totalHarga * 3)
                                     );
 
 
@@ -239,7 +274,7 @@ class _BayarPageState extends State<BayarPage> {
                           totalBayar: payment,
                           total: totalHarga,
                           kembalian: kembalian,
-                          metodePembayaran: selectedMethod.toString(),
+                          metodePembayaran: selectedMethod.name,
                         ));
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -250,7 +285,38 @@ class _BayarPageState extends State<BayarPage> {
                                   ),
                                 ),
                                 child: Text(formatRupiah(
-                                    roundToNearestIndonesianCurrency(totalHarga * 2))),
+                                    roundToNearestIndonesianCurrency(totalHarga * 3))),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 80, top: 20),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                    _setPaymentAmount(
+                                    roundToNearestIndonesianCurrency(totalHarga *4)
+                                    );
+
+
+                                    final int payment =
+                        int.tryParse(paymentController.text) ?? 0;
+                    final int kembalian = payment - totalHarga;
+
+                    context.read<PaymentBloc>().add(PaymentEvent.updatePayment(
+                          totalBayar: payment,
+                          total: totalHarga,
+                          kembalian: kembalian,
+                          metodePembayaran: selectedMethod.name,
+                        ));
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.white,
+                                  textStyle: const TextStyle(fontSize: 14),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                                child: Text(formatRupiah(
+                                    roundToNearestIndonesianCurrency(totalHarga *4))),
                               ),
                             ),
                           ],
@@ -300,7 +366,7 @@ class _BayarPageState extends State<BayarPage> {
                           totalBayar: payment,
                           total: totalHarga,
                           kembalian: kembalian,
-                          metodePembayaran: selectedMethod.toString(),
+                          metodePembayaran: selectedMethod.name,
                         ));
                     
                   },

@@ -16,15 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PaymentEvent {
-  int get totalBayar => throw _privateConstructorUsedError;
-  int get kembalian => throw _privateConstructorUsedError;
-  int get total => throw _privateConstructorUsedError;
-  String get metodePembayaran => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
             int totalBayar, int kembalian, int total, String metodePembayaran)
         updatePayment,
+    required TResult Function() paymentReset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -32,6 +29,7 @@ mixin _$PaymentEvent {
     TResult? Function(
             int totalBayar, int kembalian, int total, String metodePembayaran)?
         updatePayment,
+    TResult? Function()? paymentReset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,28 +37,28 @@ mixin _$PaymentEvent {
     TResult Function(
             int totalBayar, int kembalian, int total, String metodePembayaran)?
         updatePayment,
+    TResult Function()? paymentReset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(UpdatePayment value) updatePayment,
+    required TResult Function(PaymentReset value) paymentReset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(UpdatePayment value)? updatePayment,
+    TResult? Function(PaymentReset value)? paymentReset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UpdatePayment value)? updatePayment,
+    TResult Function(PaymentReset value)? paymentReset,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $PaymentEventCopyWith<PaymentEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -69,9 +67,6 @@ abstract class $PaymentEventCopyWith<$Res> {
   factory $PaymentEventCopyWith(
           PaymentEvent value, $Res Function(PaymentEvent) then) =
       _$PaymentEventCopyWithImpl<$Res, PaymentEvent>;
-  @useResult
-  $Res call(
-      {int totalBayar, int kembalian, int total, String metodePembayaran});
 }
 
 /// @nodoc
@@ -83,43 +78,13 @@ class _$PaymentEventCopyWithImpl<$Res, $Val extends PaymentEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? totalBayar = null,
-    Object? kembalian = null,
-    Object? total = null,
-    Object? metodePembayaran = null,
-  }) {
-    return _then(_value.copyWith(
-      totalBayar: null == totalBayar
-          ? _value.totalBayar
-          : totalBayar // ignore: cast_nullable_to_non_nullable
-              as int,
-      kembalian: null == kembalian
-          ? _value.kembalian
-          : kembalian // ignore: cast_nullable_to_non_nullable
-              as int,
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as int,
-      metodePembayaran: null == metodePembayaran
-          ? _value.metodePembayaran
-          : metodePembayaran // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$UpdatePaymentImplCopyWith<$Res>
-    implements $PaymentEventCopyWith<$Res> {
+abstract class _$$UpdatePaymentImplCopyWith<$Res> {
   factory _$$UpdatePaymentImplCopyWith(
           _$UpdatePaymentImpl value, $Res Function(_$UpdatePaymentImpl) then) =
       __$$UpdatePaymentImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call(
       {int totalBayar, int kembalian, int total, String metodePembayaran});
@@ -215,6 +180,7 @@ class _$UpdatePaymentImpl implements UpdatePayment {
     required TResult Function(
             int totalBayar, int kembalian, int total, String metodePembayaran)
         updatePayment,
+    required TResult Function() paymentReset,
   }) {
     return updatePayment(totalBayar, kembalian, total, metodePembayaran);
   }
@@ -225,6 +191,7 @@ class _$UpdatePaymentImpl implements UpdatePayment {
     TResult? Function(
             int totalBayar, int kembalian, int total, String metodePembayaran)?
         updatePayment,
+    TResult? Function()? paymentReset,
   }) {
     return updatePayment?.call(totalBayar, kembalian, total, metodePembayaran);
   }
@@ -235,6 +202,7 @@ class _$UpdatePaymentImpl implements UpdatePayment {
     TResult Function(
             int totalBayar, int kembalian, int total, String metodePembayaran)?
         updatePayment,
+    TResult Function()? paymentReset,
     required TResult orElse(),
   }) {
     if (updatePayment != null) {
@@ -247,6 +215,7 @@ class _$UpdatePaymentImpl implements UpdatePayment {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(UpdatePayment value) updatePayment,
+    required TResult Function(PaymentReset value) paymentReset,
   }) {
     return updatePayment(this);
   }
@@ -255,6 +224,7 @@ class _$UpdatePaymentImpl implements UpdatePayment {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(UpdatePayment value)? updatePayment,
+    TResult? Function(PaymentReset value)? paymentReset,
   }) {
     return updatePayment?.call(this);
   }
@@ -263,6 +233,7 @@ class _$UpdatePaymentImpl implements UpdatePayment {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UpdatePayment value)? updatePayment,
+    TResult Function(PaymentReset value)? paymentReset,
     required TResult orElse(),
   }) {
     if (updatePayment != null) {
@@ -279,16 +250,119 @@ abstract class UpdatePayment implements PaymentEvent {
       required final int total,
       required final String metodePembayaran}) = _$UpdatePaymentImpl;
 
-  @override
   int get totalBayar;
-  @override
   int get kembalian;
-  @override
   int get total;
-  @override
   String get metodePembayaran;
-  @override
   @JsonKey(ignore: true)
   _$$UpdatePaymentImplCopyWith<_$UpdatePaymentImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PaymentResetImplCopyWith<$Res> {
+  factory _$$PaymentResetImplCopyWith(
+          _$PaymentResetImpl value, $Res Function(_$PaymentResetImpl) then) =
+      __$$PaymentResetImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PaymentResetImplCopyWithImpl<$Res>
+    extends _$PaymentEventCopyWithImpl<$Res, _$PaymentResetImpl>
+    implements _$$PaymentResetImplCopyWith<$Res> {
+  __$$PaymentResetImplCopyWithImpl(
+      _$PaymentResetImpl _value, $Res Function(_$PaymentResetImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$PaymentResetImpl implements PaymentReset {
+  const _$PaymentResetImpl();
+
+  @override
+  String toString() {
+    return 'PaymentEvent.paymentReset()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$PaymentResetImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            int totalBayar, int kembalian, int total, String metodePembayaran)
+        updatePayment,
+    required TResult Function() paymentReset,
+  }) {
+    return paymentReset();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            int totalBayar, int kembalian, int total, String metodePembayaran)?
+        updatePayment,
+    TResult? Function()? paymentReset,
+  }) {
+    return paymentReset?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            int totalBayar, int kembalian, int total, String metodePembayaran)?
+        updatePayment,
+    TResult Function()? paymentReset,
+    required TResult orElse(),
+  }) {
+    if (paymentReset != null) {
+      return paymentReset();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(UpdatePayment value) updatePayment,
+    required TResult Function(PaymentReset value) paymentReset,
+  }) {
+    return paymentReset(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(UpdatePayment value)? updatePayment,
+    TResult? Function(PaymentReset value)? paymentReset,
+  }) {
+    return paymentReset?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(UpdatePayment value)? updatePayment,
+    TResult Function(PaymentReset value)? paymentReset,
+    required TResult orElse(),
+  }) {
+    if (paymentReset != null) {
+      return paymentReset(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PaymentReset implements PaymentEvent {
+  const factory PaymentReset() = _$PaymentResetImpl;
 }

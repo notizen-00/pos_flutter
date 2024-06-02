@@ -10,4 +10,6 @@ class PaymentEvent with _$PaymentEvent {
     required int total,
     required String metodePembayaran,
   }) = UpdatePayment;
+
+  const factory PaymentEvent.paymentReset() = PaymentReset;
 }

@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class CashierPage extends StatelessWidget {
   const CashierPage({
     super.key,
@@ -140,8 +139,32 @@ class CashierPage extends StatelessWidget {
                         );
                 } else if (state is CashierFailure) {
                   return Center(child: Text('Error: ${state.message}'));
+                } else if (state is CashierInitial) {
+                  return Container(
+                    color: Colors.white12,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.info, size: 48, color: Colors.grey),
+                          const SizedBox(height: 15),
+                          const Text(
+                            'Data Kasir kosong',
+                            style: TextStyle(fontSize: 16, color: Colors.grey),
+                          ),
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Logika untuk memilih produk
+                            },
+                            child: const Text('Pilih Produk'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
                 } else {
-                  return const SizedBox.shrink();
+                  return const Center(child: Text('Error: '));
                 }
               },
             ),
@@ -149,36 +172,48 @@ class CashierPage extends StatelessWidget {
           Expanded(
             flex: 3,
             child: Stack(
-              children: [// BoxDecoration yang memenuhi ruang vertikal
+              children: [
+                // BoxDecoration yang memenuhi ruang vertikal
                 Container(
                   decoration: const BoxDecoration(
                     color: AppPallete.primary,
-                    borderRadius: BorderRadius.only(topLeft:Radius.circular(0),topRight: Radius.circular(70)),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(0),
+                        topRight: Radius.circular(70)),
                   ),
                   // Placeholder untuk subtotal
-                  child: 
-                  Center(
+                  child: Center(
                     child: BlocBuilder<CashierBloc, CashierState>(
-                        builder: (context, state) {
+                      builder: (context, state) {
                         if (state is CashierUpdated) {
-
-                            final authState = context.read<AuthBloc>().state;
-                            String username = '';
-                            if (authState is AuthSuccess) {
-                              username = authState.user.name;
-                            }
-                        return ListTile(
-                                dense:true,
-                                title:Text('Total: ${formatRupiah(state.cashier.totalHarga)}'),
-                                subtitle:Text('Kasir : $username'),
-
-                              );
-                          } else {
+                          final authState = context.read<AuthBloc>().state;
+                          String username = '';
+                          if (authState is AuthSuccess) {
+                            username = authState.user.name;
+                          }
+                          return ListTile(
+                            dense: true,
+                            title: Text(
+                                'Total: ${formatRupiah(state.cashier.totalHarga)}'),
+                            subtitle: Text('Kasir : $username'),
+                          );
+                        } else if (state is CashierInitial) {
+                          final authState = context.read<AuthBloc>().state;
+                          String username = '';
+                          if (authState is AuthSuccess) {
+                            username = authState.user.name;
+                          }
+                          return ListTile(
+                            dense: true,
+                            title: const Text('Total : Rp. 0'),
+                            subtitle: Text('Kasir : $username'),
+                          );
+                        } else {
                           return const SizedBox.shrink();
                         }
-                        },
-                        ),
+                      },
                     ),
+                  ),
                 ),
                 // Tombol Simpan dan Bayar di atas BoxDecoration
                 Positioned(
@@ -189,33 +224,33 @@ class CashierPage extends StatelessWidget {
                     padding: const EdgeInsets.all(2),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-
                       children: [
                         // Tombol Simpan
+                        
                         ElevatedButton.icon(
-                          icon:const Icon(Icons.save),
-                          label:const Text('simpan'),
-                          onPressed: () {
-
-                            // Logika untuk menyimpan
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.amber[800],
-                            foregroundColor: Colors.white,
-                            elevation: 10,
-                            
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                            icon: const Icon(Icons.save),
+                            label: const Text('simpan'),
+                            onPressed: () {
+                              // Logika untuk menyimpan
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.amber[800],
+                              foregroundColor: Colors.white,
+                              elevation: 10,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
                             ),
                           ),
-                        ),
+                      
                         const SizedBox(width: 8),
-              
+
                         ElevatedButton.icon(
-                          icon:const Icon(Icons.payment),
-                          label:const Text('bayar'),
+                          icon: const Icon(Icons.payment),
+                          label: const Text('bayar'),
                           onPressed: () {
-                            final cashierState = context.read<CashierBloc>().state;
+                            final cashierState =
+                                context.read<CashierBloc>().state;
                             if (cashierState is CashierUpdated) {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
@@ -231,7 +266,6 @@ class CashierPage extends StatelessWidget {
                             backgroundColor: Colors.blue[800],
                             foregroundColor: Colors.white,
                             elevation: 10,
-                            
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
                             ),
