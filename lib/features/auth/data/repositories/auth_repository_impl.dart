@@ -16,7 +16,6 @@ class AuthRepositoryImpl implements AuthRepository {
     this.remoteDataSource,
     this.connectionChecker,
     this.tokenManager,
-    
   );
 
 @override
@@ -30,9 +29,7 @@ Future<Either<Failure, User>> userLogout() async {
     // Clear token
     
     await remoteDataSource.logoutUser();
-   
 
-    // Return empty user model or null
     return right(User(id: '', email: '', name: '', token: ''));
   } on ServerException catch (e) {
     return left(Failure(e.message.toString()));

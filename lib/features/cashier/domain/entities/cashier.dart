@@ -1,6 +1,5 @@
 import 'package:blog_app/features/payment/domain/entitites/payment.dart';
 import 'package:blog_app/features/product/domain/entities/product.dart';
-import 'package:blog_app/features/transaksi/domain/entitites/transaksi.dart';
 import 'package:equatable/equatable.dart';
 
 class Cashier extends Equatable {
@@ -25,11 +24,6 @@ class Cashier extends Equatable {
     );
   }
 
-  Transaction createTransaction() {
-    final payment = initiatePayment();
-    return Transaction(payment: payment, items: items,totalHarga:totalHarga);
-  }
-  
   @override
   List<Object> get props => [items];
 }
@@ -38,12 +32,13 @@ class Cashier extends Equatable {
 class CashierItem extends Equatable {
   final Product product;
   final int quantity;
+  final int subtotal;
 
 
   const CashierItem({
     required this.product,
     this.quantity = 0,
-  
+    this.subtotal = 0
   });
 
   CashierItem copyWith({
@@ -54,10 +49,10 @@ class CashierItem extends Equatable {
     return CashierItem(
       product: product ?? this.product,
       quantity: quantity ?? this.quantity,
-  
+      subtotal: subtotal ?? this.subtotal,
     );
   }
 
   @override
-  List<Object> get props => [product.id, quantity];
+  List<Object> get props => [product.id, quantity,subtotal];
 }

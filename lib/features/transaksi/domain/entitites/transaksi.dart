@@ -1,20 +1,55 @@
-// lib/features/transaction/domain/entities/transaction.dart
-import 'package:blog_app/features/payment/domain/entitites/payment.dart';
-import 'package:equatable/equatable.dart';
 import 'package:blog_app/features/cashier/domain/entities/cashier.dart';
+import 'package:equatable/equatable.dart';
 
-class Transaction extends Equatable {
-  final Payment payment;
-  final int totalHarga;
-  final List<CashierItem> items;
+class Transaksi extends Equatable {
+  final String pelangganId;
+  final String namaPelanggan;
+  final int meja;
+  final int authorId;
+  final int shiftId;
+  final String status;
+  final int total;
+  final String deskripsi;
+  final String totalTambahan;
+  final int pembayaran;
+  final String metodePembayaran;
+  final int kembalian;
+  final List<CashierItem> detailTransaksi;
+  final int totalBayar;
 
-  
-  const Transaction({
-    required this.payment,
-    required this.items,
-    required this.totalHarga,
+  const Transaksi({
+    required this.pelangganId,
+    required this.namaPelanggan,
+    required this.meja,
+    required this.authorId,
+    required this.shiftId,
+    required this.status,
+    required this.total,
+    required this.deskripsi,
+    required this.totalTambahan,
+    required this.pembayaran,
+    required this.metodePembayaran,
+    required this.kembalian,
+    required this.detailTransaksi,
+    required this.totalBayar,
   });
 
   @override
-  List<Object> get props => [payment, items,totalHarga];
+  List<Object?> get props => [
+        pelangganId,
+        namaPelanggan,
+        meja,
+        authorId,
+        shiftId,
+        status,
+        total,
+        deskripsi,
+        totalTambahan,
+        pembayaran,
+        metodePembayaran,
+        kembalian,
+        detailTransaksi,
+        totalBayar,
+      ];
 }
+

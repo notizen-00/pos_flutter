@@ -126,7 +126,7 @@ class _BayarPageState extends State<BayarPage> {
             ),
               TextButton(
               onPressed: () {
-                // Simpan nilai-nilai totalBayar, total, dan kembalian
+                
                 context.read<PaymentBloc>().add(
                   PaymentEvent.updatePayment(
                     totalBayar: totalBayar,
@@ -135,12 +135,9 @@ class _BayarPageState extends State<BayarPage> {
                     metodePembayaran: metodePembayaran,
                   ),
                 );
-
-                // Atur ulang bloc Cashier dan Payment
                 context.read<CashierBloc>().add(ResetCashier());
                 context.read<PaymentBloc>().add(const PaymentEvent.paymentReset());
-                
-                // Tutup modal
+              
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },

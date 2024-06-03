@@ -42,6 +42,7 @@ void _incrementQuantity(IncrementQuantity event,Emitter<CashierState> emit) asyn
         updatedItems[indexItem] = CashierItem(
           product: event.product,
           quantity: updatedItems[indexItem].quantity + 1,
+          subtotal: (updatedItems[indexItem].quantity + 1) * event.product.harga
         );
 
         emit(CashierUpdated(Cashier(items: updatedItems)));
@@ -57,18 +58,17 @@ void _decrementQuantity(DecrementQuantity event,Emitter<CashierState> emit) asyn
 
     if (currentState is CashierUpdated) {
       final updatedItems = List<CashierItem>.from(currentState.cashier.items);
-      // Find the index of the product to be removed
       final indexItem = updatedItems.indexWhere((item) => item.product.id == event.product.id);
 
       if (updatedItems[indexItem].quantity > 0) {
   if (updatedItems[indexItem].quantity == 1) {
-    // Jika jumlah item sama dengan 1, hapus item dari keranjang kasir
     updatedItems.removeAt(indexItem);
   } else {
     // Jika jumlah item lebih dari 1, kurangi satu item dari jumlahnya
     updatedItems[indexItem] = CashierItem(
       product: event.product,
       quantity: updatedItems[indexItem].quantity - 1,
+      subtotal: (updatedItems[indexItem].quantity - 1) * event.product.harga
     );
   }
   emit(CashierUpdated(Cashier(items: updatedItems)));
@@ -89,22 +89,23 @@ void _onAddProductToCashier(AddProductToCashier event, Emitter<CashierState> emi
       final existingItemIndex = currentState.cashier.items.indexWhere((item) => item.product.id == event.product.id);
       
       if (existingItemIndex != -1) {
-        // Produk dengan ID yang sama sudah ada, update kuantitasnya
+    
         final updatedItems = List<CashierItem>.from(currentState.cashier.items);
         updatedItems[existingItemIndex] = CashierItem(
           product: event.product,
           quantity: updatedItems[existingItemIndex].quantity + 1,
+          subtotal: (updatedItems[existingItemIndex].quantity + 1) * event.product.harga
         );
         emit(CashierUpdated(Cashier(items: updatedItems)));
       } else {
         // Produk dengan ID yang sama belum ada, tambahkan produk baru dengan kuantitas q
-        final newItem = CashierItem(product: event.product, quantity: 1);
+        final newItem = CashierItem(product: event.product, quantity: 1,subtotal:event.product.harga);
         final updatedItems = List<CashierItem>.from(currentState.cashier.items)..add(newItem);
         emit(CashierUpdated(Cashier(items: updatedItems)));
       }
     } else {
       // Keranjang masih kosong, tambahkan produk baru dengan kuantitas q
-      final newItem = CashierItem(product: event.product, quantity: 1);
+      final newItem = CashierItem(product: event.product, quantity: 1,subtotal:event.product.harga);
       emit(CashierUpdated(Cashier(items: [newItem])));
     }
   } catch (e) {
