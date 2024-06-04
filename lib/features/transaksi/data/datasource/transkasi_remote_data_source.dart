@@ -6,7 +6,7 @@ import 'package:blog_app/features/auth/data/models/user_model.dart';
 import 'dart:developer';
 
 
-abstract class AuthRemoteDataSource {
+abstract class TransaksiRemoteDataSource {
 
 
   Future<UserModel> loginWithEmailPassword({
@@ -20,11 +20,11 @@ abstract class AuthRemoteDataSource {
   
 }
 
-class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+class TransaksiRemoteDataSourceImpl implements TransaksiRemoteDataSource {
   final Dio dio;
   final TokenManager tokenManager;
 
-  AuthRemoteDataSourceImpl({
+  TransaksiRemoteDataSourceImpl({
     required this.dio,
     required this.tokenManager,
   });

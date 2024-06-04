@@ -17,7 +17,6 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
           kembalian: event.kembalian,
           metodePembayaran: event.metodePembayaran,
         ));
-    
       
     } catch (e) {
       emit(PaymentState.failure(message: e.toString()));

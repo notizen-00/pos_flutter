@@ -259,6 +259,16 @@ class CashierPage extends StatelessWidget {
                                   ),
                                 ),
                               );
+                            }else{
+                              ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  duration:Duration(milliseconds: 1000),
+                                  backgroundColor: Colors.redAccent,
+                                  closeIconColor: Colors.white,
+                                  showCloseIcon: true,
+                                  content: Text('Silakan isi data transaksi terlebih dahulu!',style: TextStyle(color:Colors.white),),
+                                ),
+                              );
                             }
                             // Logika untuk menyimpan
                           },

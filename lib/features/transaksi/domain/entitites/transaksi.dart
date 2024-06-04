@@ -3,13 +3,13 @@ import 'package:equatable/equatable.dart';
 
 class Transaksi extends Equatable {
   final String pelangganId;
-  final String namaPelanggan;
-  final int meja;
+  final String? namaPelanggan;
+  final int? meja;
   final int authorId;
   final int shiftId;
   final String status;
   final int total;
-  final String deskripsi;
+  final String? deskripsi;
   final String totalTambahan;
   final int pembayaran;
   final String metodePembayaran;
@@ -19,13 +19,13 @@ class Transaksi extends Equatable {
 
   const Transaksi({
     required this.pelangganId,
-    required this.namaPelanggan,
-    required this.meja,
+    this.namaPelanggan,
+    this.meja,
     required this.authorId,
     required this.shiftId,
     required this.status,
     required this.total,
-    required this.deskripsi,
+    this.deskripsi,
     required this.totalTambahan,
     required this.pembayaran,
     required this.metodePembayaran,

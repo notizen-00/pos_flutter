@@ -5,6 +5,7 @@ import 'package:blog_app/core/utils/show_snackbar.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/auth/presentation/pages/login_page.dart';
 import 'package:blog_app/features/cashier/presentation/pages/cashier_page.dart';
+import 'package:blog_app/features/meja/presentation/pages/meja_page.dart';
 import 'package:blog_app/features/product/presentation/bloc/product_bloc.dart';
 import 'package:blog_app/features/product/presentation/widgets/product_card.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,13 @@ class _ProductPageState extends State<ProductPage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+
+      if(_selectedIndex == 0){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MejaPage()),
+        );
+      }
     });
   }
 
@@ -104,25 +112,25 @@ class _ProductPageState extends State<ProductPage> {
               elevation: 5,
               minWidth: 56,
               groupAlignment: 0,
-              useIndicator: true,
-              indicatorColor: Colors.green[50],
+              useIndicator: false,
+              indicatorColor: Colors.white,
               selectedIndex: _selectedIndex,
               onDestinationSelected: _onItemTapped,
-              labelType: NavigationRailLabelType.selected,
+              labelType: NavigationRailLabelType.all,
               destinations: const [
                 NavigationRailDestination(
                   icon: Icon(Icons.table_restaurant),
-                  selectedIcon: Icon(Icons.table_restaurant,color: Colors.green),
+                  selectedIcon: Icon(Icons.table_restaurant,color: Colors.white),
                   label: Text('Meja'),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.calculate),
-                  selectedIcon: Icon(Icons.calculate,color: Colors.green),
+                  selectedIcon: Icon(Icons.calculate,color: Colors.white),
                   label: Text('Amount'),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.supervised_user_circle),
-                  selectedIcon: Icon(Icons.supervised_user_circle,color: Colors.green),
+                  selectedIcon: Icon(Icons.supervised_user_circle,color: Colors.white),
                   label: Text('Member'),
                 ),
               ],

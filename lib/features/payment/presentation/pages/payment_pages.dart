@@ -29,7 +29,7 @@ class _BayarPageState extends State<BayarPage> {
 
   int roundToNearestIndonesianCurrency(int amount) {
     const int startingAmount = 5000;
-    const int endingAmount = 200000;
+    const int endingAmount = 300000;
     const int step = 5000;
     List<int> indonesianCurrencies = [];
     for (int i = startingAmount; i <= endingAmount; i += step) {
@@ -81,7 +81,7 @@ class _BayarPageState extends State<BayarPage> {
         canPop: false,
 
         child: AlertDialog(
-          title: const Text('Simpan Transaksi ?'),
+          title: const Text('Pembayaran Berhasil'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,7 +99,7 @@ class _BayarPageState extends State<BayarPage> {
 
               if (cashierState is CashierUpdated) ...[
                 Text('ID Cashier: ${cashierState.cashier.items.toString()}'),
-                // Add other relevant fields from Cashier object
+            
               ] else ...{
                 const Text('Loading...'), // or Error message if needed
               }
@@ -204,7 +204,7 @@ class _BayarPageState extends State<BayarPage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    if (selectedMethod == Metode.tunai)
+              
                       Padding(
                         padding: const EdgeInsets.only(bottom: 20),
                         child: GridView.count(
@@ -230,7 +230,7 @@ class _BayarPageState extends State<BayarPage> {
                               padding: const EdgeInsets.only(bottom: 80, top: 20),
                               child: ElevatedButton(
                                 onPressed: ()  { _setPaymentAmount(
-                                    roundToNearestIndonesianCurrency(totalHarga *2)
+                                    roundToNearestIndonesianCurrency(totalHarga)
                                   );
                                     final int payment =
                         int.tryParse(paymentController.text) ?? 0;
@@ -251,6 +251,39 @@ class _BayarPageState extends State<BayarPage> {
                                   ),
                                 ),
                                 child: Text(formatRupiah(
+                                    roundToNearestIndonesianCurrency(totalHarga))),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 80, top: 20),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                    _setPaymentAmount(
+                                    roundToNearestIndonesianCurrency(totalHarga * 2)
+                                    );
+
+
+                                    final int payment =
+                        int.tryParse(paymentController.text) ?? 0;
+                    final int kembalian = payment - totalHarga;
+
+                    context.read<PaymentBloc>().add(PaymentEvent.updatePayment(
+                          totalBayar: payment,
+                          total: totalHarga,
+                          kembalian: kembalian,
+                          metodePembayaran: selectedMethod.name,
+                        ));   
+                        
+      
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.white,
+                                  textStyle: const TextStyle(fontSize: 14),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                                child: Text(formatRupiah(
                                     roundToNearestIndonesianCurrency(totalHarga * 2))),
                               ),
                             ),
@@ -259,7 +292,7 @@ class _BayarPageState extends State<BayarPage> {
                               child: ElevatedButton(
                                 onPressed: () {
                                     _setPaymentAmount(
-                                    roundToNearestIndonesianCurrency(totalHarga * 3)
+                                    roundToNearestIndonesianCurrency(totalHarga *3)
                                     );
 
 
@@ -282,38 +315,7 @@ class _BayarPageState extends State<BayarPage> {
                                   ),
                                 ),
                                 child: Text(formatRupiah(
-                                    roundToNearestIndonesianCurrency(totalHarga * 3))),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 80, top: 20),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                    _setPaymentAmount(
-                                    roundToNearestIndonesianCurrency(totalHarga *4)
-                                    );
-
-
-                                    final int payment =
-                        int.tryParse(paymentController.text) ?? 0;
-                    final int kembalian = payment - totalHarga;
-
-                    context.read<PaymentBloc>().add(PaymentEvent.updatePayment(
-                          totalBayar: payment,
-                          total: totalHarga,
-                          kembalian: kembalian,
-                          metodePembayaran: selectedMethod.name,
-                        ));
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.white,
-                                  textStyle: const TextStyle(fontSize: 14),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                ),
-                                child: Text(formatRupiah(
-                                    roundToNearestIndonesianCurrency(totalHarga *4))),
+                                    roundToNearestIndonesianCurrency(totalHarga *3))),
                               ),
                             ),
                           ],

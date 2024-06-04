@@ -5,7 +5,7 @@ final serviceLocator = GetIt.instance;
 Future<void> initDependencies() async {
   _initAuth();
   _initProduct();
-
+  _initTransaksi();
 
 
   Hive.defaultDirectory = (await getApplicationDocumentsDirectory()).path;
@@ -35,7 +35,24 @@ Future<void> initDependencies() async {
   );
 }
 
+void _initTransaksi(){
 
+  serviceLocator
+  ..registerFactory<TransaksiRemoteDataSource>(
+    ()=> TransaksiRemoteDataSourceImpl(
+        dio:serviceLocator(),
+        tokenManager:serviceLocator()
+    ),
+  )
+  ..registerFactory<TransaksiRepository>(
+    ()=>TransaksiRepositoryImpl(
+      serviceLocator(),
+      serviceLocator(),
+      serviceLocator()
+    )
+  );
+
+}
 void _initAuth() {
   // Datasource
   serviceLocator
