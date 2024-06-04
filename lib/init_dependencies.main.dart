@@ -50,7 +50,26 @@ void _initTransaksi(){
       serviceLocator(),
       serviceLocator()
     )
-  );
+  )
+  ..registerFactory( 
+      () => GetAllTransaksi(
+        serviceLocator(),
+      ),
+    )
+  ..registerFactory( 
+      () => SaveTransaksi(
+        serviceLocator(),
+      ),
+    )
+
+    // Bloc
+    ..registerLazySingleton(
+      () => TransaksiBloc(
+        getAllTransaksi: serviceLocator(),
+        saveTransaksi:serviceLocator(),
+      ),
+    );
+  
 
 }
 void _initAuth() {

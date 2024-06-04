@@ -8,6 +8,8 @@ import 'package:blog_app/features/cashier/presentation/pages/cashier_page.dart';
 import 'package:blog_app/features/meja/presentation/pages/meja_page.dart';
 import 'package:blog_app/features/product/presentation/bloc/product_bloc.dart';
 import 'package:blog_app/features/product/presentation/widgets/product_card.dart';
+import 'package:blog_app/features/transaksi/presentation/bloc/transaksi_bloc.dart';
+import 'package:blog_app/features/transaksi/presentation/pages/transaksi_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -93,7 +95,12 @@ class _ProductPageState extends State<ProductPage> {
             IconButton(
               icon: const Icon(Icons.shopping_cart_sharp),
               color: Colors.white,
-              onPressed: () async {},
+              onPressed: () async {
+                  context.read<TransaksiBloc>().add(TransaksiFetchAllTransaksi());
+                  Navigator.of(context).push(
+                    TransaksiPage.route()
+                  );
+              },
             ),
           ],
         ),
@@ -218,7 +225,9 @@ class _ProductPageState extends State<ProductPage> {
             icon: const Icon(Icons.shopping_cart_sharp),
             color: Colors.white,
             onPressed: () async {
-    
+            Navigator.of(context).push(
+            TransaksiPage.route(),
+            );
             },
           ),
         ],

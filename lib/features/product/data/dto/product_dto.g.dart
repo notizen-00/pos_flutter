@@ -18,7 +18,7 @@ _$ProductDtoImpl _$$ProductDtoImplFromJson(Map<String, dynamic> json) =>
       foto: json['foto'] as String?,
       createdAt: json['created_at'] as String,
       updatedAt: json['updated_at'] as String,
-      kategori: Kategori.fromJson(json['kategori'] as Map<String, dynamic>),
+      kategori: KategoriDto.fromJson(json['kategori'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ProductDtoImplToJson(_$ProductDtoImpl instance) =>
@@ -36,15 +36,15 @@ Map<String, dynamic> _$$ProductDtoImplToJson(_$ProductDtoImpl instance) =>
       'kategori': instance.kategori,
     };
 
-_$KategoriImpl _$$KategoriImplFromJson(Map<String, dynamic> json) =>
-    _$KategoriImpl(
+_$KategoriDtoImpl _$$KategoriDtoImplFromJson(Map<String, dynamic> json) =>
+    _$KategoriDtoImpl(
       id: (json['id'] as num).toInt(),
       namaKategori: json['nama_kategori'] as String,
       createdAt: json['created_at'] as String,
       updatedAt: json['updated_at'] as String,
     );
 
-Map<String, dynamic> _$$KategoriImplToJson(_$KategoriImpl instance) =>
+Map<String, dynamic> _$$KategoriDtoImplToJson(_$KategoriDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'nama_kategori': instance.namaKategori,

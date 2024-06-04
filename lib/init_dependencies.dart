@@ -13,6 +13,12 @@ import 'package:blog_app/features/product/data/repositories/product_repository_i
 import 'package:blog_app/features/product/domain/repository/product_repository.dart';
 import 'package:blog_app/features/product/domain/usecases/get_all_products.dart';
 import 'package:blog_app/features/product/presentation/bloc/product_bloc.dart';
+import 'package:blog_app/features/transaksi/data/datasource/transkasi_remote_data_source.dart';
+import 'package:blog_app/features/transaksi/data/repositories/transaksi_repository_impl.dart';
+import 'package:blog_app/features/transaksi/domain/repository/transaksi_repository.dart';
+import 'package:blog_app/features/transaksi/domain/usecases/get_all_transaksi.dart';
+import 'package:blog_app/features/transaksi/domain/usecases/save_transaksi.dart';
+import 'package:blog_app/features/transaksi/presentation/bloc/transaksi_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:blog_app/core/utils/token_manager.dart';

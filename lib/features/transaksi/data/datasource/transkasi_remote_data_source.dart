@@ -1,21 +1,20 @@
 import 'package:blog_app/core/utils/token_manager.dart';
+import 'package:blog_app/features/cashier/domain/entities/cashier.dart';
+import 'package:blog_app/features/transaksi/data/dto/save_transaksi_dto.dart';
+import 'package:blog_app/features/transaksi/data/dto/transaksi_dto.dart';
+import 'package:blog_app/features/transaksi/domain/entitites/transaksi.dart';
 import 'package:dio/dio.dart';
 import 'package:blog_app/core/config/config.dart';
 import 'package:blog_app/core/error/exceptions.dart';
-import 'package:blog_app/features/auth/data/models/user_model.dart';
-import 'dart:developer';
+
 
 
 abstract class TransaksiRemoteDataSource {
 
 
-  Future<UserModel> loginWithEmailPassword({
-    required String email,
-    required String password,
-  });
-  Future<UserModel?> getCurrentUserData();
+  Future<List<Transaksi>> getAllData();
 
-  Future<UserModel?> logoutUser();
+  Future<SingleTransaksi> saveTransaksi({ required SingleTransaksi transaksi,required List<CashierItem> items});
 
   
 }
@@ -30,53 +29,19 @@ class TransaksiRemoteDataSourceImpl implements TransaksiRemoteDataSource {
   });
 
 
-  @override
-  Future<UserModel> loginWithEmailPassword({
-    required String email,
-    required String password,
-  }) async {
-    try {
-
-
-      final response = await dio.post(
-        '${Config.baseUrl}auth/login', // Menggunakan URL login dari konfigurasi
-        data: {
-          'email': email,
-          'password': password,
-        },
-      );
-    
-      if (response.statusCode == 200) {
-        final userModel = UserModel.fromJson(response.data);
-        await tokenManager.saveToken(userModel.token); // Simpan token
-        return userModel;
-      }else{
-        throw const ServerException('Failed');
-      }
-    } on DioException catch (e) {
-        if(e.response?.statusCode == 401){
-            throw const ServerException('Username dan password salah !');    
-          }else if(e.response?.statusCode == 403){
-            throw const ServerException('Halaman di larang akses');
-          }else if(e.response?.statusCode == 404)
-          {
-          throw const ServerException('Halaman tidak di temukan');
-          }
-      throw ServerException(e.message.toString());
-      
-    } catch (e) {
-      throw ServerException(e.toString());
-    }
-  }
 
   @override
-Future<UserModel?> logoutUser() async {
+Future<SingleTransaksi> saveTransaksi({required SingleTransaksi transaksi,required List<CashierItem> items}) async {
   try {
     final token = await tokenManager.getToken();
     
     if (token != null) {
+
+      final saveDto = SaveTransaksiDto.fromEntity(transaksi,items);
+
       final response = await dio.post(
-        '${Config.baseUrl}auth/logout'      , // URL logout
+        '${Config.baseUrl}admin/transaksis',
+      data: saveDto.toJson(),// URL logout
         options: Options(
           headers: {
             'Authorization': 'Bearer $token', // Menggunakan token untuk otorisasi
@@ -84,11 +49,8 @@ Future<UserModel?> logoutUser() async {
         ),
       );
       
-      // Clear token locally after successful logout
-      await tokenManager.clearToken();
-      
-      // Return user model from response data
-      return UserModel.fromJson(response.data);
+      final transaksiDto = SingleTransaksiDto.fromJson(response.data).toEntity();
+      return transaksiDto;
     } else {
       throw const ServerException('No token available');
     }
@@ -101,41 +63,43 @@ Future<UserModel?> logoutUser() async {
   }
 }
 
-  @override
- Future<UserModel?> getCurrentUserData() async {
-  try {
-    final token = await tokenManager.getToken();
-    if (token != null) {
-      // Menggunakan ID pengguna untuk mengambil data pengguna saat ini dari server
-      final response = await dio.get(
-        '${Config.baseUrl}user', // Menggunakan URL pengguna saat ini dari konfigurasi
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token', // Menggunakan token untuk otorisasi
-          },
-        ),
-      );
-
-      if (response.statusCode == 200) {
-        final data = response.data;
-        if (data is Map<String, dynamic>) {
-          final userData = UserModel.fromJson(data);
-          log(data.toString());
-          return userData;
-        } else {
-          throw const ServerException('Unexpected response data format');
+ @override
+  Future<List<Transaksi>> getAllData() async {
+    try {
+      final token = await tokenManager.getToken();
+      if (token != null) {
+        final response = await dio.get(
+          '${Config.baseUrl}admin/transaksis', 
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer $token', 
+            },
+          ),
+        );
+      
+        if (response.statusCode == 200) {
+          final List<dynamic> data = response.data['data'];
+          return data.map((item) => TransaksiDto.fromJson(item).toEntity()).toList();
+        } else if(response.statusCode == 404) {
+          throw const ServerException('Failed to get current user data');
+        }else{
+          throw const ServerException('Failed to get current user data');
         }
-      } else if (response.statusCode == 404) {
-        throw const ServerException('Failed to get current user data');
       } else {
-        throw const ServerException('Failed to get current user data');
+        throw const ServerException('Token tidak valid');
       }
-    } else {
-      return null;
+    } on DioException catch (e) {
+      if(e.response?.statusCode == 401){
+            throw const ServerException('Token Expired silahkan logout dan login kembali');    
+          }else if(e.response?.statusCode == 500){
+            throw const ServerException('Server sedang error');
+          }else if(e.response?.statusCode == 404)
+          {
+          throw const ServerException('Api Produk tidak di temukan');
+          }
+      throw ServerException(e.message.toString());
+    } catch (e) {
+      throw ServerException(e.toString());
     }
-  } catch (e) {
-    log('Error fetching user data: $e');
-    rethrow;
   }
-}
 }

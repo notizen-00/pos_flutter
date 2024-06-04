@@ -27,33 +27,6 @@ class Product extends Equatable {
     required this.kategori,
   });
 
-  Product copyWith({
-    int? id,
-    String? nama,
-    int? kategoriId,
-    int? harga,
-    int? favorit,
-    int? status,
-    String? deskripsi,
-    String? foto,
-    String? createdAt,
-    String? updatedAt,
-    Kategori? kategori,
-  }) {
-    return Product(
-      id: id ?? this.id,
-      nama: nama ?? this.nama,
-      kategoriId: kategoriId ?? this.kategoriId,
-      harga: harga ?? this.harga,
-      favorit: favorit ?? this.favorit,
-      status: status ?? this.status,
-      deskripsi: deskripsi ?? this.deskripsi,
-      foto: foto ?? this.foto,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-      kategori: kategori ?? this.kategori,
-    );
-  }
 
   @override
   List<Object?> get props => [

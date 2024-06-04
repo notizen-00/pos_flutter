@@ -33,7 +33,7 @@ mixin _$ProductDto {
   String get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
   String get updatedAt => throw _privateConstructorUsedError;
-  Kategori get kategori => throw _privateConstructorUsedError;
+  KategoriDto get kategori => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,9 +58,9 @@ abstract class $ProductDtoCopyWith<$Res> {
       String? foto,
       @JsonKey(name: 'created_at') String createdAt,
       @JsonKey(name: 'updated_at') String updatedAt,
-      Kategori kategori});
+      KategoriDto kategori});
 
-  $KategoriCopyWith<$Res> get kategori;
+  $KategoriDtoCopyWith<$Res> get kategori;
 }
 
 /// @nodoc
@@ -132,14 +132,14 @@ class _$ProductDtoCopyWithImpl<$Res, $Val extends ProductDto>
       kategori: null == kategori
           ? _value.kategori
           : kategori // ignore: cast_nullable_to_non_nullable
-              as Kategori,
+              as KategoriDto,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $KategoriCopyWith<$Res> get kategori {
-    return $KategoriCopyWith<$Res>(_value.kategori, (value) {
+  $KategoriDtoCopyWith<$Res> get kategori {
+    return $KategoriDtoCopyWith<$Res>(_value.kategori, (value) {
       return _then(_value.copyWith(kategori: value) as $Val);
     });
   }
@@ -164,10 +164,10 @@ abstract class _$$ProductDtoImplCopyWith<$Res>
       String? foto,
       @JsonKey(name: 'created_at') String createdAt,
       @JsonKey(name: 'updated_at') String updatedAt,
-      Kategori kategori});
+      KategoriDto kategori});
 
   @override
-  $KategoriCopyWith<$Res> get kategori;
+  $KategoriDtoCopyWith<$Res> get kategori;
 }
 
 /// @nodoc
@@ -237,7 +237,7 @@ class __$$ProductDtoImplCopyWithImpl<$Res>
       kategori: null == kategori
           ? _value.kategori
           : kategori // ignore: cast_nullable_to_non_nullable
-              as Kategori,
+              as KategoriDto,
     ));
   }
 }
@@ -285,7 +285,7 @@ class _$ProductDtoImpl with DiagnosticableTreeMixin implements _ProductDto {
   @JsonKey(name: 'updated_at')
   final String updatedAt;
   @override
-  final Kategori kategori;
+  final KategoriDto kategori;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -364,7 +364,7 @@ abstract class _ProductDto implements ProductDto {
       final String? foto,
       @JsonKey(name: 'created_at') required final String createdAt,
       @JsonKey(name: 'updated_at') required final String updatedAt,
-      required final Kategori kategori}) = _$ProductDtoImpl;
+      required final KategoriDto kategori}) = _$ProductDtoImpl;
 
   factory _ProductDto.fromJson(Map<String, dynamic> json) =
       _$ProductDtoImpl.fromJson;
@@ -393,19 +393,19 @@ abstract class _ProductDto implements ProductDto {
   @JsonKey(name: 'updated_at')
   String get updatedAt;
   @override
-  Kategori get kategori;
+  KategoriDto get kategori;
   @override
   @JsonKey(ignore: true)
   _$$ProductDtoImplCopyWith<_$ProductDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-Kategori _$KategoriFromJson(Map<String, dynamic> json) {
-  return _Kategori.fromJson(json);
+KategoriDto _$KategoriDtoFromJson(Map<String, dynamic> json) {
+  return _KategoriDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Kategori {
+mixin _$KategoriDto {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'nama_kategori')
   String get namaKategori => throw _privateConstructorUsedError;
@@ -416,14 +416,15 @@ mixin _$Kategori {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $KategoriCopyWith<Kategori> get copyWith =>
+  $KategoriDtoCopyWith<KategoriDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $KategoriCopyWith<$Res> {
-  factory $KategoriCopyWith(Kategori value, $Res Function(Kategori) then) =
-      _$KategoriCopyWithImpl<$Res, Kategori>;
+abstract class $KategoriDtoCopyWith<$Res> {
+  factory $KategoriDtoCopyWith(
+          KategoriDto value, $Res Function(KategoriDto) then) =
+      _$KategoriDtoCopyWithImpl<$Res, KategoriDto>;
   @useResult
   $Res call(
       {int id,
@@ -433,9 +434,9 @@ abstract class $KategoriCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$KategoriCopyWithImpl<$Res, $Val extends Kategori>
-    implements $KategoriCopyWith<$Res> {
-  _$KategoriCopyWithImpl(this._value, this._then);
+class _$KategoriDtoCopyWithImpl<$Res, $Val extends KategoriDto>
+    implements $KategoriDtoCopyWith<$Res> {
+  _$KategoriDtoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -472,11 +473,11 @@ class _$KategoriCopyWithImpl<$Res, $Val extends Kategori>
 }
 
 /// @nodoc
-abstract class _$$KategoriImplCopyWith<$Res>
-    implements $KategoriCopyWith<$Res> {
-  factory _$$KategoriImplCopyWith(
-          _$KategoriImpl value, $Res Function(_$KategoriImpl) then) =
-      __$$KategoriImplCopyWithImpl<$Res>;
+abstract class _$$KategoriDtoImplCopyWith<$Res>
+    implements $KategoriDtoCopyWith<$Res> {
+  factory _$$KategoriDtoImplCopyWith(
+          _$KategoriDtoImpl value, $Res Function(_$KategoriDtoImpl) then) =
+      __$$KategoriDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -487,11 +488,11 @@ abstract class _$$KategoriImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$KategoriImplCopyWithImpl<$Res>
-    extends _$KategoriCopyWithImpl<$Res, _$KategoriImpl>
-    implements _$$KategoriImplCopyWith<$Res> {
-  __$$KategoriImplCopyWithImpl(
-      _$KategoriImpl _value, $Res Function(_$KategoriImpl) _then)
+class __$$KategoriDtoImplCopyWithImpl<$Res>
+    extends _$KategoriDtoCopyWithImpl<$Res, _$KategoriDtoImpl>
+    implements _$$KategoriDtoImplCopyWith<$Res> {
+  __$$KategoriDtoImplCopyWithImpl(
+      _$KategoriDtoImpl _value, $Res Function(_$KategoriDtoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -502,7 +503,7 @@ class __$$KategoriImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
-    return _then(_$KategoriImpl(
+    return _then(_$KategoriDtoImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -525,15 +526,15 @@ class __$$KategoriImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$KategoriImpl with DiagnosticableTreeMixin implements _Kategori {
-  _$KategoriImpl(
+class _$KategoriDtoImpl with DiagnosticableTreeMixin implements _KategoriDto {
+  _$KategoriDtoImpl(
       {required this.id,
       @JsonKey(name: 'nama_kategori') required this.namaKategori,
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'updated_at') required this.updatedAt});
 
-  factory _$KategoriImpl.fromJson(Map<String, dynamic> json) =>
-      _$$KategoriImplFromJson(json);
+  factory _$KategoriDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$KategoriDtoImplFromJson(json);
 
   @override
   final int id;
@@ -549,14 +550,14 @@ class _$KategoriImpl with DiagnosticableTreeMixin implements _Kategori {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Kategori(id: $id, namaKategori: $namaKategori, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'KategoriDto(id: $id, namaKategori: $namaKategori, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'Kategori'))
+      ..add(DiagnosticsProperty('type', 'KategoriDto'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('namaKategori', namaKategori))
       ..add(DiagnosticsProperty('createdAt', createdAt))
@@ -567,7 +568,7 @@ class _$KategoriImpl with DiagnosticableTreeMixin implements _Kategori {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$KategoriImpl &&
+            other is _$KategoriDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.namaKategori, namaKategori) ||
                 other.namaKategori == namaKategori) &&
@@ -585,27 +586,27 @@ class _$KategoriImpl with DiagnosticableTreeMixin implements _Kategori {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$KategoriImplCopyWith<_$KategoriImpl> get copyWith =>
-      __$$KategoriImplCopyWithImpl<_$KategoriImpl>(this, _$identity);
+  _$$KategoriDtoImplCopyWith<_$KategoriDtoImpl> get copyWith =>
+      __$$KategoriDtoImplCopyWithImpl<_$KategoriDtoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$KategoriImplToJson(
+    return _$$KategoriDtoImplToJson(
       this,
     );
   }
 }
 
-abstract class _Kategori implements Kategori {
-  factory _Kategori(
+abstract class _KategoriDto implements KategoriDto {
+  factory _KategoriDto(
           {required final int id,
           @JsonKey(name: 'nama_kategori') required final String namaKategori,
           @JsonKey(name: 'created_at') required final String createdAt,
           @JsonKey(name: 'updated_at') required final String updatedAt}) =
-      _$KategoriImpl;
+      _$KategoriDtoImpl;
 
-  factory _Kategori.fromJson(Map<String, dynamic> json) =
-      _$KategoriImpl.fromJson;
+  factory _KategoriDto.fromJson(Map<String, dynamic> json) =
+      _$KategoriDtoImpl.fromJson;
 
   @override
   int get id;
@@ -620,6 +621,6 @@ abstract class _Kategori implements Kategori {
   String get updatedAt;
   @override
   @JsonKey(ignore: true)
-  _$$KategoriImplCopyWith<_$KategoriImpl> get copyWith =>
+  _$$KategoriDtoImplCopyWith<_$KategoriDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

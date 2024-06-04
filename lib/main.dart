@@ -6,6 +6,7 @@ import 'package:blog_app/features/cashier/presentation/bloc/cashier_bloc.dart';
 import 'package:blog_app/features/payment/presentation/bloc/payment_bloc.dart';
 import 'package:blog_app/features/product/presentation/bloc/product_bloc.dart';
 import 'package:blog_app/features/product/presentation/pages/product_page.dart';
+import 'package:blog_app/features/transaksi/presentation/bloc/transaksi_bloc.dart';
 import 'package:blog_app/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,9 @@ void main() async {
       ),
       BlocProvider(
         create: (_) => serviceLocator<ProductBloc>(),
+      ),
+      BlocProvider(
+        create:(_) => serviceLocator<TransaksiBloc>(),
       ),
       BlocProvider<CashierBloc>(
         create:(_) => CashierBloc(),

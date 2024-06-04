@@ -1,10 +1,10 @@
-import 'package:blog_app/core/constants/constants.dart';
 import 'package:blog_app/core/error/exceptions.dart';
 import 'package:blog_app/core/error/failures.dart';
 import 'package:blog_app/core/network/connection_checker.dart';
 import 'package:blog_app/core/utils/token_manager.dart';
-import 'package:blog_app/core/common/entities/user.dart';
+import 'package:blog_app/features/cashier/domain/entities/cashier.dart';
 import 'package:blog_app/features/transaksi/data/datasource/transkasi_remote_data_source.dart';
+import 'package:blog_app/features/transaksi/domain/entitites/transaksi.dart';
 import 'package:blog_app/features/transaksi/domain/repository/transaksi_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
@@ -20,73 +20,30 @@ class TransaksiRepositoryImpl implements TransaksiRepository {
   );
 
 @override
-Future<Either<Failure, User>> userLogout() async {
+Future<Either<Failure, SingleTransaksi>> saveTransaksi({required SingleTransaksi transaksi,required List<CashierItem> items}) async {
   try {
     // Check connection
     if (!await connectionChecker.isConnected) {
       return left(Failure('No internet connection'));
     }
 
-    // Clear token
+    final response = await remoteDataSource.saveTransaksi(transaksi:transaksi,items:items);
     
-    await remoteDataSource.logoutUser();
-
-    return right(User(id: '', email: '', name: '', token: ''));
+    return right(response);
   } on ServerException catch (e) {
     return left(Failure(e.message.toString()));
   }
 }
 
   @override
-  Future<Either<Failure, User>> currentUser() async {
+  Future<Either<Failure, List<Transaksi>>> getAllData() async {
     try {
-      if (!await (connectionChecker.isConnected)) {
-
-        final token = await tokenManager.getToken();
-      
-        if (token == null) {
-          return left(Failure('User Belum Login !'));
-        }         
-      }
-      final user = await remoteDataSource.getCurrentUserData();
-      if (user == null) {
-        return left(Failure('User Belum Login !!'));
-      }
-
-      return right(user);
+      final transaksi = await remoteDataSource.getAllData();
+      return Right(transaksi); // Return success with Right
     } on ServerException catch (e) {
-      return left(Failure(e.message.toString()));
+      return Left(Failure( e.message)); // Return failure with Left
     }
   }
 
-  @override
-  Future<Either<Failure, User>> loginWithEmailPassword({
-    required String email,
-    required String password,
-  }) async {
-    return _getUser(
-      () async => await remoteDataSource.loginWithEmailPassword(
-        email: email,
-        password: password,
-      ),
-    );
-  }
 
-
-
-
-  Future<Either<Failure, User>> _getUser(
-    Future<User> Function() fn,
-  ) async {
-    try {
-      if (!await (connectionChecker.isConnected)) {
-        return left(Failure(Constants.noConnectionErrorMessage));
-      }
-      final user = await fn();
-
-      return right(user);
-    } on ServerException catch (e) {
-      return left(Failure(e.message));
-    }
-  }
 }
