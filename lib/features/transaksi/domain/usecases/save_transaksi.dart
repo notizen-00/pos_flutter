@@ -12,8 +12,7 @@ class SaveTransaksi implements UseCase<SingleTransaksi, SaveTransaksiParams> {
 
   @override
   Future<Either<Failure, SingleTransaksi>> call(SaveTransaksiParams params) async {
-   
-   
+    
     return  await transaksiRepository.saveTransaksi(
       transaksi: params.transaksi,
       items:params.items

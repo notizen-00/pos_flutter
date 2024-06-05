@@ -16,3 +16,14 @@ class TransaksiSave extends TransaksiEvent {
   });
 }
 
+class TransaksiUpdate extends TransaksiEvent {
+
+  final SingleTransaksi transaksi;
+
+  TransaksiUpdate({
+    required this.transaksi
+  });
+
+  
+}
+

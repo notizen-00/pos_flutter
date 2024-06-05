@@ -216,29 +216,29 @@ TransaksiData _$TransaksiDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TransaksiData {
   @JsonKey(name: 'pelanggan_id')
-  String? get pelangganId => throw _privateConstructorUsedError;
+  int? get pelangganId => throw _privateConstructorUsedError;
   @JsonKey(name: 'nama_pelanggan')
   String? get namaPelanggan => throw _privateConstructorUsedError;
   @JsonKey(name: 'meja')
   int? get meja => throw _privateConstructorUsedError;
   @JsonKey(name: 'author_id')
-  int get authorId => throw _privateConstructorUsedError;
+  int? get authorId => throw _privateConstructorUsedError;
   @JsonKey(name: 'shift_id')
   int? get shiftId => throw _privateConstructorUsedError;
   @JsonKey(name: 'status')
-  String get status => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
   @JsonKey(name: 'total')
-  int get total => throw _privateConstructorUsedError;
+  int? get total => throw _privateConstructorUsedError;
   @JsonKey(name: 'deskripsi')
   String? get deskripsi => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_tambahan')
   int? get totalTambahan => throw _privateConstructorUsedError;
   @JsonKey(name: 'pembayaran')
-  int get pembayaran => throw _privateConstructorUsedError;
+  int? get pembayaran => throw _privateConstructorUsedError;
   @JsonKey(name: 'metode_pembayaran')
-  String get metodePembayaran => throw _privateConstructorUsedError;
+  String? get metodePembayaran => throw _privateConstructorUsedError;
   @JsonKey(name: 'kembalian')
-  int get kembalian => throw _privateConstructorUsedError;
+  int? get kembalian => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -253,18 +253,18 @@ abstract class $TransaksiDataCopyWith<$Res> {
       _$TransaksiDataCopyWithImpl<$Res, TransaksiData>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'pelanggan_id') String? pelangganId,
+      {@JsonKey(name: 'pelanggan_id') int? pelangganId,
       @JsonKey(name: 'nama_pelanggan') String? namaPelanggan,
       @JsonKey(name: 'meja') int? meja,
-      @JsonKey(name: 'author_id') int authorId,
+      @JsonKey(name: 'author_id') int? authorId,
       @JsonKey(name: 'shift_id') int? shiftId,
-      @JsonKey(name: 'status') String status,
-      @JsonKey(name: 'total') int total,
+      @JsonKey(name: 'status') String? status,
+      @JsonKey(name: 'total') int? total,
       @JsonKey(name: 'deskripsi') String? deskripsi,
       @JsonKey(name: 'total_tambahan') int? totalTambahan,
-      @JsonKey(name: 'pembayaran') int pembayaran,
-      @JsonKey(name: 'metode_pembayaran') String metodePembayaran,
-      @JsonKey(name: 'kembalian') int kembalian});
+      @JsonKey(name: 'pembayaran') int? pembayaran,
+      @JsonKey(name: 'metode_pembayaran') String? metodePembayaran,
+      @JsonKey(name: 'kembalian') int? kembalian});
 }
 
 /// @nodoc
@@ -283,21 +283,21 @@ class _$TransaksiDataCopyWithImpl<$Res, $Val extends TransaksiData>
     Object? pelangganId = freezed,
     Object? namaPelanggan = freezed,
     Object? meja = freezed,
-    Object? authorId = null,
+    Object? authorId = freezed,
     Object? shiftId = freezed,
-    Object? status = null,
-    Object? total = null,
+    Object? status = freezed,
+    Object? total = freezed,
     Object? deskripsi = freezed,
     Object? totalTambahan = freezed,
-    Object? pembayaran = null,
-    Object? metodePembayaran = null,
-    Object? kembalian = null,
+    Object? pembayaran = freezed,
+    Object? metodePembayaran = freezed,
+    Object? kembalian = freezed,
   }) {
     return _then(_value.copyWith(
       pelangganId: freezed == pelangganId
           ? _value.pelangganId
           : pelangganId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       namaPelanggan: freezed == namaPelanggan
           ? _value.namaPelanggan
           : namaPelanggan // ignore: cast_nullable_to_non_nullable
@@ -306,22 +306,22 @@ class _$TransaksiDataCopyWithImpl<$Res, $Val extends TransaksiData>
           ? _value.meja
           : meja // ignore: cast_nullable_to_non_nullable
               as int?,
-      authorId: null == authorId
+      authorId: freezed == authorId
           ? _value.authorId
           : authorId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       shiftId: freezed == shiftId
           ? _value.shiftId
           : shiftId // ignore: cast_nullable_to_non_nullable
               as int?,
-      status: null == status
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      total: null == total
+              as String?,
+      total: freezed == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       deskripsi: freezed == deskripsi
           ? _value.deskripsi
           : deskripsi // ignore: cast_nullable_to_non_nullable
@@ -330,18 +330,18 @@ class _$TransaksiDataCopyWithImpl<$Res, $Val extends TransaksiData>
           ? _value.totalTambahan
           : totalTambahan // ignore: cast_nullable_to_non_nullable
               as int?,
-      pembayaran: null == pembayaran
+      pembayaran: freezed == pembayaran
           ? _value.pembayaran
           : pembayaran // ignore: cast_nullable_to_non_nullable
-              as int,
-      metodePembayaran: null == metodePembayaran
+              as int?,
+      metodePembayaran: freezed == metodePembayaran
           ? _value.metodePembayaran
           : metodePembayaran // ignore: cast_nullable_to_non_nullable
-              as String,
-      kembalian: null == kembalian
+              as String?,
+      kembalian: freezed == kembalian
           ? _value.kembalian
           : kembalian // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ) as $Val);
   }
 }
@@ -355,18 +355,18 @@ abstract class _$$TransaksiDataImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'pelanggan_id') String? pelangganId,
+      {@JsonKey(name: 'pelanggan_id') int? pelangganId,
       @JsonKey(name: 'nama_pelanggan') String? namaPelanggan,
       @JsonKey(name: 'meja') int? meja,
-      @JsonKey(name: 'author_id') int authorId,
+      @JsonKey(name: 'author_id') int? authorId,
       @JsonKey(name: 'shift_id') int? shiftId,
-      @JsonKey(name: 'status') String status,
-      @JsonKey(name: 'total') int total,
+      @JsonKey(name: 'status') String? status,
+      @JsonKey(name: 'total') int? total,
       @JsonKey(name: 'deskripsi') String? deskripsi,
       @JsonKey(name: 'total_tambahan') int? totalTambahan,
-      @JsonKey(name: 'pembayaran') int pembayaran,
-      @JsonKey(name: 'metode_pembayaran') String metodePembayaran,
-      @JsonKey(name: 'kembalian') int kembalian});
+      @JsonKey(name: 'pembayaran') int? pembayaran,
+      @JsonKey(name: 'metode_pembayaran') String? metodePembayaran,
+      @JsonKey(name: 'kembalian') int? kembalian});
 }
 
 /// @nodoc
@@ -383,21 +383,21 @@ class __$$TransaksiDataImplCopyWithImpl<$Res>
     Object? pelangganId = freezed,
     Object? namaPelanggan = freezed,
     Object? meja = freezed,
-    Object? authorId = null,
+    Object? authorId = freezed,
     Object? shiftId = freezed,
-    Object? status = null,
-    Object? total = null,
+    Object? status = freezed,
+    Object? total = freezed,
     Object? deskripsi = freezed,
     Object? totalTambahan = freezed,
-    Object? pembayaran = null,
-    Object? metodePembayaran = null,
-    Object? kembalian = null,
+    Object? pembayaran = freezed,
+    Object? metodePembayaran = freezed,
+    Object? kembalian = freezed,
   }) {
     return _then(_$TransaksiDataImpl(
       pelangganId: freezed == pelangganId
           ? _value.pelangganId
           : pelangganId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       namaPelanggan: freezed == namaPelanggan
           ? _value.namaPelanggan
           : namaPelanggan // ignore: cast_nullable_to_non_nullable
@@ -406,22 +406,22 @@ class __$$TransaksiDataImplCopyWithImpl<$Res>
           ? _value.meja
           : meja // ignore: cast_nullable_to_non_nullable
               as int?,
-      authorId: null == authorId
+      authorId: freezed == authorId
           ? _value.authorId
           : authorId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       shiftId: freezed == shiftId
           ? _value.shiftId
           : shiftId // ignore: cast_nullable_to_non_nullable
               as int?,
-      status: null == status
+      status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      total: null == total
+              as String?,
+      total: freezed == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       deskripsi: freezed == deskripsi
           ? _value.deskripsi
           : deskripsi // ignore: cast_nullable_to_non_nullable
@@ -430,18 +430,18 @@ class __$$TransaksiDataImplCopyWithImpl<$Res>
           ? _value.totalTambahan
           : totalTambahan // ignore: cast_nullable_to_non_nullable
               as int?,
-      pembayaran: null == pembayaran
+      pembayaran: freezed == pembayaran
           ? _value.pembayaran
           : pembayaran // ignore: cast_nullable_to_non_nullable
-              as int,
-      metodePembayaran: null == metodePembayaran
+              as int?,
+      metodePembayaran: freezed == metodePembayaran
           ? _value.metodePembayaran
           : metodePembayaran // ignore: cast_nullable_to_non_nullable
-              as String,
-      kembalian: null == kembalian
+              as String?,
+      kembalian: freezed == kembalian
           ? _value.kembalian
           : kembalian // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -453,22 +453,22 @@ class _$TransaksiDataImpl implements _TransaksiData {
       {@JsonKey(name: 'pelanggan_id') this.pelangganId,
       @JsonKey(name: 'nama_pelanggan') this.namaPelanggan,
       @JsonKey(name: 'meja') this.meja,
-      @JsonKey(name: 'author_id') required this.authorId,
+      @JsonKey(name: 'author_id') this.authorId,
       @JsonKey(name: 'shift_id') this.shiftId,
-      @JsonKey(name: 'status') required this.status,
-      @JsonKey(name: 'total') required this.total,
+      @JsonKey(name: 'status') this.status,
+      @JsonKey(name: 'total') this.total,
       @JsonKey(name: 'deskripsi') this.deskripsi,
       @JsonKey(name: 'total_tambahan') this.totalTambahan,
-      @JsonKey(name: 'pembayaran') required this.pembayaran,
-      @JsonKey(name: 'metode_pembayaran') required this.metodePembayaran,
-      @JsonKey(name: 'kembalian') required this.kembalian});
+      @JsonKey(name: 'pembayaran') this.pembayaran,
+      @JsonKey(name: 'metode_pembayaran') this.metodePembayaran,
+      @JsonKey(name: 'kembalian') this.kembalian});
 
   factory _$TransaksiDataImpl.fromJson(Map<String, dynamic> json) =>
       _$$TransaksiDataImplFromJson(json);
 
   @override
   @JsonKey(name: 'pelanggan_id')
-  final String? pelangganId;
+  final int? pelangganId;
   @override
   @JsonKey(name: 'nama_pelanggan')
   final String? namaPelanggan;
@@ -477,16 +477,16 @@ class _$TransaksiDataImpl implements _TransaksiData {
   final int? meja;
   @override
   @JsonKey(name: 'author_id')
-  final int authorId;
+  final int? authorId;
   @override
   @JsonKey(name: 'shift_id')
   final int? shiftId;
   @override
   @JsonKey(name: 'status')
-  final String status;
+  final String? status;
   @override
   @JsonKey(name: 'total')
-  final int total;
+  final int? total;
   @override
   @JsonKey(name: 'deskripsi')
   final String? deskripsi;
@@ -495,13 +495,13 @@ class _$TransaksiDataImpl implements _TransaksiData {
   final int? totalTambahan;
   @override
   @JsonKey(name: 'pembayaran')
-  final int pembayaran;
+  final int? pembayaran;
   @override
   @JsonKey(name: 'metode_pembayaran')
-  final String metodePembayaran;
+  final String? metodePembayaran;
   @override
   @JsonKey(name: 'kembalian')
-  final int kembalian;
+  final int? kembalian;
 
   @override
   String toString() {
@@ -568,27 +568,25 @@ class _$TransaksiDataImpl implements _TransaksiData {
 
 abstract class _TransaksiData implements TransaksiData {
   const factory _TransaksiData(
-          {@JsonKey(name: 'pelanggan_id') final String? pelangganId,
-          @JsonKey(name: 'nama_pelanggan') final String? namaPelanggan,
-          @JsonKey(name: 'meja') final int? meja,
-          @JsonKey(name: 'author_id') required final int authorId,
-          @JsonKey(name: 'shift_id') final int? shiftId,
-          @JsonKey(name: 'status') required final String status,
-          @JsonKey(name: 'total') required final int total,
-          @JsonKey(name: 'deskripsi') final String? deskripsi,
-          @JsonKey(name: 'total_tambahan') final int? totalTambahan,
-          @JsonKey(name: 'pembayaran') required final int pembayaran,
-          @JsonKey(name: 'metode_pembayaran')
-          required final String metodePembayaran,
-          @JsonKey(name: 'kembalian') required final int kembalian}) =
-      _$TransaksiDataImpl;
+      {@JsonKey(name: 'pelanggan_id') final int? pelangganId,
+      @JsonKey(name: 'nama_pelanggan') final String? namaPelanggan,
+      @JsonKey(name: 'meja') final int? meja,
+      @JsonKey(name: 'author_id') final int? authorId,
+      @JsonKey(name: 'shift_id') final int? shiftId,
+      @JsonKey(name: 'status') final String? status,
+      @JsonKey(name: 'total') final int? total,
+      @JsonKey(name: 'deskripsi') final String? deskripsi,
+      @JsonKey(name: 'total_tambahan') final int? totalTambahan,
+      @JsonKey(name: 'pembayaran') final int? pembayaran,
+      @JsonKey(name: 'metode_pembayaran') final String? metodePembayaran,
+      @JsonKey(name: 'kembalian') final int? kembalian}) = _$TransaksiDataImpl;
 
   factory _TransaksiData.fromJson(Map<String, dynamic> json) =
       _$TransaksiDataImpl.fromJson;
 
   @override
   @JsonKey(name: 'pelanggan_id')
-  String? get pelangganId;
+  int? get pelangganId;
   @override
   @JsonKey(name: 'nama_pelanggan')
   String? get namaPelanggan;
@@ -597,16 +595,16 @@ abstract class _TransaksiData implements TransaksiData {
   int? get meja;
   @override
   @JsonKey(name: 'author_id')
-  int get authorId;
+  int? get authorId;
   @override
   @JsonKey(name: 'shift_id')
   int? get shiftId;
   @override
   @JsonKey(name: 'status')
-  String get status;
+  String? get status;
   @override
   @JsonKey(name: 'total')
-  int get total;
+  int? get total;
   @override
   @JsonKey(name: 'deskripsi')
   String? get deskripsi;
@@ -615,13 +613,13 @@ abstract class _TransaksiData implements TransaksiData {
   int? get totalTambahan;
   @override
   @JsonKey(name: 'pembayaran')
-  int get pembayaran;
+  int? get pembayaran;
   @override
   @JsonKey(name: 'metode_pembayaran')
-  String get metodePembayaran;
+  String? get metodePembayaran;
   @override
   @JsonKey(name: 'kembalian')
-  int get kembalian;
+  int? get kembalian;
   @override
   @JsonKey(ignore: true)
   _$$TransaksiDataImplCopyWith<_$TransaksiDataImpl> get copyWith =>

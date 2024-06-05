@@ -48,7 +48,7 @@ Future<SingleTransaksi> saveTransaksi({required SingleTransaksi transaksi,requir
           },
         ),
       );
-      
+      print(response.data);
       final transaksiDto = SingleTransaksiDto.fromJson(response.data).toEntity();
       return transaksiDto;
     } else {
@@ -58,6 +58,7 @@ Future<SingleTransaksi> saveTransaksi({required SingleTransaksi transaksi,requir
     // Handle DioError for failed request
     throw ServerException(e.toString());
   } catch (e) {
+    print(e);
     // Handle other exceptions
     throw ServerException(e.toString());
   }

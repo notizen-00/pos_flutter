@@ -63,40 +63,40 @@ class Transaksi extends Equatable {
 }
 
 class SingleTransaksi extends Equatable {
-  final int id;
-  final String nomorTransaksi;
-  final String? pelangganId;
+  final int? id;
+  final String? nomorTransaksi;
+  final int? pelangganId;
   final String? namaPelanggan;
   final int? meja;
-  final int authorId;
+  final int? authorId;
   final int? shiftId;
-  final String status;
-  final int total;
+  final String? status;
+  final int? total;
   final String? deskripsi;
   final int? totalTambahan;
-  final int pembayaran;
-  final String metodePembayaran;
-  final int kembalian;
-  final String createdAt;
-  final String updatedAt;
+  final int? pembayaran;
+  final String? metodePembayaran;
+  final int? kembalian;
+  final String? createdAt;
+  final String? updatedAt;
 
   const SingleTransaksi({
-    required this.id,
-    required this.nomorTransaksi,
+     this.id,
+    this.nomorTransaksi,
     this.pelangganId,
     this.namaPelanggan,
     this.meja,
-    required this.authorId,
+    this.authorId,
     this.shiftId,
-    required this.status,
-    required this.total,
+     this.status,
+     this.total,
     this.deskripsi,
     this.totalTambahan,
-    required this.pembayaran,
-    required this.metodePembayaran,
-    required this.kembalian,
-    required this.createdAt,
-    required this.updatedAt,
+    this.pembayaran,
+    this.metodePembayaran,
+     this.kembalian,
+     this.createdAt,
+     this.updatedAt,
   });
 
   @override

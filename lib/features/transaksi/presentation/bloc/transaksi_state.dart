@@ -18,6 +18,17 @@
 
   }
 
+
+  class TransaksiUpdated extends TransaksiState {
+    
+    final SingleTransaksi transaksi;
+
+    const TransaksiUpdated({
+      required this.transaksi,
+    });
+
+  }
+
   class TransaksiFailure extends TransaksiState {
     final String error;
 

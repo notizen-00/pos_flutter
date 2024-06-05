@@ -102,13 +102,13 @@ Future<UserModel?> logoutUser() async {
 }
 
   @override
- Future<UserModel?> getCurrentUserData() async {
+Future<UserModel?> getCurrentUserData() async {
   try {
     final token = await tokenManager.getToken();
     if (token != null) {
       // Menggunakan ID pengguna untuk mengambil data pengguna saat ini dari server
       final response = await dio.get(
-        '${Config.baseUrl}user', // Menggunakan URL pengguna saat ini dari konfigurasi
+        '${Config.baseUrl}user', 
         options: Options(
           headers: {
             'Authorization': 'Bearer $token', // Menggunakan token untuk otorisasi

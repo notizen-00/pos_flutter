@@ -26,18 +26,18 @@ Map<String, dynamic> _$$SaveTransaksiDtoImplToJson(
 
 _$TransaksiDataImpl _$$TransaksiDataImplFromJson(Map<String, dynamic> json) =>
     _$TransaksiDataImpl(
-      pelangganId: json['pelanggan_id'] as String?,
+      pelangganId: (json['pelanggan_id'] as num?)?.toInt(),
       namaPelanggan: json['nama_pelanggan'] as String?,
       meja: (json['meja'] as num?)?.toInt(),
-      authorId: (json['author_id'] as num).toInt(),
+      authorId: (json['author_id'] as num?)?.toInt(),
       shiftId: (json['shift_id'] as num?)?.toInt(),
-      status: json['status'] as String,
-      total: (json['total'] as num).toInt(),
+      status: json['status'] as String?,
+      total: (json['total'] as num?)?.toInt(),
       deskripsi: json['deskripsi'] as String?,
       totalTambahan: (json['total_tambahan'] as num?)?.toInt(),
-      pembayaran: (json['pembayaran'] as num).toInt(),
-      metodePembayaran: json['metode_pembayaran'] as String,
-      kembalian: (json['kembalian'] as num).toInt(),
+      pembayaran: (json['pembayaran'] as num?)?.toInt(),
+      metodePembayaran: json['metode_pembayaran'] as String?,
+      kembalian: (json['kembalian'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$TransaksiDataImplToJson(_$TransaksiDataImpl instance) =>

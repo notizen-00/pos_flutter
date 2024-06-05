@@ -22,6 +22,7 @@ class TransaksiBloc extends Bloc<TransaksiEvent, TransaksiState> {
     on<TransaksiEvent>((event, emit) => emit(TransaksiLoading()));
     on<TransaksiFetchAllTransaksi>(_onFetchAllTransaksi);
     on<TransaksiSave>(_onSaveTransaksi);
+    on<TransaksiUpdate>(_onUpdateTransaksi);
   
   }
 
@@ -44,6 +45,19 @@ void _onFetchAllTransaksi(
   );
 }
 
+void _onUpdateTransaksi(
+  TransaksiUpdate event,
+  Emitter<TransaksiState> emit,
+
+){
+
+  final currentState = state;
+  if(currentState is TransaksiUpdated){
+    final updatedTransaksi = event.transaksi; 
+    emit(TransaksiUpdated(transaksi: updatedTransaksi));
+  }
+
+}
 void _onSaveTransaksi(
     TransaksiSave event,
     Emitter<TransaksiState> emit,

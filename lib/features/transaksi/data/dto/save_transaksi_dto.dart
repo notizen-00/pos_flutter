@@ -38,18 +38,18 @@ class SaveTransaksiDto with _$SaveTransaksiDto {
 @freezed
 class TransaksiData with _$TransaksiData {
   const factory TransaksiData({
-    @JsonKey(name: 'pelanggan_id') String? pelangganId,
+    @JsonKey(name: 'pelanggan_id') int? pelangganId,
     @JsonKey(name: 'nama_pelanggan') String? namaPelanggan,
     @JsonKey(name: 'meja') int? meja,
-    @JsonKey(name: 'author_id') required int authorId,
+    @JsonKey(name: 'author_id') int? authorId,
     @JsonKey(name: 'shift_id') int? shiftId,
-    @JsonKey(name: 'status') required String status,
-    @JsonKey(name: 'total') required int total,
+    @JsonKey(name: 'status')  String? status,
+    @JsonKey(name: 'total')  int? total,
     @JsonKey(name: 'deskripsi') String? deskripsi,
     @JsonKey(name: 'total_tambahan') int? totalTambahan,
-    @JsonKey(name: 'pembayaran') required int pembayaran,
-    @JsonKey(name: 'metode_pembayaran') required String metodePembayaran,
-    @JsonKey(name: 'kembalian') required int kembalian,
+    @JsonKey(name: 'pembayaran')  int? pembayaran,
+    @JsonKey(name: 'metode_pembayaran') String? metodePembayaran,
+    @JsonKey(name: 'kembalian') int? kembalian,
   }) = _TransaksiData;
 
   factory TransaksiData.fromJson(Map<String, dynamic> json) => _$TransaksiDataFromJson(json);
