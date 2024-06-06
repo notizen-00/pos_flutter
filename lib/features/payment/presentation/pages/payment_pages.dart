@@ -11,6 +11,7 @@ import 'package:blog_app/features/cashier/domain/entities/cashier.dart';
 import 'package:blog_app/core/utils/format_rupiah.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
 class BayarPage extends StatefulWidget {
   final Cashier cashier;
 
@@ -95,7 +96,8 @@ class _BayarPageState extends State<BayarPage> {
             pembayaran: totalBayar,
             kembalian: kembalian,
             metodePembayaran: metodePembayaran,
-            status: status);
+            status: status
+            );
 
         // Dispatch the updated transaction event
         context
@@ -123,7 +125,7 @@ class _BayarPageState extends State<BayarPage> {
                 if (cashierState is CashierUpdated) ...[
                   Text('ID Cashier: ${cashierState.cashier.items.toString()}'),
                 ] else ...[
-                  const Text('Loading...'), // or Error message if needed
+                  const Text('Loading...'), 
                 ]
               ],
             ),
@@ -146,9 +148,11 @@ class _BayarPageState extends State<BayarPage> {
               TextButton(
                 onPressed: () {
                   if (cashierState is CashierUpdated) {
-                    context.read<TransaksiBloc>().add(TransaksiSave(
+                    context.read<TransaksiBloc>().add(
+                      TransaksiSave(
                         transaksi: updatedTransaksi,
-                        items: cashierState.cashier.items));
+                        items: cashierState.cashier.items
+                         ));
                   }
                 },
                 child: const Text('Simpan'),

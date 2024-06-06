@@ -11,3 +11,9 @@ class ProductSelected extends ProductEvent {
 
   ProductSelected(this.product);
 }
+
+class ProductFilter extends ProductEvent{
+  final String categoryName;
+
+  ProductFilter(this.categoryName);
+}

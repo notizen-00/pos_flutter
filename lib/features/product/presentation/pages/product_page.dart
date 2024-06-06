@@ -4,11 +4,8 @@ import 'package:blog_app/core/theme/app_pallete.dart';
 import 'package:blog_app/core/utils/show_snackbar.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/auth/presentation/pages/login_page.dart';
-import 'package:blog_app/features/cashier/presentation/bloc/cashier_bloc.dart';
 import 'package:blog_app/features/cashier/presentation/pages/cashier_page.dart';
 import 'package:blog_app/features/meja/presentation/pages/meja_page.dart';
-import 'package:blog_app/features/payment/presentation/bloc/payment_bloc.dart';
-import 'package:blog_app/features/payment/presentation/bloc/payment_event.dart';
 import 'package:blog_app/features/product/presentation/bloc/product_bloc.dart';
 import 'package:blog_app/features/product/presentation/widgets/product_card.dart';
 import 'package:blog_app/features/transaksi/presentation/bloc/transaksi_bloc.dart';
@@ -28,6 +25,11 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final List categories = [
+    'Semua',
+    'Favorit',
+    'Tidak Tersedia',
+  ];
 
   @override
   void initState() {
@@ -44,6 +46,7 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   int _selectedIndex = 0;
+  String selectedCategory = 'Semua';
 
   void _onItemTapped(int index) {
     setState(() {
@@ -63,7 +66,6 @@ class _ProductPageState extends State<ProductPage> {
     final isWideScreen = MediaQuery.of(context).size.width > 450;
 
     if (isWideScreen) {
-      
       return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
@@ -76,7 +78,7 @@ class _ProductPageState extends State<ProductPage> {
               );
             },
           ),
-          title: const Text('Pos App'),
+          title: const Text('Tjap Daoen App'),
           shadowColor: Colors.white,
           backgroundColor: Colors.green[700],
           elevation: 1,
@@ -91,13 +93,26 @@ class _ProductPageState extends State<ProductPage> {
                 );
               },
             ),
-            IconButton(
-              icon: const Icon(Icons.shopping_cart_sharp),
-              color: Colors.white,
-              onPressed: () async {
-                context.read<TransaksiBloc>().add(TransaksiFetchAllTransaksi());
-                Navigator.of(context).push(TransaksiPage.route());
-              },
+            Badge.count(
+              count: 0,
+              isLabelVisible: true,
+              // padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+              largeSize: 19,
+              smallSize: 22,
+              textColor: Colors.white,
+              backgroundColor: Colors.amber,
+              alignment: Alignment.topLeft,
+              offset: const Offset(5, 4),
+              child: IconButton(
+                icon: const Icon(Icons.shopping_cart_sharp),
+                color: Colors.white,
+                onPressed: () async {
+                  context
+                      .read<TransaksiBloc>()
+                      .add(TransaksiFetchAllTransaksi());
+                  Navigator.of(context).push(TransaksiPage.route());
+                },
+              ),
             ),
           ],
         ),
@@ -144,42 +159,182 @@ class _ProductPageState extends State<ProductPage> {
             const VerticalDivider(thickness: 1, width: 0),
             Expanded(
               flex: 2,
-              child: BlocConsumer<ProductBloc, ProductState>(
-                listener: (context, state) {
-                  if (state is ProductFailure) {
-                    showSnackBar(context, state.error);
-                  }
+              child: Column(children: [
+                Expanded(
+                  flex: 1,
+                  child: DecoratedBox(
+                    decoration: const BoxDecoration(color: Colors.white12),
+                    child: BlocBuilder<ProductBloc, ProductState>(
+                      builder: (context, state) {
+                        if (state is ProductsDisplaySuccess) {
+                          return ListView.builder(
+                            scrollDirection:
+                                Axis.horizontal, // Arah scroll horizontal
+                            itemCount: state.kategori
+                                .length, // Ganti categories dengan daftar kategori Anda
+                            itemBuilder: (context, index) {
+                              final category = state.kategori[
+                                  index]; // Ambil kategori pada indeks tertentu
 
-                  if (state is ProductAddedToCartSuccess) {
-                    showSnackBar(
-                        context, "${state.product.nama} added to cart");
-                  }
-                },
-                builder: (context, state) {
-                  if (state is ProductLoading) {
-                    return const Loader();
-                  }
-                  if (state is ProductsDisplaySuccess) {
-                    return GridView.builder(
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.all(20),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 4),
-                      itemCount: state.products.length,
-                      itemBuilder: (context, index) {
-                        final product = state.products[index];
+                              // Return widget untuk setiap kategori
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedCategory = category;
+                                  });
 
-                        return ProductCard(
-                          product: product,
-                          color: AppPallete.gradient2,
-                        );
+                                  context
+                                      .read<ProductBloc>()
+                                      .add(ProductFilter(category.toString()));
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                      top: 10,
+                                      left: 10,
+                                      right: 0,
+                                      bottom:
+                                          10), // Margin antara setiap kategori
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    // color: category == selectedCategory ? Colors.green[700] : null,
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Text(
+                                    category,
+                                    style: TextStyle(
+                                        color: category == selectedCategory
+                                            ? Colors.green[100]
+                                            : Colors.white),
+                                  ),
+                                  // Tampilkan nama kategori
+                                ),
+                              );
+                            },
+                          );
+                        }
+
+                        if (state is ProductsFiltered) {
+                          return ListView.builder(
+                            scrollDirection:
+                                Axis.horizontal, // Arah scroll horizontal
+                            itemCount: state.kategori
+                                .length, // Ganti categories dengan daftar kategori Anda
+                            itemBuilder: (context, index) {
+                              final category = state.kategori[
+                                  index]; // Ambil kategori pada indeks tertentu
+
+                              // Return widget untuk setiap kategori
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedCategory = category;
+                                  });
+
+                                  context
+                                      .read<ProductBloc>()
+                                      .add(ProductFilter(category.toString()));
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                      top: 10,
+                                      left: 10,
+                                      right: 0,
+                                      bottom:
+                                          10), // Margin antara setiap kategori
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    // color: category == selectedCategory ? Colors.green[700] : null,
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Text(
+                                    category,
+                                    style: TextStyle(
+                                        color: category == selectedCategory
+                                            ? Colors.green[100]
+                                            : Colors.white),
+                                  ),
+                                  // Tampilkan nama kategori
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          return const Center(
+                            child: Text('Mohon Tunggu ....',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12)),
+                          );
+                        }
                       },
-                    );
-                  }
-                  return const SizedBox();
-                },
-              ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 9,
+                  child: BlocConsumer<ProductBloc, ProductState>(
+                    listener: (context, state) {
+                      if (state is ProductFailure) {
+                        showSnackBar(context, state.error);
+                      }
+
+                      if (state is ProductsFiltered) {
+                        // showSnackBar(context, "Produk telah difilter");
+                      }
+
+                      if (state is ProductAddedToCartSuccess) {
+                        showSnackBar(
+                            context, "${state.product.nama} added to cart");
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is ProductLoading) {
+                        return const Loader();
+                      }
+
+                      if (state is ProductsFiltered) {
+                        print('test');
+                        return GridView.builder(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.all(20),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4),
+                          itemCount: state.products.length,
+                          itemBuilder: (context, index) {
+                            final product = state.products[index];
+
+                            return ProductCard(
+                              product: product,
+                              color: AppPallete.gradient2,
+                            );
+                          },
+                        );
+                      }
+                      if (state is ProductsDisplaySuccess) {
+                        return GridView.builder(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.all(20),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4),
+                          itemCount: state.products.length,
+                          itemBuilder: (context, index) {
+                            final product = state.products[index];
+
+                            return ProductCard(
+                              product: product,
+                              color: AppPallete.gradient2,
+                            );
+                          },
+                        );
+                      }
+                      return const SizedBox();
+                    },
+                  ),
+                ),
+              ]),
             ),
             const VerticalDivider(thickness: 2, width: 4),
             const Expanded(
