@@ -41,7 +41,7 @@ Future<SingleTransaksi> saveTransaksi({required SingleTransaksi transaksi,requir
 
       final response = await dio.post(
         '${Config.baseUrl}admin/transaksis',
-      data: saveDto.toJson(),// URL logout
+        data: saveDto.toJson(),// URL logout
         options: Options(
           headers: {
             'Authorization': 'Bearer $token', // Menggunakan token untuk otorisasi

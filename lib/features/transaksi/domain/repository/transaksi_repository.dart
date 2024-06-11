@@ -8,5 +8,7 @@ abstract interface class TransaksiRepository {
 
   Future<Either<Failure, List<Transaksi>>> getAllData();
 
+  Future<Either<Failure, List<TransaksiLocal>>> getAllLocalTransaksi();
+
   Future<Either<Failure, SingleTransaksi>> saveTransaksi({required SingleTransaksi transaksi,required List<CashierItem> items});
 }

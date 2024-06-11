@@ -71,6 +71,7 @@ class _BayarPageState extends State<BayarPage> {
     paymentController.text = amount.toString();
   }
 
+
   void _showPaymentSuccessModal(BuildContext context, int totalBayar, int total,
       int kembalian, String metodePembayaran) {
     showDialog(
@@ -84,14 +85,14 @@ class _BayarPageState extends State<BayarPage> {
             authState is AuthSuccess ? int.tryParse(authState.user.id) ?? 0 : 0;
         final status = cashierState is CashierUpdated
             ? cashierState.cashier.items.isEmpty
-                ? 'closed'
-                : 'open'
+                ? 'open'
+                : 'closed'
             : '';
         final SingleTransaksi updatedTransaksi = SingleTransaksi(
             id: 1,
             authorId: userID,
-            createdAt: DateTime.now().toString(),
-            updatedAt: DateTime.now().toString(),
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
             total: total,
             pembayaran: totalBayar,
             kembalian: kembalian,
@@ -104,62 +105,64 @@ class _BayarPageState extends State<BayarPage> {
             .read<TransaksiBloc>()
             .add(TransaksiUpdate(transaksi: updatedTransaksi));
 
-        return PopScope(
+        return  PopScope(
           canPop: false,
           child: AlertDialog(
-            title: const Text('Pembayaran Berhasil'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Total Bayar: ${formatRupiah(totalBayar)}'),
-                Text('Total: ${formatRupiah(total)}'),
-                Text('Kembalian: ${formatRupiah(kembalian)}'),
-                Text('Metode Pembayaran: $metodePembayaran'),
-                if (authState is AuthSuccess) ...[
-                  Text('ID Kasir: ${authState.user.id}'),
-                  Text('Nama Cashier: ${authState.user.name}'),
-                ] else ...[
-                  const Text('kasir tidak login'),
-                ],
-                if (cashierState is CashierUpdated) ...[
-                  Text('ID Cashier: ${cashierState.cashier.items.toString()}'),
-                ] else ...[
-                  const Text('Loading...'), 
-                ]
-              ],
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  context.read<PaymentBloc>().add(
-                        PaymentEvent.updatePayment(
-                          totalBayar: 0,
-                          total: total,
-                          kembalian: 0,
-                          metodePembayaran: selectedMethod.name,
-                        ),
-                      );
-                  Navigator.of(context).pop();
-                },
-        
-                child: const Text('Kembali'),
-              ),
-              TextButton(
-                onPressed: () {
-                  if (cashierState is CashierUpdated) {
-                    context.read<TransaksiBloc>().add(
-                      TransaksiSave(
-                        transaksi: updatedTransaksi,
-                        items: cashierState.cashier.items
-                         ));
-                  }
-                },
-                child: const Text('Simpan'),
-              ),
-            ],
-          ),
-        );
+                    title: const Text('Pembayaran Berhasil'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text('Total Bayar: ${formatRupiah(totalBayar)}'),
+                        Text('Total: ${formatRupiah(total)}'),
+                        Text('Kembalian: ${formatRupiah(kembalian)}'),
+                        Text('Metode Pembayaran: $metodePembayaran'),
+                        if (authState is AuthSuccess) ...[
+                          Text('ID Kasir: ${authState.user.id}'),
+                          Text('Nama Cashier: ${authState.user.name}'),
+                        ] else ...[
+                          const Text('kasir tidak login'),
+                        ],
+                        if (cashierState is CashierUpdated) ...[
+                          Text('ID Cashier: ${cashierState.cashier.items.toString()}'),
+                        ] else ...[
+                          const Text('Loading...'), 
+                        ]
+                      ],
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                        
+                          context.read<PaymentBloc>().add(
+                                PaymentEvent.updatePayment(
+                                  totalBayar: 0,
+                                  total: total,
+                                  kembalian: 0,
+                                  metodePembayaran: selectedMethod.name,
+                                ),
+                              );
+                        },
+                
+                        child: const Text('Kembali'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          if (cashierState is CashierUpdated) {
+                            context.read<TransaksiBloc>().add(
+                              TransaksiSave(
+                                transaksi: updatedTransaksi,
+                                items: cashierState.cashier.items
+                                ));
+                          }
+                        },
+                        child: const Text('Simpan'),
+                      ),
+                    ],
+                  ),
+        )
+        ;
+      
       },
     );
   }
@@ -179,8 +182,18 @@ class _BayarPageState extends State<BayarPage> {
               state.when(
                 initial: () {},
                 updated: (totalBayar, total, kembalian, metodePembayaran) {
-                  _showPaymentSuccessModal(
+                  
+                  if(totalBayar == 0 && kembalian == 0 ){
+                    Navigator.of(context).pop(true);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Silahkan Update Pembayaran')),
+                    );
+                  }else{
+                      _showPaymentSuccessModal(
                       context, totalBayar, total, kembalian, metodePembayaran);
+                  }
+
+                
                 },
                 failure: (message) {
                   ScaffoldMessenger.of(context).showSnackBar(

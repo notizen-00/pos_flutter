@@ -10,10 +10,17 @@ import 'package:blog_app/features/transaksi/presentation/bloc/transaksi_bloc.dar
 import 'package:blog_app/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await initDependencies();
+
+
+  
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(
@@ -53,10 +60,15 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     
     context.read<AuthBloc>().add(AuthIsUserLoggedIn());
+    context.read<TransaksiBloc>().add(TransaksiFetchAllLocalTransaksi());
   }
 
   @override
   Widget build(BuildContext context) {
+  SystemChrome.setPreferredOrientations([
+  DeviceOrientation.landscapeLeft,
+  DeviceOrientation.landscapeRight,
+]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Pos App',

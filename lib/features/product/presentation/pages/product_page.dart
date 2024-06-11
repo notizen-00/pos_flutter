@@ -9,7 +9,7 @@ import 'package:blog_app/features/meja/presentation/pages/meja_page.dart';
 import 'package:blog_app/features/product/presentation/bloc/product_bloc.dart';
 import 'package:blog_app/features/product/presentation/widgets/product_card.dart';
 import 'package:blog_app/features/transaksi/presentation/bloc/transaksi_bloc.dart';
-import 'package:blog_app/features/transaksi/presentation/pages/transaksi_pages.dart';
+import 'package:blog_app/features/transaksi/presentation/pages/transaksi_saved_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -83,37 +83,41 @@ class _ProductPageState extends State<ProductPage> {
           backgroundColor: Colors.green[700],
           elevation: 1,
           actions: [
-            IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () async {
-                context.read<AuthBloc>().add(AuthLogout());
-                Navigator.of(context).pushAndRemoveUntil(
-                  LoginPage.route(),
-                  (route) => false,
+            BlocBuilder<TransaksiBloc, TransaksiState>(
+              builder: (context, state) {
+                  int transaksiCount = 0;
+                if (state is TransaksiLocalDisplaySuccess) {
+                  transaksiCount = state.transaksi.length;
+                }
+                return Badge.count(
+                  count: transaksiCount,
+                  isLabelVisible: true,
+                  // padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                  largeSize: 19,
+                  smallSize: 22,
+                  textColor: Colors.white,
+                  backgroundColor: Colors.black,
+                  alignment: Alignment.topLeft,
+                  offset: const Offset(5, 4),
+                  child: IconButton(
+                    icon: const Icon(Icons.shopping_cart_sharp),
+                    color: Colors.white,
+                    onPressed: () async {
+                      context
+                          .read<TransaksiBloc>()
+                          .add(TransaksiFetchAllLocalTransaksi());
+                      Navigator.of(context).push(TransaksiSavedPage.route());
+                    },
+                  ),
                 );
               },
             ),
-            Badge.count(
-              count: 0,
-              isLabelVisible: true,
-              // padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-              largeSize: 19,
-              smallSize: 22,
-              textColor: Colors.white,
-              backgroundColor: Colors.amber,
-              alignment: Alignment.topLeft,
-              offset: const Offset(5, 4),
-              child: IconButton(
-                icon: const Icon(Icons.shopping_cart_sharp),
-                color: Colors.white,
-                onPressed: () async {
-                  context
-                      .read<TransaksiBloc>()
-                      .add(TransaksiFetchAllTransaksi());
-                  Navigator.of(context).push(TransaksiPage.route());
-                },
-              ),
-            ),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 1, vertical: 10),
+              child: Text('Tersimpan'),
+            )
+            
           ],
         ),
         drawer: SidebarDrawer(
@@ -294,7 +298,6 @@ class _ProductPageState extends State<ProductPage> {
                       }
 
                       if (state is ProductsFiltered) {
-                        print('test');
                         return GridView.builder(
                           shrinkWrap: true,
                           padding: const EdgeInsets.all(20),
@@ -375,7 +378,7 @@ class _ProductPageState extends State<ProductPage> {
               color: Colors.white,
               onPressed: () async {
                 Navigator.of(context).push(
-                  TransaksiPage.route(),
+                  TransaksiSavedPage.route(),
                 );
               },
             ),

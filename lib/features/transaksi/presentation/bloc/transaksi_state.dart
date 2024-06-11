@@ -18,6 +18,14 @@
 
   }
 
+   class TransaksiLocalDisplaySuccess extends TransaksiState {
+    final List<TransaksiLocal> transaksi;
+    const TransaksiLocalDisplaySuccess({
+      required this.transaksi,
+    });
+
+  }
+
 
   class TransaksiUpdated extends TransaksiState {
     

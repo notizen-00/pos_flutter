@@ -1,10 +1,11 @@
+import 'package:blog_app/features/cashier/domain/entities/cashier.dart';
 import 'package:blog_app/features/product/domain/entities/product.dart';
 import 'package:equatable/equatable.dart';
 
 class Transaksi extends Equatable {
-  final int id;
-  final String nomorTransaksi;
-  final String? pelangganId;
+  final int? id;
+  final String? nomorTransaksi;
+  final int? pelangganId;
   final String? namaPelanggan;
   final int? meja;
   final int authorId;
@@ -13,16 +14,16 @@ class Transaksi extends Equatable {
   final int total;
   final String? deskripsi;
   final int? totalTambahan;
-  final int pembayaran;
-  final String metodePembayaran;
-  final int kembalian;
+  final int? pembayaran;
+  final String? metodePembayaran;
+  final int? kembalian;
   final List<DetailTransaksi> detailTransaksi;
-  final String createdAt;
-  final String updatedAt;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   const Transaksi({
-    required this.id,
-    required this.nomorTransaksi,
+    this.id,
+    this.nomorTransaksi,
     this.pelangganId,
     this.namaPelanggan,
     this.meja,
@@ -32,9 +33,9 @@ class Transaksi extends Equatable {
     required this.total,
     this.deskripsi,
     this.totalTambahan,
-    required this.pembayaran,
-    required this.metodePembayaran,
-    required this.kembalian,
+    this.pembayaran,
+    this.metodePembayaran,
+    this.kembalian,
     required this.detailTransaksi,
     required this.createdAt,
     required this.updatedAt,
@@ -62,6 +63,67 @@ class Transaksi extends Equatable {
       ];
 }
 
+class TransaksiLocal extends Equatable {
+  final int? id;
+  final String? nomorTransaksi;
+  final int? pelangganId;
+  final String? namaPelanggan;
+  final int? meja;
+  final int? authorId;
+  final int? shiftId;
+  final String status;
+  final int total;
+  final String? deskripsi;
+  final int? totalTambahan;
+  final int? pembayaran;
+  final String? metodePembayaran;
+  final int? kembalian;
+  final List<CashierItem> cashier;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+
+  const TransaksiLocal({
+    this.id,
+    this.nomorTransaksi,
+    this.pelangganId,
+    this.namaPelanggan,
+    this.meja,
+    this.authorId,
+    this.shiftId,
+    required this.status,
+    required this.total,
+    this.deskripsi,
+    this.totalTambahan,
+    this.pembayaran,
+    this.metodePembayaran,
+    this.kembalian,
+    required this.cashier,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  @override
+  List<Object?> get props => [
+        id,
+        nomorTransaksi,
+        pelangganId,
+        namaPelanggan,
+        meja,
+        authorId,
+        shiftId,
+        status,
+        total,
+        deskripsi,
+        totalTambahan,
+        pembayaran,
+        metodePembayaran,
+        kembalian,
+        cashier,
+        createdAt,
+        updatedAt,
+      ];
+}
+
 class SingleTransaksi extends Equatable {
   final int? id;
   final String? nomorTransaksi;
@@ -77,8 +139,8 @@ class SingleTransaksi extends Equatable {
   final int? pembayaran;
   final String? metodePembayaran;
   final int? kembalian;
-  final String? createdAt;
-  final String? updatedAt;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   const SingleTransaksi({
      this.id,
@@ -95,8 +157,8 @@ class SingleTransaksi extends Equatable {
     this.pembayaran,
     this.metodePembayaran,
      this.kembalian,
-     this.createdAt,
-     this.updatedAt,
+     required this.createdAt,
+     required this.updatedAt,
   });
 
   @override

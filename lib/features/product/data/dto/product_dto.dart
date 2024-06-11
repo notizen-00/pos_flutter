@@ -5,7 +5,6 @@ part 'product_dto.freezed.dart';
 part 'product_dto.g.dart';
 
 
-
 @freezed
 class ProductDto with _$ProductDto {
   factory ProductDto({

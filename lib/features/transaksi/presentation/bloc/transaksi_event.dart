@@ -4,7 +4,13 @@ abstract class TransaksiEvent  {
   const TransaksiEvent();
 }
 
-class TransaksiFetchAllTransaksi extends TransaksiEvent {}
+class TransaksiFetchAllTransaksi extends TransaksiEvent {
+
+}
+
+class TransaksiFetchAllLocalTransaksi extends TransaksiEvent {
+  
+}
 
 class TransaksiSave extends TransaksiEvent {
   final SingleTransaksi transaksi;

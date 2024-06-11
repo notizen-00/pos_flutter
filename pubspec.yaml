@@ -54,6 +54,8 @@ dependencies:
   json_annotation: ^4.9.0
   bloc: ^8.1.4
   timezone: ^0.9.3
+  collection: ^1.15.0
+
 
 dev_dependencies:
   flutter_test:

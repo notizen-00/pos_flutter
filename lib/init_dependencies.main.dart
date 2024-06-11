@@ -12,7 +12,7 @@ Future<void> initDependencies() async {
 
 
   serviceLocator.registerLazySingleton(
-    () => Hive.box(name: 'products'),
+    () => Hive.box(name:'transaksi'),
   );
 
   serviceLocator.registerLazySingleton(() => TokenManager());
@@ -32,7 +32,7 @@ Future<void> initDependencies() async {
     () => ConnectionCheckerImpl(
       serviceLocator(),
     ),
-  );
+  ); 
 }
 
 void _initTransaksi(){
@@ -44,8 +44,15 @@ void _initTransaksi(){
         tokenManager:serviceLocator()
     ),
   )
+
+   ..registerFactory<TransaksiLocalDataSource>(
+      () => TransaksiLocalDataSourceImpl(
+        serviceLocator(),
+      ),
+    )
   ..registerFactory<TransaksiRepository>(
     ()=>TransaksiRepositoryImpl(
+      serviceLocator(),
       serviceLocator(),
       serviceLocator(),
       serviceLocator()
@@ -53,6 +60,12 @@ void _initTransaksi(){
   )
   ..registerFactory( 
       () => GetAllTransaksi(
+        serviceLocator(),
+      ),
+    )
+
+    ..registerFactory( 
+      () => GetAllLocalTransaksi(
         serviceLocator(),
       ),
     )
@@ -67,6 +80,7 @@ void _initTransaksi(){
       () => TransaksiBloc(
         getAllTransaksi: serviceLocator(),
         saveTransaksi:serviceLocator(),
+        getAllLocalTransaksi: serviceLocator(),
       ),
     );
   

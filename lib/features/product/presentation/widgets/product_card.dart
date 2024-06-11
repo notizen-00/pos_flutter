@@ -54,7 +54,7 @@ class ProductCard extends StatelessWidget {
                         image: AssetImage('assets/images/placeholder.png')),
               ),
               Positioned.fill(
-                  top: 100,
+                  top: 90,
                   child: Container(
                     padding: const EdgeInsets.all(0),
                     decoration: BoxDecoration(

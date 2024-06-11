@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-class TransaksiPage extends StatelessWidget {
-  const TransaksiPage({super.key});
+class TransaksiSavedPage extends StatelessWidget {
+  const TransaksiSavedPage({super.key});
 
   static Route<dynamic> route() {
-    return MaterialPageRoute(builder: (context) => const TransaksiPage());
+    return MaterialPageRoute(builder: (context) => const TransaksiSavedPage());
   }
 
   @override
@@ -24,7 +24,7 @@ class TransaksiPage extends StatelessWidget {
         builder: (context, state) {
           if (state is TransaksiLoading) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state is TransaksiDisplaySuccess) {
+          } else if (state is TransaksiLocalDisplaySuccess) {
             // Group transaksi by date
             final groupedTransaksi = groupBy(
               state.transaksi,
@@ -79,7 +79,7 @@ class TransaksiPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      transaksi.nomorTransaksi.toString(),
+                                      transaksi.deskripsi.toString(),
                                       style: const TextStyle(fontSize: 12),
                                     ),
                                     const SizedBox(height: 5),
@@ -148,7 +148,7 @@ class TransaksiPage extends StatelessWidget {
   }
 }
 
-void _showDetailModal(BuildContext context, Transaksi transaksi) {
+void _showDetailModal(BuildContext context, TransaksiLocal transaksi) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
@@ -167,16 +167,16 @@ void _showDetailModal(BuildContext context, Transaksi transaksi) {
             Text('Nama Pelanggan: ${transaksi.namaPelanggan ?? 'No Name'}'),
             Text('Total: ${transaksi.total}'),
             Text('Status: ${transaksi.status}'),
-            Text(DateFormat.Hm().format(transaksi.createdAt)),
+            Text(DateFormat.Hms().format(transaksi.createdAt)),
             const SizedBox(height: 16),
             const Text(
               'Detail Produk:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            ...transaksi.detailTransaksi.map((detail) {
+            ...transaksi.cashier.map((detail) {
               return ListTile(
-                title: Text(detail.produk.nama),
+                title: Text(detail.product.nama),
                 subtitle: Text(
                     'Quantity: ${detail.quantity}, Subtotal: ${detail.subtotal}'),
               );

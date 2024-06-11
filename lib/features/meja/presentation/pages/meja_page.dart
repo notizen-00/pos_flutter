@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
 class MejaPage extends StatefulWidget {
@@ -81,6 +80,7 @@ class _MejaPageState extends State<MejaPage> {
                 onPressed: () {
                   int selected = isSelected.indexOf(true) + 1;
                   print(selected);
+                  Navigator.of(context).pop();
                 },
                 child: const Text('Pilih Meja', style: TextStyle(fontSize: 16)),
               ),

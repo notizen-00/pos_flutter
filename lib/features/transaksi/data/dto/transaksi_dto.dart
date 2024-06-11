@@ -10,9 +10,9 @@ part 'transaksi_dto.g.dart';
 @freezed
 class TransaksiDto with _$TransaksiDto {
   const factory TransaksiDto({
-    required int id,
-    @JsonKey(name:'nomor_transaksi') required String nomorTransaksi,
-    @JsonKey(name:'pelanggan_id') String? pelangganId,
+    int? id,
+    @JsonKey(name:'nomor_transaksi') String? nomorTransaksi,
+    @JsonKey(name:'pelanggan_id') int? pelangganId,
     @JsonKey(name:'nama_pelanggan') String? namaPelanggan,
     int? meja,
     @JsonKey(name:'author_id') required int authorId,
@@ -21,12 +21,12 @@ class TransaksiDto with _$TransaksiDto {
     required int total,
     String? deskripsi,
     @JsonKey(name:'total_tambahan') int? totalTambahan,
-    required int pembayaran,
-    @JsonKey(name:'metode_pembayaran') required String metodePembayaran,
-    required int kembalian,
+    int? pembayaran,
+    @JsonKey(name:'metode_pembayaran') String? metodePembayaran,
+    int? kembalian,
     @JsonKey(name:'detail_transaksi') required List<DetailTransaksiDto> detailTransaksi,
-    @JsonKey(name: 'created_at') String? createdAt,
-    @JsonKey(name: 'updated_at') String? updatedAt,
+    @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'updated_at') required DateTime updatedAt,
   }) = _TransaksiDto;
 
   factory TransaksiDto.fromJson(Map<String, dynamic> json) => _$TransaksiDtoFromJson(json);
@@ -71,8 +71,8 @@ class SingleTransaksiDto with _$SingleTransaksiDto {
     int? pembayaran,
     @JsonKey(name:'metode_pembayaran') String? metodePembayaran,
     int? kembalian,
-    @JsonKey(name: 'created_at') String? createdAt,
-    @JsonKey(name: 'updated_at') String? updatedAt,
+    @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'updated_at') required DateTime updatedAt,
   }) = _SingleTransaksiDto;
 
   factory SingleTransaksiDto.fromJson(Map<String, dynamic> json) => _$SingleTransaksiDtoFromJson(json);
@@ -147,23 +147,23 @@ extension DetailTransaksiDtoX on DetailTransaksiDto {
 extension TransaksiDtoX on TransaksiDto {
   Transaksi toEntity() {
     return Transaksi(
-      id: id,
-      nomorTransaksi: nomorTransaksi,
-      pelangganId: pelangganId,
-      namaPelanggan: namaPelanggan,
-      meja: meja,
-      authorId: authorId,
-      shiftId: shiftId,
+      id: id ?? 0,
+      nomorTransaksi: nomorTransaksi ?? '',
+      pelangganId: pelangganId ?? 0,
+      namaPelanggan: namaPelanggan ?? '',
+      meja: meja ?? 0,
+      authorId: authorId ,
+      shiftId: shiftId ?? 0,
       status: status,
       total: total,
-      deskripsi: deskripsi,
-      totalTambahan: totalTambahan,
-      pembayaran: pembayaran,
-      metodePembayaran: metodePembayaran,
-      kembalian: kembalian,
+      deskripsi: deskripsi ?? '',
+      totalTambahan: totalTambahan ?? 0,
+      pembayaran: pembayaran ?? 0,
+      metodePembayaran: metodePembayaran ?? '',
+      kembalian: kembalian ?? 0,
       detailTransaksi: detailTransaksi.map((detail) => detail.toEntity()).toList(),
-      createdAt: createdAt ?? '',
-      updatedAt: updatedAt ?? '',
+      createdAt: createdAt ,
+      updatedAt: updatedAt,
     );
   }
 }
@@ -185,8 +185,8 @@ extension SingleTransaksiDtoX on SingleTransaksiDto {
       pembayaran: pembayaran ?? 0,
       metodePembayaran: metodePembayaran ?? '',
       kembalian: kembalian ?? 0,
-      createdAt: createdAt ?? '',
-      updatedAt: updatedAt ?? '',
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 }

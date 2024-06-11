@@ -33,7 +33,9 @@ class SaveTransaksiDto with _$SaveTransaksiDto {
       detailTransaksi: items.map((item) => SaveDetailTransaksiDto.fromCashierItem(item)).toList(),
     );
   }
+
 }
+
 
 @freezed
 class TransaksiData with _$TransaksiData {
@@ -72,4 +74,13 @@ class SaveDetailTransaksiDto with _$SaveDetailTransaksiDto {
       subtotal: item.subtotal,
     );
   }
+  
 }
+
+
+
+
+
+
+
+

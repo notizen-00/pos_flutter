@@ -20,11 +20,11 @@ TransaksiDto _$TransaksiDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TransaksiDto {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'nomor_transaksi')
-  String get nomorTransaksi => throw _privateConstructorUsedError;
+  String? get nomorTransaksi => throw _privateConstructorUsedError;
   @JsonKey(name: 'pelanggan_id')
-  String? get pelangganId => throw _privateConstructorUsedError;
+  int? get pelangganId => throw _privateConstructorUsedError;
   @JsonKey(name: 'nama_pelanggan')
   String? get namaPelanggan => throw _privateConstructorUsedError;
   int? get meja => throw _privateConstructorUsedError;
@@ -37,17 +37,17 @@ mixin _$TransaksiDto {
   String? get deskripsi => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_tambahan')
   int? get totalTambahan => throw _privateConstructorUsedError;
-  int get pembayaran => throw _privateConstructorUsedError;
+  int? get pembayaran => throw _privateConstructorUsedError;
   @JsonKey(name: 'metode_pembayaran')
-  String get metodePembayaran => throw _privateConstructorUsedError;
-  int get kembalian => throw _privateConstructorUsedError;
+  String? get metodePembayaran => throw _privateConstructorUsedError;
+  int? get kembalian => throw _privateConstructorUsedError;
   @JsonKey(name: 'detail_transaksi')
   List<DetailTransaksiDto> get detailTransaksi =>
       throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
-  String? get createdAt => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
-  String? get updatedAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -62,9 +62,9 @@ abstract class $TransaksiDtoCopyWith<$Res> {
       _$TransaksiDtoCopyWithImpl<$Res, TransaksiDto>;
   @useResult
   $Res call(
-      {int id,
-      @JsonKey(name: 'nomor_transaksi') String nomorTransaksi,
-      @JsonKey(name: 'pelanggan_id') String? pelangganId,
+      {int? id,
+      @JsonKey(name: 'nomor_transaksi') String? nomorTransaksi,
+      @JsonKey(name: 'pelanggan_id') int? pelangganId,
       @JsonKey(name: 'nama_pelanggan') String? namaPelanggan,
       int? meja,
       @JsonKey(name: 'author_id') int authorId,
@@ -73,13 +73,13 @@ abstract class $TransaksiDtoCopyWith<$Res> {
       int total,
       String? deskripsi,
       @JsonKey(name: 'total_tambahan') int? totalTambahan,
-      int pembayaran,
-      @JsonKey(name: 'metode_pembayaran') String metodePembayaran,
-      int kembalian,
+      int? pembayaran,
+      @JsonKey(name: 'metode_pembayaran') String? metodePembayaran,
+      int? kembalian,
       @JsonKey(name: 'detail_transaksi')
       List<DetailTransaksiDto> detailTransaksi,
-      @JsonKey(name: 'created_at') String? createdAt,
-      @JsonKey(name: 'updated_at') String? updatedAt});
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'updated_at') DateTime updatedAt});
 }
 
 /// @nodoc
@@ -95,8 +95,8 @@ class _$TransaksiDtoCopyWithImpl<$Res, $Val extends TransaksiDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? nomorTransaksi = null,
+    Object? id = freezed,
+    Object? nomorTransaksi = freezed,
     Object? pelangganId = freezed,
     Object? namaPelanggan = freezed,
     Object? meja = freezed,
@@ -106,26 +106,26 @@ class _$TransaksiDtoCopyWithImpl<$Res, $Val extends TransaksiDto>
     Object? total = null,
     Object? deskripsi = freezed,
     Object? totalTambahan = freezed,
-    Object? pembayaran = null,
-    Object? metodePembayaran = null,
-    Object? kembalian = null,
+    Object? pembayaran = freezed,
+    Object? metodePembayaran = freezed,
+    Object? kembalian = freezed,
     Object? detailTransaksi = null,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      nomorTransaksi: null == nomorTransaksi
+              as int?,
+      nomorTransaksi: freezed == nomorTransaksi
           ? _value.nomorTransaksi
           : nomorTransaksi // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       pelangganId: freezed == pelangganId
           ? _value.pelangganId
           : pelangganId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       namaPelanggan: freezed == namaPelanggan
           ? _value.namaPelanggan
           : namaPelanggan // ignore: cast_nullable_to_non_nullable
@@ -158,30 +158,30 @@ class _$TransaksiDtoCopyWithImpl<$Res, $Val extends TransaksiDto>
           ? _value.totalTambahan
           : totalTambahan // ignore: cast_nullable_to_non_nullable
               as int?,
-      pembayaran: null == pembayaran
+      pembayaran: freezed == pembayaran
           ? _value.pembayaran
           : pembayaran // ignore: cast_nullable_to_non_nullable
-              as int,
-      metodePembayaran: null == metodePembayaran
+              as int?,
+      metodePembayaran: freezed == metodePembayaran
           ? _value.metodePembayaran
           : metodePembayaran // ignore: cast_nullable_to_non_nullable
-              as String,
-      kembalian: null == kembalian
+              as String?,
+      kembalian: freezed == kembalian
           ? _value.kembalian
           : kembalian // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       detailTransaksi: null == detailTransaksi
           ? _value.detailTransaksi
           : detailTransaksi // ignore: cast_nullable_to_non_nullable
               as List<DetailTransaksiDto>,
-      createdAt: freezed == createdAt
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      updatedAt: freezed == updatedAt
+              as DateTime,
+      updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime,
     ) as $Val);
   }
 }
@@ -195,9 +195,9 @@ abstract class _$$TransaksiDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
-      @JsonKey(name: 'nomor_transaksi') String nomorTransaksi,
-      @JsonKey(name: 'pelanggan_id') String? pelangganId,
+      {int? id,
+      @JsonKey(name: 'nomor_transaksi') String? nomorTransaksi,
+      @JsonKey(name: 'pelanggan_id') int? pelangganId,
       @JsonKey(name: 'nama_pelanggan') String? namaPelanggan,
       int? meja,
       @JsonKey(name: 'author_id') int authorId,
@@ -206,13 +206,13 @@ abstract class _$$TransaksiDtoImplCopyWith<$Res>
       int total,
       String? deskripsi,
       @JsonKey(name: 'total_tambahan') int? totalTambahan,
-      int pembayaran,
-      @JsonKey(name: 'metode_pembayaran') String metodePembayaran,
-      int kembalian,
+      int? pembayaran,
+      @JsonKey(name: 'metode_pembayaran') String? metodePembayaran,
+      int? kembalian,
       @JsonKey(name: 'detail_transaksi')
       List<DetailTransaksiDto> detailTransaksi,
-      @JsonKey(name: 'created_at') String? createdAt,
-      @JsonKey(name: 'updated_at') String? updatedAt});
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'updated_at') DateTime updatedAt});
 }
 
 /// @nodoc
@@ -226,8 +226,8 @@ class __$$TransaksiDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? nomorTransaksi = null,
+    Object? id = freezed,
+    Object? nomorTransaksi = freezed,
     Object? pelangganId = freezed,
     Object? namaPelanggan = freezed,
     Object? meja = freezed,
@@ -237,26 +237,26 @@ class __$$TransaksiDtoImplCopyWithImpl<$Res>
     Object? total = null,
     Object? deskripsi = freezed,
     Object? totalTambahan = freezed,
-    Object? pembayaran = null,
-    Object? metodePembayaran = null,
-    Object? kembalian = null,
+    Object? pembayaran = freezed,
+    Object? metodePembayaran = freezed,
+    Object? kembalian = freezed,
     Object? detailTransaksi = null,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
   }) {
     return _then(_$TransaksiDtoImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      nomorTransaksi: null == nomorTransaksi
+              as int?,
+      nomorTransaksi: freezed == nomorTransaksi
           ? _value.nomorTransaksi
           : nomorTransaksi // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       pelangganId: freezed == pelangganId
           ? _value.pelangganId
           : pelangganId // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       namaPelanggan: freezed == namaPelanggan
           ? _value.namaPelanggan
           : namaPelanggan // ignore: cast_nullable_to_non_nullable
@@ -289,30 +289,30 @@ class __$$TransaksiDtoImplCopyWithImpl<$Res>
           ? _value.totalTambahan
           : totalTambahan // ignore: cast_nullable_to_non_nullable
               as int?,
-      pembayaran: null == pembayaran
+      pembayaran: freezed == pembayaran
           ? _value.pembayaran
           : pembayaran // ignore: cast_nullable_to_non_nullable
-              as int,
-      metodePembayaran: null == metodePembayaran
+              as int?,
+      metodePembayaran: freezed == metodePembayaran
           ? _value.metodePembayaran
           : metodePembayaran // ignore: cast_nullable_to_non_nullable
-              as String,
-      kembalian: null == kembalian
+              as String?,
+      kembalian: freezed == kembalian
           ? _value.kembalian
           : kembalian // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       detailTransaksi: null == detailTransaksi
           ? _value._detailTransaksi
           : detailTransaksi // ignore: cast_nullable_to_non_nullable
               as List<DetailTransaksiDto>,
-      createdAt: freezed == createdAt
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      updatedAt: freezed == updatedAt
+              as DateTime,
+      updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime,
     ));
   }
 }
@@ -321,8 +321,8 @@ class __$$TransaksiDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TransaksiDtoImpl implements _TransaksiDto {
   const _$TransaksiDtoImpl(
-      {required this.id,
-      @JsonKey(name: 'nomor_transaksi') required this.nomorTransaksi,
+      {this.id,
+      @JsonKey(name: 'nomor_transaksi') this.nomorTransaksi,
       @JsonKey(name: 'pelanggan_id') this.pelangganId,
       @JsonKey(name: 'nama_pelanggan') this.namaPelanggan,
       this.meja,
@@ -332,26 +332,26 @@ class _$TransaksiDtoImpl implements _TransaksiDto {
       required this.total,
       this.deskripsi,
       @JsonKey(name: 'total_tambahan') this.totalTambahan,
-      required this.pembayaran,
-      @JsonKey(name: 'metode_pembayaran') required this.metodePembayaran,
-      required this.kembalian,
+      this.pembayaran,
+      @JsonKey(name: 'metode_pembayaran') this.metodePembayaran,
+      this.kembalian,
       @JsonKey(name: 'detail_transaksi')
       required final List<DetailTransaksiDto> detailTransaksi,
-      @JsonKey(name: 'created_at') this.createdAt,
-      @JsonKey(name: 'updated_at') this.updatedAt})
+      @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'updated_at') required this.updatedAt})
       : _detailTransaksi = detailTransaksi;
 
   factory _$TransaksiDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$TransaksiDtoImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   @JsonKey(name: 'nomor_transaksi')
-  final String nomorTransaksi;
+  final String? nomorTransaksi;
   @override
   @JsonKey(name: 'pelanggan_id')
-  final String? pelangganId;
+  final int? pelangganId;
   @override
   @JsonKey(name: 'nama_pelanggan')
   final String? namaPelanggan;
@@ -373,12 +373,12 @@ class _$TransaksiDtoImpl implements _TransaksiDto {
   @JsonKey(name: 'total_tambahan')
   final int? totalTambahan;
   @override
-  final int pembayaran;
+  final int? pembayaran;
   @override
   @JsonKey(name: 'metode_pembayaran')
-  final String metodePembayaran;
+  final String? metodePembayaran;
   @override
-  final int kembalian;
+  final int? kembalian;
   final List<DetailTransaksiDto> _detailTransaksi;
   @override
   @JsonKey(name: 'detail_transaksi')
@@ -390,10 +390,10 @@ class _$TransaksiDtoImpl implements _TransaksiDto {
 
   @override
   @JsonKey(name: 'created_at')
-  final String? createdAt;
+  final DateTime createdAt;
   @override
   @JsonKey(name: 'updated_at')
-  final String? updatedAt;
+  final DateTime updatedAt;
 
   @override
   String toString() {
@@ -474,38 +474,37 @@ class _$TransaksiDtoImpl implements _TransaksiDto {
 
 abstract class _TransaksiDto implements TransaksiDto {
   const factory _TransaksiDto(
-      {required final int id,
-      @JsonKey(name: 'nomor_transaksi') required final String nomorTransaksi,
-      @JsonKey(name: 'pelanggan_id') final String? pelangganId,
-      @JsonKey(name: 'nama_pelanggan') final String? namaPelanggan,
-      final int? meja,
-      @JsonKey(name: 'author_id') required final int authorId,
-      @JsonKey(name: 'shift_id') final int? shiftId,
-      required final String status,
-      required final int total,
-      final String? deskripsi,
-      @JsonKey(name: 'total_tambahan') final int? totalTambahan,
-      required final int pembayaran,
-      @JsonKey(name: 'metode_pembayaran')
-      required final String metodePembayaran,
-      required final int kembalian,
-      @JsonKey(name: 'detail_transaksi')
-      required final List<DetailTransaksiDto> detailTransaksi,
-      @JsonKey(name: 'created_at') final String? createdAt,
-      @JsonKey(name: 'updated_at')
-      final String? updatedAt}) = _$TransaksiDtoImpl;
+          {final int? id,
+          @JsonKey(name: 'nomor_transaksi') final String? nomorTransaksi,
+          @JsonKey(name: 'pelanggan_id') final int? pelangganId,
+          @JsonKey(name: 'nama_pelanggan') final String? namaPelanggan,
+          final int? meja,
+          @JsonKey(name: 'author_id') required final int authorId,
+          @JsonKey(name: 'shift_id') final int? shiftId,
+          required final String status,
+          required final int total,
+          final String? deskripsi,
+          @JsonKey(name: 'total_tambahan') final int? totalTambahan,
+          final int? pembayaran,
+          @JsonKey(name: 'metode_pembayaran') final String? metodePembayaran,
+          final int? kembalian,
+          @JsonKey(name: 'detail_transaksi')
+          required final List<DetailTransaksiDto> detailTransaksi,
+          @JsonKey(name: 'created_at') required final DateTime createdAt,
+          @JsonKey(name: 'updated_at') required final DateTime updatedAt}) =
+      _$TransaksiDtoImpl;
 
   factory _TransaksiDto.fromJson(Map<String, dynamic> json) =
       _$TransaksiDtoImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   @JsonKey(name: 'nomor_transaksi')
-  String get nomorTransaksi;
+  String? get nomorTransaksi;
   @override
   @JsonKey(name: 'pelanggan_id')
-  String? get pelangganId;
+  int? get pelangganId;
   @override
   @JsonKey(name: 'nama_pelanggan')
   String? get namaPelanggan;
@@ -527,21 +526,21 @@ abstract class _TransaksiDto implements TransaksiDto {
   @JsonKey(name: 'total_tambahan')
   int? get totalTambahan;
   @override
-  int get pembayaran;
+  int? get pembayaran;
   @override
   @JsonKey(name: 'metode_pembayaran')
-  String get metodePembayaran;
+  String? get metodePembayaran;
   @override
-  int get kembalian;
+  int? get kembalian;
   @override
   @JsonKey(name: 'detail_transaksi')
   List<DetailTransaksiDto> get detailTransaksi;
   @override
   @JsonKey(name: 'created_at')
-  String? get createdAt;
+  DateTime get createdAt;
   @override
   @JsonKey(name: 'updated_at')
-  String? get updatedAt;
+  DateTime get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$$TransaksiDtoImplCopyWith<_$TransaksiDtoImpl> get copyWith =>
@@ -576,9 +575,9 @@ mixin _$SingleTransaksiDto {
   String? get metodePembayaran => throw _privateConstructorUsedError;
   int? get kembalian => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
-  String? get createdAt => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
-  String? get updatedAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -607,8 +606,8 @@ abstract class $SingleTransaksiDtoCopyWith<$Res> {
       int? pembayaran,
       @JsonKey(name: 'metode_pembayaran') String? metodePembayaran,
       int? kembalian,
-      @JsonKey(name: 'created_at') String? createdAt,
-      @JsonKey(name: 'updated_at') String? updatedAt});
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'updated_at') DateTime updatedAt});
 }
 
 /// @nodoc
@@ -638,8 +637,8 @@ class _$SingleTransaksiDtoCopyWithImpl<$Res, $Val extends SingleTransaksiDto>
     Object? pembayaran = freezed,
     Object? metodePembayaran = freezed,
     Object? kembalian = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -698,14 +697,14 @@ class _$SingleTransaksiDtoCopyWithImpl<$Res, $Val extends SingleTransaksiDto>
           ? _value.kembalian
           : kembalian // ignore: cast_nullable_to_non_nullable
               as int?,
-      createdAt: freezed == createdAt
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      updatedAt: freezed == updatedAt
+              as DateTime,
+      updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime,
     ) as $Val);
   }
 }
@@ -733,8 +732,8 @@ abstract class _$$SingleTransaksiDtoImplCopyWith<$Res>
       int? pembayaran,
       @JsonKey(name: 'metode_pembayaran') String? metodePembayaran,
       int? kembalian,
-      @JsonKey(name: 'created_at') String? createdAt,
-      @JsonKey(name: 'updated_at') String? updatedAt});
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'updated_at') DateTime updatedAt});
 }
 
 /// @nodoc
@@ -762,8 +761,8 @@ class __$$SingleTransaksiDtoImplCopyWithImpl<$Res>
     Object? pembayaran = freezed,
     Object? metodePembayaran = freezed,
     Object? kembalian = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
   }) {
     return _then(_$SingleTransaksiDtoImpl(
       id: freezed == id
@@ -822,14 +821,14 @@ class __$$SingleTransaksiDtoImplCopyWithImpl<$Res>
           ? _value.kembalian
           : kembalian // ignore: cast_nullable_to_non_nullable
               as int?,
-      createdAt: freezed == createdAt
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      updatedAt: freezed == updatedAt
+              as DateTime,
+      updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime,
     ));
   }
 }
@@ -852,8 +851,8 @@ class _$SingleTransaksiDtoImpl implements _SingleTransaksiDto {
       this.pembayaran,
       @JsonKey(name: 'metode_pembayaran') this.metodePembayaran,
       this.kembalian,
-      @JsonKey(name: 'created_at') this.createdAt,
-      @JsonKey(name: 'updated_at') this.updatedAt});
+      @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'updated_at') required this.updatedAt});
 
   factory _$SingleTransaksiDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$SingleTransaksiDtoImplFromJson(json);
@@ -895,10 +894,10 @@ class _$SingleTransaksiDtoImpl implements _SingleTransaksiDto {
   final int? kembalian;
   @override
   @JsonKey(name: 'created_at')
-  final String? createdAt;
+  final DateTime createdAt;
   @override
   @JsonKey(name: 'updated_at')
-  final String? updatedAt;
+  final DateTime updatedAt;
 
   @override
   String toString() {
@@ -991,8 +990,8 @@ abstract class _SingleTransaksiDto implements SingleTransaksiDto {
           final int? pembayaran,
           @JsonKey(name: 'metode_pembayaran') final String? metodePembayaran,
           final int? kembalian,
-          @JsonKey(name: 'created_at') final String? createdAt,
-          @JsonKey(name: 'updated_at') final String? updatedAt}) =
+          @JsonKey(name: 'created_at') required final DateTime createdAt,
+          @JsonKey(name: 'updated_at') required final DateTime updatedAt}) =
       _$SingleTransaksiDtoImpl;
 
   factory _SingleTransaksiDto.fromJson(Map<String, dynamic> json) =
@@ -1035,10 +1034,10 @@ abstract class _SingleTransaksiDto implements SingleTransaksiDto {
   int? get kembalian;
   @override
   @JsonKey(name: 'created_at')
-  String? get createdAt;
+  DateTime get createdAt;
   @override
   @JsonKey(name: 'updated_at')
-  String? get updatedAt;
+  DateTime get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$$SingleTransaksiDtoImplCopyWith<_$SingleTransaksiDtoImpl> get copyWith =>
