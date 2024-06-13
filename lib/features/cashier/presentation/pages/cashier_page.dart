@@ -37,6 +37,21 @@ class CashierPage extends StatelessWidget {
                                 );
             context.read<CashierBloc>().add(ResetCashier());
             context.read<TransaksiBloc>().add(TransaksiFetchAllLocalTransaksi());
+          }else if (state is TransaksiUpdated){
+                ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    duration: const Duration(milliseconds: 1000),
+                                    backgroundColor: Colors.green,
+                                    closeIconColor: Colors.white,
+                                    showCloseIcon: true,
+                                    content: Text(
+                                      'Silahkan Update Transaksi ${state.transaksi.deskripsi} ',
+                                      style: const TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                );
+          }else{
+            print(state);
           }
         },
         child: Column(
@@ -61,6 +76,7 @@ class CashierPage extends StatelessWidget {
                   if (state is CashierLoading) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is CashierUpdated) {
+                    print('now updated');
                     final items = state.cashier.items;
                     return items.isNotEmpty
                         ? DecoratedBox(
@@ -160,6 +176,7 @@ class CashierPage extends StatelessWidget {
                   } else if (state is CashierFailure) {
                     return Center(child: Text('Error: ${state.message}'));
                   } else if (state is CashierInitial) {
+                    context.read<AuthBloc>().add(AuthIsUserLoggedIn());
                     return Container(
                       color: Colors.white12,
                       child: Center(
@@ -192,7 +209,7 @@ class CashierPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 3,
+              flex: 2,
               child: Stack(
                 children: [
                   // BoxDecoration yang memenuhi ruang vertikal
@@ -204,7 +221,8 @@ class CashierPage extends StatelessWidget {
                           topRight: Radius.circular(70)),
                     ),
                     // Placeholder untuk subtotal
-                    child: Center(
+                    child: Align(
+                      alignment: Alignment.topLeft,
                       child: BlocBuilder<CashierBloc, CashierState>(
                         builder: (context, state) {
                           if (state is CashierUpdated) {

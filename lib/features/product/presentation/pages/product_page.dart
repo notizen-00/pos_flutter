@@ -35,6 +35,8 @@ class _ProductPageState extends State<ProductPage> {
   void initState() {
     super.initState();
     context.read<ProductBloc>().add(ProductFetchAllProducts());
+    context.read<AuthBloc>().add(AuthIsUserLoggedIn());
+   
   }
 
   void _openDrawer() {
@@ -112,8 +114,7 @@ class _ProductPageState extends State<ProductPage> {
                 );
               },
             ),
-
-            Padding(
+           const Padding(
               padding: EdgeInsets.symmetric(horizontal: 1, vertical: 10),
               child: Text('Tersimpan'),
             )

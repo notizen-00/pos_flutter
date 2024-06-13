@@ -17,6 +17,7 @@ import 'package:blog_app/features/transaksi/data/datasource/transaksi_local_stor
 import 'package:blog_app/features/transaksi/data/datasource/transkasi_remote_data_source.dart';
 import 'package:blog_app/features/transaksi/data/repositories/transaksi_repository_impl.dart';
 import 'package:blog_app/features/transaksi/domain/repository/transaksi_repository.dart';
+import 'package:blog_app/features/transaksi/domain/usecases/delete_transaksi.dart';
 import 'package:blog_app/features/transaksi/domain/usecases/get_all_transaksi.dart';
 import 'package:blog_app/features/transaksi/domain/usecases/get_local_transaksi.dart';
 import 'package:blog_app/features/transaksi/domain/usecases/save_transaksi.dart';

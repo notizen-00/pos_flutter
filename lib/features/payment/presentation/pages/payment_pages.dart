@@ -149,6 +149,7 @@ class _BayarPageState extends State<BayarPage> {
                       TextButton(
                         onPressed: () {
                           if (cashierState is CashierUpdated) {
+                            print(updatedTransaksi);
                             context.read<TransaksiBloc>().add(
                               TransaksiSave(
                                 transaksi: updatedTransaksi,

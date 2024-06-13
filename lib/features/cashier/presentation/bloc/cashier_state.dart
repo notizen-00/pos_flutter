@@ -13,6 +13,7 @@ class CashierUpdated extends CashierState {
   const CashierUpdated(this.cashier);
 }
 
+
 class CashierFailure extends CashierState {
   final String message;
 

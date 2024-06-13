@@ -29,6 +29,8 @@ class SaveTransaksiDto with _$SaveTransaksiDto {
         pembayaran: transaksi.pembayaran,
         metodePembayaran: transaksi.metodePembayaran,
         kembalian: transaksi.kembalian,
+        createdAt:transaksi.createdAt,
+        updatedAt:transaksi.updatedAt
       ),
       detailTransaksi: items.map((item) => SaveDetailTransaksiDto.fromCashierItem(item)).toList(),
     );
@@ -45,13 +47,15 @@ class TransaksiData with _$TransaksiData {
     @JsonKey(name: 'meja') int? meja,
     @JsonKey(name: 'author_id') int? authorId,
     @JsonKey(name: 'shift_id') int? shiftId,
-    @JsonKey(name: 'status')  String? status,
+    @JsonKey(name: 'status')  required String status,
     @JsonKey(name: 'total')  int? total,
     @JsonKey(name: 'deskripsi') String? deskripsi,
     @JsonKey(name: 'total_tambahan') int? totalTambahan,
     @JsonKey(name: 'pembayaran')  int? pembayaran,
     @JsonKey(name: 'metode_pembayaran') String? metodePembayaran,
     @JsonKey(name: 'kembalian') int? kembalian,
+    @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'updated_at') required DateTime updatedAt
   }) = _TransaksiData;
 
   factory TransaksiData.fromJson(Map<String, dynamic> json) => _$TransaksiDataFromJson(json);

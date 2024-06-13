@@ -1,6 +1,7 @@
 import 'package:blog_app/core/usecase/usecase.dart';
 import 'package:blog_app/features/cashier/domain/entities/cashier.dart';
 import 'package:blog_app/features/transaksi/domain/entitites/transaksi.dart';
+import 'package:blog_app/features/transaksi/domain/usecases/delete_transaksi.dart';
 import 'package:blog_app/features/transaksi/domain/usecases/get_all_transaksi.dart';
 import 'package:blog_app/features/transaksi/domain/usecases/get_local_transaksi.dart';
 import 'package:blog_app/features/transaksi/domain/usecases/save_transaksi.dart';
@@ -13,21 +14,25 @@ class TransaksiBloc extends Bloc<TransaksiEvent, TransaksiState> {
   final GetAllTransaksi _getAllTransaksi;
   final GetAllLocalTransaksi _getAllLocalTransaksi;
   final SaveTransaksi _saveTransaksi;
+  final DeleteTransaksi _deleteTransaksi;
   
   TransaksiBloc({
     required GetAllTransaksi getAllTransaksi,
     required SaveTransaksi saveTransaksi,
-    required GetAllLocalTransaksi getAllLocalTransaksi
+    required GetAllLocalTransaksi getAllLocalTransaksi,
+    required DeleteTransaksi deleteTransaksi
   })  : 
     _getAllTransaksi = getAllTransaksi,
     _saveTransaksi = saveTransaksi,
     _getAllLocalTransaksi = getAllLocalTransaksi,
+    _deleteTransaksi = deleteTransaksi,
     super(TransaksiInitial()) {
     on<TransaksiEvent>((event, emit) => emit(TransaksiLoading()));
     on<TransaksiFetchAllTransaksi>(_onFetchAllTransaksi);
     on<TransaksiFetchAllLocalTransaksi>(_onFetchAllLocalTransaksi);
     on<TransaksiSave>(_onSaveTransaksi);
     on<TransaksiUpdate>(_onUpdateTransaksi);
+    on<TransaksiDelete>(_onDeleteTransaksi);
   
   }
 
@@ -95,6 +100,20 @@ void _onSaveTransaksi(
       (r) => emit(TransaksiSaveSuccess(transaksi: r)),
     );
   }
+
+void _onDeleteTransaksi(
+  TransaksiDelete event,
+  Emitter<TransaksiState> emit,
+)async{
+  final res = await _deleteTransaksi(DeleteTransaksiParams(
+        transaksi : event.transaksi
+  ));
+  print('data berhasil di hapus');
+  res.fold(
+    (l) => emit(TransaksiFailure(l.message, error: 'error')),
+    (r) => emit(TransaksiLocalDisplaySuccess(transaksi: r)),
+  );
+}
 }
 
 

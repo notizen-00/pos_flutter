@@ -11,6 +11,7 @@ part 'cashier_state.dart';
 class CashierBloc extends Bloc<CashierEvent, CashierState> {
   CashierBloc() : super(CashierInitial()) {
     on<AddProductToCashier>(_onAddProductToCashier);
+    on<UpdateCashierFromTransaksi>(_onUpdateCashierFromTransaksi);
     on<RemoveProductFromCashier>(_onRemoveProductFromCashier);
     on<IncrementQuantity>(_incrementQuantity);
     on<DecrementQuantity>(_decrementQuantity);
@@ -81,6 +82,22 @@ void _decrementQuantity(DecrementQuantity event,Emitter<CashierState> emit) asyn
   }
 }
 
+void _onUpdateCashierFromTransaksi(UpdateCashierFromTransaksi event, Emitter<CashierState> emit) async {
+
+
+  try{
+    final currentState = state;
+    if(currentState is CashierUpdated){
+        emit (CashierUpdated(Cashier(items:event.item)));
+    }else if(currentState is UpdateCashierFromTransaksi){
+      
+        emit (CashierUpdated(Cashier(items:event.item)));
+    }
+
+  }catch(e){
+    emit(CashierFailure(e.toString()));
+  }
+}
 
 void _onAddProductToCashier(AddProductToCashier event, Emitter<CashierState> emit) async {
   try {

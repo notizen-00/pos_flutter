@@ -12,6 +12,11 @@ class TransaksiFetchAllLocalTransaksi extends TransaksiEvent {
   
 }
 
+class TransaksiDelete extends TransaksiEvent {
+  final SingleTransaksi transaksi;
+  const TransaksiDelete({ required this.transaksi });
+}
+
 class TransaksiSave extends TransaksiEvent {
   final SingleTransaksi transaksi;
   final List<CashierItem> items;

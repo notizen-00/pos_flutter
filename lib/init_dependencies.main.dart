@@ -74,6 +74,12 @@ void _initTransaksi(){
         serviceLocator(),
       ),
     )
+  ..registerFactory( 
+      () => DeleteTransaksi(
+        serviceLocator(),
+      ),
+    )
+   
 
     // Bloc
     ..registerLazySingleton(
@@ -81,6 +87,7 @@ void _initTransaksi(){
         getAllTransaksi: serviceLocator(),
         saveTransaksi:serviceLocator(),
         getAllLocalTransaksi: serviceLocator(),
+        deleteTransaksi: serviceLocator(),
       ),
     );
   

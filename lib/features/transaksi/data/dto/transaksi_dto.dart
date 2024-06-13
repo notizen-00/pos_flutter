@@ -64,7 +64,7 @@ class SingleTransaksiDto with _$SingleTransaksiDto {
     int? meja,
     @JsonKey(name:'author_id') int? authorId,
     @JsonKey(name:'shift_id') int? shiftId,
-    String? status,
+    required String status,
     int? total,
     String? deskripsi,
     @JsonKey(name:'total_tambahan') int? totalTambahan,

@@ -12,7 +12,8 @@ import 'package:hive/hive.dart';
 abstract class TransaksiLocalDataSource {
   Future<SingleTransaksi> saveTransaksi({required SingleTransaksi transaksi,required List<CashierItem> items});
   Future<List<TransaksiLocal>> getAllLocalTransaksi();
-}
+  Future<List<TransaksiLocal>> deleteTransaksi({required SingleTransaksi transaksi});
+} 
 
 class TransaksiLocalDataSourceImpl implements TransaksiLocalDataSource {
   final Box box;
@@ -65,4 +66,23 @@ class TransaksiLocalDataSourceImpl implements TransaksiLocalDataSource {
     return Future.value(transaksi);
   
   }
+
+  @override 
+
+  Future<List<TransaksiLocal>> deleteTransaksi({required SingleTransaksi transaksi}) async {
+
+    final String nomorTransaksi = transaksi.deskripsi != null ? transaksi.deskripsi as String : 'TRX_0';
+    if (box.containsKey(nomorTransaksi)) {
+    // Jika ada, hapus entri dengan kunci nomorTransaksi
+    box.delete(nomorTransaksi);
+
+      final transaksi = await getAllLocalTransaksi();
+      return transaksi;
+  } else {
+    // Jika tidak ada, cetak pesan bahwa transaksi tidak ditemukan
+      final transaksi = await getAllLocalTransaksi();
+      return transaksi;
+  }
+  }
+
 }

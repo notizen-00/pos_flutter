@@ -132,7 +132,7 @@ class SingleTransaksi extends Equatable {
   final int? meja;
   final int? authorId;
   final int? shiftId;
-  final String? status;
+  final String status;
   final int? total;
   final String? deskripsi;
   final int? totalTambahan;
@@ -150,7 +150,7 @@ class SingleTransaksi extends Equatable {
     this.meja,
     this.authorId,
     this.shiftId,
-     this.status,
+    required this.status,
      this.total,
     this.deskripsi,
     this.totalTambahan,

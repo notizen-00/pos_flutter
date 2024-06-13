@@ -37,6 +37,14 @@
 
   }
 
+  class TransaksiDeleteSuccess extends TransaksiState {
+
+    final SingleTransaksi transaksi;
+    const TransaksiDeleteSuccess({
+      required this.transaksi,
+    });
+  }
+
   class TransaksiFailure extends TransaksiState {
     final String error;
 

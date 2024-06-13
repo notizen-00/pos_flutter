@@ -60,7 +60,7 @@ _$SingleTransaksiDtoImpl _$$SingleTransaksiDtoImplFromJson(
       meja: (json['meja'] as num?)?.toInt(),
       authorId: (json['author_id'] as num?)?.toInt(),
       shiftId: (json['shift_id'] as num?)?.toInt(),
-      status: json['status'] as String?,
+      status: json['status'] as String,
       total: (json['total'] as num?)?.toInt(),
       deskripsi: json['deskripsi'] as String?,
       totalTambahan: (json['total_tambahan'] as num?)?.toInt(),

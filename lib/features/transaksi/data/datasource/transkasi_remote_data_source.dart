@@ -30,6 +30,7 @@ class TransaksiRemoteDataSourceImpl implements TransaksiRemoteDataSource {
 
 
 
+
   @override
 Future<SingleTransaksi> saveTransaksi({required SingleTransaksi transaksi,required List<CashierItem> items}) async {
   try {
@@ -48,8 +49,8 @@ Future<SingleTransaksi> saveTransaksi({required SingleTransaksi transaksi,requir
           },
         ),
       );
-      print(response.data);
-      final transaksiDto = SingleTransaksiDto.fromJson(response.data).toEntity();
+      // print(response.data['data']);
+      final transaksiDto = SingleTransaksiDto.fromJson(response.data['data']).toEntity();
       return transaksiDto;
     } else {
       throw const ServerException('No token available');

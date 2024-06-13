@@ -31,13 +31,15 @@ _$TransaksiDataImpl _$$TransaksiDataImplFromJson(Map<String, dynamic> json) =>
       meja: (json['meja'] as num?)?.toInt(),
       authorId: (json['author_id'] as num?)?.toInt(),
       shiftId: (json['shift_id'] as num?)?.toInt(),
-      status: json['status'] as String?,
+      status: json['status'] as String,
       total: (json['total'] as num?)?.toInt(),
       deskripsi: json['deskripsi'] as String?,
       totalTambahan: (json['total_tambahan'] as num?)?.toInt(),
       pembayaran: (json['pembayaran'] as num?)?.toInt(),
       metodePembayaran: json['metode_pembayaran'] as String?,
       kembalian: (json['kembalian'] as num?)?.toInt(),
+      createdAt: DateTime.parse(json['created_at'] as String),
+      updatedAt: DateTime.parse(json['updated_at'] as String),
     );
 
 Map<String, dynamic> _$$TransaksiDataImplToJson(_$TransaksiDataImpl instance) =>
@@ -54,6 +56,8 @@ Map<String, dynamic> _$$TransaksiDataImplToJson(_$TransaksiDataImpl instance) =>
       'pembayaran': instance.pembayaran,
       'metode_pembayaran': instance.metodePembayaran,
       'kembalian': instance.kembalian,
+      'created_at': instance.createdAt.toIso8601String(),
+      'updated_at': instance.updatedAt.toIso8601String(),
     };
 
 _$SaveDetailTransaksiDtoImpl _$$SaveDetailTransaksiDtoImplFromJson(

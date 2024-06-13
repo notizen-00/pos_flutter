@@ -565,7 +565,7 @@ mixin _$SingleTransaksiDto {
   int? get authorId => throw _privateConstructorUsedError;
   @JsonKey(name: 'shift_id')
   int? get shiftId => throw _privateConstructorUsedError;
-  String? get status => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
   int? get total => throw _privateConstructorUsedError;
   String? get deskripsi => throw _privateConstructorUsedError;
   @JsonKey(name: 'total_tambahan')
@@ -599,7 +599,7 @@ abstract class $SingleTransaksiDtoCopyWith<$Res> {
       int? meja,
       @JsonKey(name: 'author_id') int? authorId,
       @JsonKey(name: 'shift_id') int? shiftId,
-      String? status,
+      String status,
       int? total,
       String? deskripsi,
       @JsonKey(name: 'total_tambahan') int? totalTambahan,
@@ -630,7 +630,7 @@ class _$SingleTransaksiDtoCopyWithImpl<$Res, $Val extends SingleTransaksiDto>
     Object? meja = freezed,
     Object? authorId = freezed,
     Object? shiftId = freezed,
-    Object? status = freezed,
+    Object? status = null,
     Object? total = freezed,
     Object? deskripsi = freezed,
     Object? totalTambahan = freezed,
@@ -669,10 +669,10 @@ class _$SingleTransaksiDtoCopyWithImpl<$Res, $Val extends SingleTransaksiDto>
           ? _value.shiftId
           : shiftId // ignore: cast_nullable_to_non_nullable
               as int?,
-      status: freezed == status
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       total: freezed == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -725,7 +725,7 @@ abstract class _$$SingleTransaksiDtoImplCopyWith<$Res>
       int? meja,
       @JsonKey(name: 'author_id') int? authorId,
       @JsonKey(name: 'shift_id') int? shiftId,
-      String? status,
+      String status,
       int? total,
       String? deskripsi,
       @JsonKey(name: 'total_tambahan') int? totalTambahan,
@@ -754,7 +754,7 @@ class __$$SingleTransaksiDtoImplCopyWithImpl<$Res>
     Object? meja = freezed,
     Object? authorId = freezed,
     Object? shiftId = freezed,
-    Object? status = freezed,
+    Object? status = null,
     Object? total = freezed,
     Object? deskripsi = freezed,
     Object? totalTambahan = freezed,
@@ -793,10 +793,10 @@ class __$$SingleTransaksiDtoImplCopyWithImpl<$Res>
           ? _value.shiftId
           : shiftId // ignore: cast_nullable_to_non_nullable
               as int?,
-      status: freezed == status
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       total: freezed == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -844,7 +844,7 @@ class _$SingleTransaksiDtoImpl implements _SingleTransaksiDto {
       this.meja,
       @JsonKey(name: 'author_id') this.authorId,
       @JsonKey(name: 'shift_id') this.shiftId,
-      this.status,
+      required this.status,
       this.total,
       this.deskripsi,
       @JsonKey(name: 'total_tambahan') this.totalTambahan,
@@ -877,7 +877,7 @@ class _$SingleTransaksiDtoImpl implements _SingleTransaksiDto {
   @JsonKey(name: 'shift_id')
   final int? shiftId;
   @override
-  final String? status;
+  final String status;
   @override
   final int? total;
   @override
@@ -983,7 +983,7 @@ abstract class _SingleTransaksiDto implements SingleTransaksiDto {
           final int? meja,
           @JsonKey(name: 'author_id') final int? authorId,
           @JsonKey(name: 'shift_id') final int? shiftId,
-          final String? status,
+          required final String status,
           final int? total,
           final String? deskripsi,
           @JsonKey(name: 'total_tambahan') final int? totalTambahan,
@@ -1017,7 +1017,7 @@ abstract class _SingleTransaksiDto implements SingleTransaksiDto {
   @JsonKey(name: 'shift_id')
   int? get shiftId;
   @override
-  String? get status;
+  String get status;
   @override
   int? get total;
   @override

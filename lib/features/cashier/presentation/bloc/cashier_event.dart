@@ -12,6 +12,12 @@ class AddProductToCashier extends CashierEvent {
 
   const AddProductToCashier(this.product);
 }
+
+class UpdateCashierFromTransaksi extends CashierEvent {
+  final List<CashierItem> item;
+
+  const UpdateCashierFromTransaksi(this.item);
+}
 class IncrementQuantity extends CashierEvent {
   final Product product;
   const IncrementQuantity(this.product);

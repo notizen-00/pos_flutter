@@ -1,3 +1,4 @@
+
 import 'package:blog_app/core/error/exceptions.dart';
 import 'package:blog_app/core/error/failures.dart';
 import 'package:blog_app/core/network/connection_checker.dart';
@@ -40,7 +41,15 @@ Future<Either<Failure, SingleTransaksi>> saveTransaksi({required SingleTransaksi
     return left(Failure(e.message.toString()));
   }
 }
-
+@override
+  Future<Either<Failure,List<TransaksiLocal>>> deleteTransaksi({required SingleTransaksi transaksi}) async {
+  try {
+    final response = await localDataSource.deleteTransaksi(transaksi: transaksi);
+    return right(response);
+  } on ServerException catch (e) {
+    return left(Failure(e.message.toString()));
+  }
+}
   @override
   Future<Either<Failure, List<Transaksi>>> getAllData() async {
     try {
