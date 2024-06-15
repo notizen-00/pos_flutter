@@ -89,20 +89,25 @@ class TransaksiSavedPage extends StatelessWidget {
                           ),
                           SlidableAction(
                             flex: 2,
-                            onPressed: (value) {
+                            onPressed: (value){
                               // context.read<CashierBloc>().add(
                               //   ResetCashier()
                               // );
 
-                              context.read<CashierBloc>().add(
-                                UpdateCashierFromTransaksi(transaksi.cashier)
-                              );
+                              // context.read<CashierBloc>().add(
+                              //   UpdateCashierFromTransaksi(transaksi.cashier)
+                              // );
 
                               context.read<TransaksiBloc>().add(
-                                TransaksiUpdate(transaksi: SingleTransaksi(deskripsi: transaksi.deskripsi,createdAt: DateTime.now(),updatedAt: DateTime.now(),status: 'open'))
+                                TransaksiUpdateLocal(
+                                  transaksi: SingleTransaksi(meja:transaksi.meja,namaPelanggan: transaksi.namaPelanggan,pelangganId: transaksi.pelangganId,authorId: transaksi.authorId,shiftId: transaksi.shiftId,total:transaksi.total,deskripsi: transaksi.deskripsi,createdAt: DateTime.now(),updatedAt: DateTime.now(),status: 'open'),
+                                  items:transaksi.cashier
+                                )
                               );
+                              print('klik');
 
                               Navigator.of(context).pop();
+                              
                               
                             },
                             backgroundColor: const Color(0xFF21B7CA),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:blog_app/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:blog_app/core/theme/theme.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
@@ -13,14 +15,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
-
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+        ..maxConnectionsPerHost = 5;
+  }
+}
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await initDependencies();
 
 
-  
+  HttpOverrides.global = MyHttpOverrides();
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(

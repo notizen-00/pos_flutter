@@ -80,7 +80,7 @@ class _BayarPageState extends State<BayarPage> {
       builder: (BuildContext context) {
         final cashierState = context.read<CashierBloc>().state;
         final authState = context.read<AuthBloc>().state;
-
+        final transaksiState = context.read<TransaksiBloc>().state;
         final int userID =
             authState is AuthSuccess ? int.tryParse(authState.user.id) ?? 0 : 0;
         final status = cashierState is CashierUpdated
@@ -88,6 +88,8 @@ class _BayarPageState extends State<BayarPage> {
                 ? 'open'
                 : 'closed'
             : '';
+        
+        print(transaksiState is TransaksiUpdated ? 'anda benar' : 'salah woy');
         final SingleTransaksi updatedTransaksi = SingleTransaksi(
             id: 1,
             authorId: userID,
@@ -96,14 +98,15 @@ class _BayarPageState extends State<BayarPage> {
             total: total,
             pembayaran: totalBayar,
             kembalian: kembalian,
+            meja:transaksiState is TransaksiUpdated ? transaksiState.transaksi.meja ?? transaksiState.transaksi.meja : 0,
+            namaPelanggan: transaksiState is TransaksiUpdated ? transaksiState.transaksi.namaPelanggan ?? transaksiState.transaksi.namaPelanggan : '',
             metodePembayaran: metodePembayaran,
             status: status
             );
-
         // Dispatch the updated transaction event
-        context
-            .read<TransaksiBloc>()
-            .add(TransaksiUpdate(transaksi: updatedTransaksi));
+        // context
+        //     .read<TransaksiBloc>()
+        //     .add(TransaksiUpdate(transaksi: updatedTransaksi));
 
         return  PopScope(
           canPop: false,
@@ -149,7 +152,7 @@ class _BayarPageState extends State<BayarPage> {
                       TextButton(
                         onPressed: () {
                           if (cashierState is CashierUpdated) {
-                            print(updatedTransaksi);
+                         
                             context.read<TransaksiBloc>().add(
                               TransaksiSave(
                                 transaksi: updatedTransaksi,

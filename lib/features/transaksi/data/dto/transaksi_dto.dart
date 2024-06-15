@@ -178,7 +178,7 @@ extension SingleTransaksiDtoX on SingleTransaksiDto {
       meja: meja ?? 0,
       authorId: authorId ?? 0,
       shiftId: shiftId ?? 0,
-      status: status ?? '',
+      status: status,
       total: total ?? 0,
       deskripsi: deskripsi ?? '',
       totalTambahan: totalTambahan ?? 0,

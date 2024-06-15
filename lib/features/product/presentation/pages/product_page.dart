@@ -11,6 +11,7 @@ import 'package:blog_app/features/product/presentation/widgets/product_card.dart
 import 'package:blog_app/features/transaksi/presentation/bloc/transaksi_bloc.dart';
 import 'package:blog_app/features/transaksi/presentation/pages/transaksi_saved_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductPage extends StatefulWidget {
@@ -36,7 +37,6 @@ class _ProductPageState extends State<ProductPage> {
     super.initState();
     context.read<ProductBloc>().add(ProductFetchAllProducts());
     context.read<AuthBloc>().add(AuthIsUserLoggedIn());
-   
   }
 
   void _openDrawer() {
@@ -69,6 +69,7 @@ class _ProductPageState extends State<ProductPage> {
 
     if (isWideScreen) {
       return Scaffold(
+        resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
         appBar: AppBar(
           leading: Builder(
@@ -85,12 +86,26 @@ class _ProductPageState extends State<ProductPage> {
           backgroundColor: Colors.green[700],
           elevation: 1,
           actions: [
+            IconButton(
+                icon: const Icon(Icons.receipt_long, color: Colors.white),
+                onPressed: () {
+                   context
+                          .read<TransaksiBloc>()
+                          .add(TransaksiFetchAllLocalTransaksi());
+                          // print('terklik');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+
+                          builder: (context) => const MejaPage()));
+                }),
             BlocBuilder<TransaksiBloc, TransaksiState>(
               builder: (context, state) {
-                  int transaksiCount = 0;
+                int transaksiCount = 0;
                 if (state is TransaksiLocalDisplaySuccess) {
                   transaksiCount = state.transaksi.length;
                 }
+
                 return Badge.count(
                   count: transaksiCount,
                   isLabelVisible: true,
@@ -114,11 +129,10 @@ class _ProductPageState extends State<ProductPage> {
                 );
               },
             ),
-           const Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 1, vertical: 10),
-              child: Text('Tersimpan'),
+              child: Text(''),
             )
-            
           ],
         ),
         drawer: SidebarDrawer(
@@ -130,152 +144,172 @@ class _ProductPageState extends State<ProductPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            NavigationRail(
-              backgroundColor: Colors.black38,
-              minExtendedWidth: 256,
-              elevation: 5,
-              minWidth: 56,
-              groupAlignment: 0,
-              useIndicator: false,
-              indicatorColor: Colors.white,
-              selectedIndex: _selectedIndex,
-              onDestinationSelected: _onItemTapped,
-              labelType: NavigationRailLabelType.all,
-              destinations: const [
-                NavigationRailDestination(
-                  icon: Icon(Icons.table_restaurant),
-                  selectedIcon:
-                      Icon(Icons.table_restaurant, color: Colors.white),
-                  label: Text('Meja'),
+            Expanded(
+              flex: 1,
+              child: DecoratedBox(
+                decoration: const BoxDecoration(color: Colors.white12),
+                child: BlocBuilder<ProductBloc, ProductState>(
+                  builder: (context, state) {
+                    if (state is ProductsDisplaySuccess) {
+                      return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: state.kategori
+                            .length, // Ganti categories dengan daftar kategori Anda
+                        itemBuilder: (context, index) {
+                          final category = state.kategori[
+                              index]; // Ambil kategori pada indeks tertentu
+
+                          // Return widget untuk setiap kategori
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedCategory = category;
+                              });
+
+                              context
+                                  .read<ProductBloc>()
+                                  .add(ProductFilter(category.toString()));
+                            },
+                            child: Container(
+                                margin: const EdgeInsets.only(
+                                    top: 10,
+                                    left: 10,
+                                    right: 10,
+                                    bottom:
+                                        10), // Margin antara setiap kategori
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  // color: category == selectedCategory ? Colors.green[700] : null,
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const SizedBox(
+                                      height: 33,
+                                    ),
+                                    Text(
+                                      category,
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          textBaseline:
+                                              TextBaseline.ideographic,
+                                          color: category == selectedCategory
+                                              ? Colors.green[300]
+                                              : Colors.white),
+                                    ),
+                                  ],
+                                )
+                                // Tampilkan nama kategori
+                                ),
+                          );
+                        },
+                      );
+                    }
+
+                    if (state is ProductsFiltered) {
+                      return ListView.builder(
+                        scrollDirection:
+                            Axis.vertical, // Arah scroll horizontal
+                        itemCount: state.kategori
+                            .length, // Ganti categories dengan daftar kategori Anda
+                        itemBuilder: (context, index) {
+                          final category = state.kategori[
+                              index]; // Ambil kategori pada indeks tertentu
+
+                          // Return widget untuk setiap kategori
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedCategory = category;
+                              });
+
+                              context
+                                  .read<ProductBloc>()
+                                  .add(ProductFilter(category.toString()));
+                            },
+                            child: Container(
+                                margin: const EdgeInsets.only(
+                                    top: 10,
+                                    left: 10,
+                                    right: 10,
+                                    bottom:
+                                        10), // Margin antara setiap kategori
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  // color: category == selectedCategory ? Colors.green[700] : null,
+                                  border: Border.all(color: Colors.black),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const SizedBox(
+                                      height: 33,
+                                    ),
+                                    Text(
+                                      category,
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          textBaseline:
+                                              TextBaseline.ideographic,
+                                          color: category == selectedCategory
+                                              ? Colors.green[300]
+                                              : Colors.white),
+                                    ),
+                                  ],
+                                )
+                                // Tampilkan nama kategori
+                                ),
+                          );
+                        },
+                      );
+                    } else {
+                      return const Center(
+                        child: Text('Mohon Tunggu ....',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 12)),
+                      );
+                    }
+                  },
                 ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.calculate),
-                  selectedIcon: Icon(Icons.calculate, color: Colors.white),
-                  label: Text('Amount'),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.supervised_user_circle),
-                  selectedIcon:
-                      Icon(Icons.supervised_user_circle, color: Colors.white),
-                  label: Text('Member'),
-                ),
-              ],
+              ),
             ),
             const VerticalDivider(thickness: 1, width: 0),
             Expanded(
-              flex: 2,
+              flex: 4,
               child: Column(children: [
-                Expanded(
-                  flex: 1,
-                  child: DecoratedBox(
-                    decoration: const BoxDecoration(color: Colors.white12),
-                    child: BlocBuilder<ProductBloc, ProductState>(
-                      builder: (context, state) {
-                        if (state is ProductsDisplaySuccess) {
-                          return ListView.builder(
-                            scrollDirection:
-                                Axis.horizontal, // Arah scroll horizontal
-                            itemCount: state.kategori
-                                .length, // Ganti categories dengan daftar kategori Anda
-                            itemBuilder: (context, index) {
-                              final category = state.kategori[
-                                  index]; // Ambil kategori pada indeks tertentu
-
-                              // Return widget untuk setiap kategori
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedCategory = category;
-                                  });
-
-                                  context
-                                      .read<ProductBloc>()
-                                      .add(ProductFilter(category.toString()));
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.only(
-                                      top: 10,
-                                      left: 10,
-                                      right: 0,
-                                      bottom:
-                                          10), // Margin antara setiap kategori
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    // color: category == selectedCategory ? Colors.green[700] : null,
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(8.0),
+                const Expanded(
+                    flex: 1,
+                    child: ColoredBox(
+                      color: Colors.white12,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: Padding(
+                                padding: EdgeInsets.all(12),
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    hintText: 'Search...',
+                                    hintStyle: TextStyle(color: Colors.white,fontSize: 12),
+                                    prefixIcon: Icon(Icons.search),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0)),
+                                    ),
                                   ),
-                                  child: Text(
-                                    category,
-                                    style: TextStyle(
-                                        color: category == selectedCategory
-                                            ? Colors.green[100]
-                                            : Colors.white),
-                                  ),
-                                  // Tampilkan nama kategori
                                 ),
-                              );
-                            },
-                          );
-                        }
-
-                        if (state is ProductsFiltered) {
-                          return ListView.builder(
-                            scrollDirection:
-                                Axis.horizontal, // Arah scroll horizontal
-                            itemCount: state.kategori
-                                .length, // Ganti categories dengan daftar kategori Anda
-                            itemBuilder: (context, index) {
-                              final category = state.kategori[
-                                  index]; // Ambil kategori pada indeks tertentu
-
-                              // Return widget untuk setiap kategori
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedCategory = category;
-                                  });
-
-                                  context
-                                      .read<ProductBloc>()
-                                      .add(ProductFilter(category.toString()));
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.only(
-                                      top: 10,
-                                      left: 10,
-                                      right: 0,
-                                      bottom:
-                                          10), // Margin antara setiap kategori
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    // color: category == selectedCategory ? Colors.green[700] : null,
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  child: Text(
-                                    category,
-                                    style: TextStyle(
-                                        color: category == selectedCategory
-                                            ? Colors.green[100]
-                                            : Colors.white),
-                                  ),
-                                  // Tampilkan nama kategori
-                                ),
-                              );
-                            },
-                          );
-                        } else {
-                          return const Center(
-                            child: Text('Mohon Tunggu ....',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 12)),
-                          );
-                        }
-                      },
-                    ),
-                  ),
-                ),
+                              ),
+                            ),
+                          ]),
+                    )),
                 Expanded(
                   flex: 9,
                   child: BlocConsumer<ProductBloc, ProductState>(
@@ -342,7 +376,7 @@ class _ProductPageState extends State<ProductPage> {
             ),
             const VerticalDivider(thickness: 2, width: 4),
             const Expanded(
-              flex: 1,
+              flex: 2,
               child: CashierPage(),
             ),
           ],

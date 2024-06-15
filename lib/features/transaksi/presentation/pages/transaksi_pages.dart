@@ -23,8 +23,11 @@ class TransaksiPage extends StatelessWidget {
       body: BlocBuilder<TransaksiBloc, TransaksiState>(
         builder: (context, state) {
           if (state is TransaksiLoading) {
+            context.read<TransaksiBloc>().add(TransaksiFetchAllLocalTransaksi());
             return const Center(child: CircularProgressIndicator());
+            
           } else if (state is TransaksiDisplaySuccess) {
+            
             // Group transaksi by date
             final groupedTransaksi = groupBy(
               state.transaksi,

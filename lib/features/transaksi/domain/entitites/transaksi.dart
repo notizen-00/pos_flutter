@@ -161,6 +161,44 @@ class SingleTransaksi extends Equatable {
      required this.updatedAt,
   });
 
+   SingleTransaksi copyWith({
+    int? id,
+    String? nomorTransaksi,
+    int? pelangganId,
+    String? namaPelanggan,
+    int? meja,
+    int? authorId,
+    int? shiftId,
+    String? status,
+    int? total,
+    String? deskripsi,
+    int? totalTambahan,
+    int? pembayaran,
+    String? metodePembayaran,
+    int? kembalian,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return SingleTransaksi(
+      id: id ?? this.id,
+      nomorTransaksi: nomorTransaksi ?? this.nomorTransaksi,
+      pelangganId: pelangganId ?? this.pelangganId,
+      namaPelanggan: namaPelanggan ?? this.namaPelanggan,
+      meja: meja ?? this.meja,
+      authorId: authorId ?? this.authorId,
+      shiftId: shiftId ?? this.shiftId,
+      status: status ?? this.status,
+      total: total ?? this.total,
+      deskripsi: deskripsi ?? this.deskripsi,
+      totalTambahan: totalTambahan ?? this.totalTambahan,
+      pembayaran: pembayaran ?? this.pembayaran,
+      metodePembayaran: metodePembayaran ?? this.metodePembayaran,
+      kembalian: kembalian ?? this.kembalian,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
   @override
   List<Object?> get props => [
         id,

@@ -1,5 +1,6 @@
 import 'package:blog_app/core/usecase/usecase.dart';
 import 'package:blog_app/features/cashier/domain/entities/cashier.dart';
+import 'package:blog_app/features/cashier/presentation/bloc/cashier_bloc.dart';
 import 'package:blog_app/features/transaksi/domain/entitites/transaksi.dart';
 import 'package:blog_app/features/transaksi/domain/usecases/delete_transaksi.dart';
 import 'package:blog_app/features/transaksi/domain/usecases/get_all_transaksi.dart';
@@ -15,12 +16,14 @@ class TransaksiBloc extends Bloc<TransaksiEvent, TransaksiState> {
   final GetAllLocalTransaksi _getAllLocalTransaksi;
   final SaveTransaksi _saveTransaksi;
   final DeleteTransaksi _deleteTransaksi;
+
   
   TransaksiBloc({
     required GetAllTransaksi getAllTransaksi,
     required SaveTransaksi saveTransaksi,
     required GetAllLocalTransaksi getAllLocalTransaksi,
-    required DeleteTransaksi deleteTransaksi
+    required DeleteTransaksi deleteTransaksi, 
+
   })  : 
     _getAllTransaksi = getAllTransaksi,
     _saveTransaksi = saveTransaksi,
@@ -32,6 +35,7 @@ class TransaksiBloc extends Bloc<TransaksiEvent, TransaksiState> {
     on<TransaksiFetchAllLocalTransaksi>(_onFetchAllLocalTransaksi);
     on<TransaksiSave>(_onSaveTransaksi);
     on<TransaksiUpdate>(_onUpdateTransaksi);
+    on<TransaksiUpdateLocal>(_onUpdateTransaksiLocal);
     on<TransaksiDelete>(_onDeleteTransaksi);
   
   }
@@ -73,19 +77,42 @@ void _onFetchAllLocalTransaksi(
   );
 }
 
+void _onUpdateTransaksiLocal(
+  TransaksiUpdateLocal event,
+  Emitter<TransaksiState> emit,
+) async {
+  try {
+    print('transaksiUpdateLocal');
+    // Lakukan pemrosesan update transaksi lokal di sini
+    final updatedTransaksi = event.transaksi;
+    final items = event.items;
+
+    emit(TransaksiUpdatedLocal(transaksi: updatedTransaksi, items: items));
+  } catch (e) {
+    // Tangani kesalahan jika terjadi
+    emit(TransaksiFailure(e.toString(), error: 'error'));
+  }
+}
+
 void _onUpdateTransaksi(
   TransaksiUpdate event,
   Emitter<TransaksiState> emit,
 
-){
+)async {
 
-  final currentState = state;
-  if(currentState is TransaksiUpdated){
-    final updatedTransaksi = event.transaksi; 
+  // final currentState = state;
+  // if(currentState is TransaksiUpdated){
+    // print('update kah ?');
+
+    final updatedTransaksi =  event.transaksi; 
     emit(TransaksiUpdated(transaksi: updatedTransaksi));
-  }
+  // }
+
+  // print('gagal update');
 
 }
+
+
 void _onSaveTransaksi(
     TransaksiSave event,
     Emitter<TransaksiState> emit,

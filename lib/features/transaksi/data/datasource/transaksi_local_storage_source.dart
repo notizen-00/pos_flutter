@@ -45,27 +45,33 @@ class TransaksiLocalDataSourceImpl implements TransaksiLocalDataSource {
   }
 
   @override
-  Future<SingleTransaksi> saveTransaksi({required SingleTransaksi transaksi,required List<CashierItem> items}) async {
-    
-    
-    final nomorTransaksi = generateRandomTransactionNumber();
-
-    var singleTransaksi = SingleTransaksiDto.fromEntity(transaksi);
-    
-    final transaksiSingle = singleTransaksi.copyWith(deskripsi: nomorTransaksi);
-    final transaksiEntity = transaksiSingle.toEntity();
-
-
-    final saveTransaksiLocal = SaveTransaksiLocalDto.fromEntity(transaksiEntity,items);
- 
-    box.put(nomorTransaksi,saveTransaksiLocal.toJson());
-
-    // print(box.get(nomorTransaksi));
-    // box.clear();
-      
-    return Future.value(transaksi);
+Future<SingleTransaksi> saveTransaksi({required SingleTransaksi transaksi, required List<CashierItem> items}) async {
   
+  print(transaksi.deskripsi);
+  if (transaksi.deskripsi != '' ) {
+
+  var singleTransaksi = SingleTransaksiDto.fromEntity(transaksi);
+   
+    final transaksiSingle = singleTransaksi.copyWith(deskripsi: transaksi.deskripsi,total:transaksi.total,meja:transaksi.meja,authorId: transaksi.authorId);
+    final transaksiEntity = transaksiSingle.toEntity();
+    
+    final saveTransaksiLocal = SaveTransaksiLocalDto.fromEntity(transaksiEntity, items);
+    box.put(transaksi.deskripsi!, saveTransaksiLocal.toJson());
+    print('berhasil memperbarui data transaksi');
+  } else {
+    final nomorTransaksi = generateRandomTransactionNumber();
+  var singleTransaksi = SingleTransaksiDto.fromEntity(transaksi);
+    final transaksiSingle = singleTransaksi.copyWith(deskripsi: nomorTransaksi);
+    print(transaksiSingle);
+    final transaksiEntity = transaksiSingle.toEntity();
+    
+    final saveTransaksiLocal = SaveTransaksiLocalDto.fromEntity(transaksiEntity, items);
+    box.put(nomorTransaksi, saveTransaksiLocal.toJson());
+    print('berhasil membuat data transaksi baru');
   }
+  
+  return Future.value(transaksi);
+}
 
   @override 
 

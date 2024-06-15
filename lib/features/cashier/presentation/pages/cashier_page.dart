@@ -1,4 +1,5 @@
 import 'package:blog_app/core/utils/format_rupiah.dart';
+import 'package:blog_app/core/utils/show_snackbar.dart';
 import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/features/cashier/presentation/bloc/cashier_bloc.dart';
 import 'package:blog_app/features/payment/presentation/pages/payment_pages.dart';
@@ -20,55 +21,156 @@ class CashierPage extends StatelessWidget {
       padding: const EdgeInsets.all(1),
       color: Colors.black12,
       height: MediaQuery.of(context).size.height,
-      child: BlocListener<TransaksiBloc, TransaksiState>(
-        listener: (context, state) {
-          if (state is TransaksiSaveSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    duration: const Duration(milliseconds: 1000),
-                                    backgroundColor: Colors.greenAccent,
-                                    closeIconColor: Colors.white,
-                                    showCloseIcon: true,
-                                    content: Text(
-                                      'Transaksi dengan nomor ${state.transaksi.deskripsi} Berhasil di Simpan',
-                                      style: const TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                );
-            context.read<CashierBloc>().add(ResetCashier());
-            context.read<TransaksiBloc>().add(TransaksiFetchAllLocalTransaksi());
-          }else if (state is TransaksiUpdated){
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<TransaksiBloc, TransaksiState>(
+            listener: (context, state) {
+              if (state is TransaksiSaveSuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    duration: const Duration(milliseconds: 1000),
-                                    backgroundColor: Colors.green,
-                                    closeIconColor: Colors.white,
-                                    showCloseIcon: true,
-                                    content: Text(
-                                      'Silahkan Update Transaksi ${state.transaksi.deskripsi} ',
-                                      style: const TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                );
-          }else{
-            print(state);
-          }
-        },
+                  SnackBar(
+                    duration: const Duration(milliseconds: 1000),
+                    backgroundColor: Colors.greenAccent,
+                    closeIconColor: Colors.white,
+                    showCloseIcon: true,
+                    content: Text(
+                      'Transaksi dengan nomor //${state.transaksi.deskripsi} Berhasil di Simpan',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                );
+                context.read<CashierBloc>().add(ResetCashier());
+                // context
+                //     .read<TransaksiBloc>()
+                //     .add(TransaksiFetchAllLocalTransaksi());
+              } else if (state is TransaksiUpdated) {
+                
+              } else if (state is TransaksiFailure) {
+                // final message = state.error;
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //   SnackBar(
+                //     duration: const Duration(milliseconds: 1000),
+                //     backgroundColor: Colors.red,
+                //     closeIconColor: Colors.white,
+                //     showCloseIcon: true,
+                //     content: Text(
+                //       'Kesalahan pada : $message',
+                //       style: const TextStyle(color: Colors.white),
+                //     ),
+                //   ),
+                // );
+              } else if (state is TransaksiUpdatedLocal) {
+                  context.read<CashierBloc>().add(UpdateCashierFromTransaksi(state.items));
+              } else {
+                
+              }
+            },
+          ),
+          BlocListener<CashierBloc, CashierState>(
+            listener: (context, state) {
+              if (state is CashierUpdated) {
+                print('anda di cashier updated pas transaksi');
+                print(state.cashier);
+              }
+            },
+          ),
+        ],
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Bagian 1: Ringkasan Order (10%)
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.1,
-              child: const Center(
-                child: Text(
-                  'Ringkasan Orders',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
+              child: BlocConsumer<TransaksiBloc, TransaksiState>(
+                listener: (context, state) {
+                  if (state is TransaksiLoading) {
+                  
+                  } else if (state is TransaksiUpdated) {
+                    print('anda ada di transaksi updated saja');
+                    print(state.transaksi);
+                  }
+                },
+                builder: (context, state) {
+                  if (state is TransaksiUpdatedLocal) {
+                    print('anda ada di transaksi update atas');
+                    print(state.transaksi);
+                    //   context
+                    // .read<CashierBloc>()
+                    // .add(UpdateCashierFromTransaksi(state.items));
+                    return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(Icons.receipt, color: Colors.green[300]),
+                                Padding(
+                                  padding: const EdgeInsets.all(4),
+                                  child: Text(
+                                    (state.transaksi.deskripsi ?? '').toString(),
+                                    style: const TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )
+                              ]),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(Icons.table_restaurant, color: Colors.green[300]),
+                                Padding(
+                                  padding: const EdgeInsets.all(4),
+                                  child: Text(
+                                    (state.transaksi.meja ?? 0).toString(),
+                                    style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )
+                              ]),
+                        ]);
+                  }else if(state is TransaksiUpdated){
+                        return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(Icons.person_pin_circle, color: Colors.green[300]),
+                                 Padding(
+                                  padding: const EdgeInsets.all(4),
+                                  child: Text(
+                                    state.transaksi.namaPelanggan ?? '-',
+                                    style: const TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )
+                              ]),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(Icons.table_restaurant, color: Colors.green[300]),
+                                Padding(
+                                  padding: const EdgeInsets.all(4),
+                                  child: Text(
+                                    (state.transaksi.meja ?? 0).toString(),
+                                    style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )
+                              ]),
+                        ]);
+                  }
+                  else {
+
+                    
+                    return Container(child:const Center(child: Text('Mulai Transaksi !')));//const Center(child: Text(''));
+                  }
+                },
               ),
             ),
-
-            // Bagian 2: Detail Produk Checkout (60%)
             Expanded(
               flex: 6,
               child: BlocBuilder<CashierBloc, CashierState>(
@@ -76,7 +178,6 @@ class CashierPage extends StatelessWidget {
                   if (state is CashierLoading) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is CashierUpdated) {
-                    print('now updated');
                     final items = state.cashier.items;
                     return items.isNotEmpty
                         ? DecoratedBox(
@@ -226,10 +327,25 @@ class CashierPage extends StatelessWidget {
                       child: BlocBuilder<CashierBloc, CashierState>(
                         builder: (context, state) {
                           if (state is CashierUpdated) {
+                            print('anda di total cashier update');
+                            
                             final authState = context.read<AuthBloc>().state;
+                            final transaksiState = context.read<TransaksiBloc>().state;
+                            
                             String username = '';
                             if (authState is AuthSuccess) {
                               username = authState.user.name;
+                            }
+                            if(transaksiState is TransaksiUpdatedLocal)
+                            {
+                              print('anda di transaksi updated pas total');
+
+                              print(transaksiState.transaksi);
+
+                            }
+                            if(transaksiState is TransaksiUpdated)
+                            {
+                              print('anda di transkasi updated tok');
                             }
                             return ListTile(
                               dense: true,
@@ -272,14 +388,45 @@ class CashierPage extends StatelessWidget {
                             label: const Text('simpan'),
                             onPressed: () {
                               final cashierState =
-                                context.read<CashierBloc>().state;
-                              
+                                  context.read<CashierBloc>().state;
+                              final transaksiState = context.read<TransaksiBloc>().state;
                               final authState = context.read<AuthBloc>().state;
                               if (cashierState is CashierUpdated) {
-                                final singleTransaksis = SingleTransaksi(
+                                // print(transaksiState);
+                                print('anda di cashier update');
+
+                                if(transaksiState is TransaksiUpdatedLocal){
+                                  print('anda benar update transaksi Updated');
+
+                                   final singleTransaksis = transaksiState.transaksi.copyWith(
+                                  total: cashierState.cashier.totalHarga,
+                                  );
+                                  print(singleTransaksis);
+                                    context.read<TransaksiBloc>().add(TransaksiSave(
+                                    transaksi: singleTransaksis,
+                                    items: cashierState.cashier.items));
+                                }else if(
+                                  transaksiState is TransaksiUpdated
+                                ){
+                                  print('anda di updaet transaksi biasa');
+                                  final singleTransaksis = transaksiState.transaksi.copyWith(
+                                  total: cashierState.cashier.totalHarga,
+                                  );
+                                  
+                                  print(singleTransaksis);
+                                  context.read<TransaksiBloc>().add(TransaksiSave(
+                                    transaksi: singleTransaksis,
+                                    items:cashierState.cashier.items
+                                  ));
+
+                                }
+                                else
+                                  {
+                                  print('anda diluar update transaksi');
+                                  final singleTransaksis = SingleTransaksi(
                                   id: 0,
                                   nomorTransaksi:
-                                      '', // Gunakan nomor transaksi acak
+                                      '',
                                   pelangganId: 0,
                                   namaPelanggan: '',
                                   meja: 0,
@@ -294,18 +441,23 @@ class CashierPage extends StatelessWidget {
                                   pembayaran: 0,
                                   metodePembayaran: '',
                                   kembalian: 0,
-                                  createdAt:
-                                      DateTime.now(), // Atur waktu pembuatan sesuai kebutuhan
-                                  updatedAt:
-                                      DateTime.now(), // Atur waktu pembaruan sesuai kebutuhan
+                                  createdAt: DateTime
+                                      .now(), // Atur waktu pembuatan sesuai kebutuhan
+                                  updatedAt: DateTime
+                                      .now(), // Atur waktu pembaruan sesuai kebutuhan
                                 );
-                                
-                                context.read<TransaksiBloc>().add(TransaksiSave(
+                                print(singleTransaksis);
+                                  context.read<TransaksiBloc>().add(TransaksiSave(
                                     transaksi: singleTransaksis,
                                     items: cashierState.cashier.items));
+                                
+
+                                }
                               
+
                                 // Kirim peristiwa SaveTransaksi bersama dengan transaksi yang baru dibuat ke TransaksiBloc
-                              } else {
+                              } 
+                              else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     duration: Duration(milliseconds: 1000),
@@ -338,6 +490,7 @@ class CashierPage extends StatelessWidget {
                             onPressed: () {
                               final cashierState =
                                   context.read<CashierBloc>().state;
+                    
                               if (cashierState is CashierUpdated) {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(

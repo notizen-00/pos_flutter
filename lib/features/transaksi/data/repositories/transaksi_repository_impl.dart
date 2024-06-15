@@ -30,7 +30,7 @@ Future<Either<Failure, SingleTransaksi>> saveTransaksi({required SingleTransaksi
     if (!await connectionChecker.isConnected) {
       return left(Failure('No internet connection'));
     }
-    if( transaksi.pembayaran == 0 && transaksi.kembalian == 0){
+    if( transaksi.pembayaran == 0 && transaksi.kembalian == 0 && transaksi.metodePembayaran == '' || transaksi.kembalian == null && transaksi.metodePembayaran == null && transaksi.pembayaran == null){
       final response = await localDataSource.saveTransaksi(transaksi: transaksi, items: items);
       return right(response);
     }

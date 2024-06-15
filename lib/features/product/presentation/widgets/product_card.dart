@@ -32,7 +32,7 @@ class ProductCard extends StatelessWidget {
         // );  
       },
       child: Container(
-          height: 10,
+
           margin: const EdgeInsets.all(4).copyWith(
             bottom: 1,
           ),
@@ -54,7 +54,7 @@ class ProductCard extends StatelessWidget {
                         image: AssetImage('assets/images/placeholder.png')),
               ),
               Positioned.fill(
-                  top: 90,
+                  top: 80,
                   child: Container(
                     padding: const EdgeInsets.all(0),
                     decoration: BoxDecoration(
@@ -95,7 +95,7 @@ class ProductCard extends StatelessWidget {
                                         child: Text(
                                           item.quantity.toString(),
                                           style: const TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 12,
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -113,14 +113,15 @@ class ProductCard extends StatelessWidget {
                               } else {
                                 return Column(
                                   mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
                                       product.nama,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
-                                        fontSize: 10,
+                                        fontSize: 13,
                                         letterSpacing: 0,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -140,25 +141,26 @@ class ProductCard extends StatelessWidget {
                               return Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
                                     product.nama,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
-                                      fontSize: 10,
+                                      fontSize: 13,
                                       letterSpacing: 0,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Text(
-                                    formatRupiah(product.harga),
-                                    style: const TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.white70,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                                  // Text(
+                                  //   formatRupiah(product.harga),
+                                  //   style: const TextStyle(
+                                  //     fontSize: 10,
+                                  //     color: Colors.white70,
+                                  //     fontWeight: FontWeight.bold,
+                                  //   ),
+                                  // ),
                                 ],
                               );
                             }

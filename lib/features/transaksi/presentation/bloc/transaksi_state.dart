@@ -30,9 +30,19 @@
   class TransaksiUpdated extends TransaksiState {
     
     final SingleTransaksi transaksi;
-
     const TransaksiUpdated({
       required this.transaksi,
+    });
+
+  }
+
+   class TransaksiUpdatedLocal extends TransaksiState {
+    
+    final SingleTransaksi transaksi;
+    final List<CashierItem> items;
+    const TransaksiUpdatedLocal({
+      required this.transaksi,
+      required this.items
     });
 
   }

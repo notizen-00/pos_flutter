@@ -87,10 +87,12 @@ void _onUpdateCashierFromTransaksi(UpdateCashierFromTransaksi event, Emitter<Cas
 
   try{
     final currentState = state;
+    
     if(currentState is CashierUpdated){
         emit (CashierUpdated(Cashier(items:event.item)));
     }else if(currentState is UpdateCashierFromTransaksi){
-      
+        emit (CashierUpdated(Cashier(items:event.item)));
+    }else if(currentState is CashierInitial){
         emit (CashierUpdated(Cashier(items:event.item)));
     }
 

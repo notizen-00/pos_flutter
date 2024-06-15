@@ -49,14 +49,26 @@ Future<SingleTransaksi> saveTransaksi({required SingleTransaksi transaksi,requir
           },
         ),
       );
-      // print(response.data['data']);
+      
       final transaksiDto = SingleTransaksiDto.fromJson(response.data['data']).toEntity();
+      // print(transaksiDto);
       return transaksiDto;
     } else {
       throw const ServerException('No token available');
     }
   } on DioException catch (e) {
     // Handle DioError for failed request
+    // print(e.response?.statusCode);
+    if(e.response?.statusCode == 401){
+            throw const ServerException('Token Expired silahkan logout dan login kembali');    
+          }else if(e.response?.statusCode == 500){
+            print(e.response);
+            throw const ServerException('Server sedang error');
+          }else if(e.response?.statusCode == 404)
+          {
+          throw const ServerException('Api Produk tidak di temukan');
+          }
+
     throw ServerException(e.toString());
   } catch (e) {
     print(e);

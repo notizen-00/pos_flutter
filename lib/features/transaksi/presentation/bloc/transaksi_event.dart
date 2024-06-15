@@ -31,8 +31,24 @@ class TransaksiUpdate extends TransaksiEvent {
 
   final SingleTransaksi transaksi;
 
+
   TransaksiUpdate({
-    required this.transaksi
+    required this.transaksi,
+  
+  });
+
+  
+}
+
+class TransaksiUpdateLocal extends TransaksiEvent {
+
+  final SingleTransaksi transaksi;
+  final List<CashierItem> items;
+
+  TransaksiUpdateLocal({
+    required this.transaksi,
+    required this.items
+  
   });
 
   
